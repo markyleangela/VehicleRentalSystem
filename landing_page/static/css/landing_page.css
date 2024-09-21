@@ -8,6 +8,7 @@ body {
     justify-content: space-between;
     align-items: center;
     height: 100vh;
+    width: 100vw;
     background-color: #FFFFFF;
 }
 
@@ -15,20 +16,23 @@ body {
     flex: 1;
     display: flex;
     flex-direction: column;
+
     justify-content: center;
     align-items: center;
     padding: 20px;
+ 
 }
 
 .logo {
     display: flex;
     align-items: center;
-    width: 250px;
+    width: 300px;
 
 }
 
 .logo img {
-    width: 250px;
+    width: 300px;
+
     
 }
 
@@ -38,15 +42,18 @@ body {
 }
 
 .description {
-    font-size: 24px;
-    font-weight: bold;
-    margin-top: 30px;
+    font-size: 30px;
     text-align: center;
-    color: #2C3E50;
+    color: #1F2C56;
+    font-family: 'Anton', sans-serif;
+    height: 20vh;
+
+    
 }
 
 .buttons {
     margin-top: 40px;
+    height: 20vh;
 }
 
 .buttons button {
@@ -56,6 +63,7 @@ body {
     border-radius: 20px;
     font-size: 16px;
     cursor: pointer;
+
 }
 
 .login-btn {
@@ -68,15 +76,22 @@ body {
     color: #FFFFFF;
 }
 
-.right {
-    flex: 1;
-    background-color: #2C3E50;
+.right {    
+    height: 100vh;  
+    width: 60vw; 
+
+    background-color: #1c2b5a; 
+    border-top-left-radius: 60% 100%; 
+    border-bottom-left-radius: 60% 100%; 
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center;   
+    align-items: center;        
+    overflow: hidden;       
 }
 
 .car-image img {
     max-width: 100%;
     height: auto;
+    width: 1500px;
 }
+
