@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>LIST OF VEHICLES</title>
+    </head>
+    <body>
+        <h1>LIST OF VEHICLES</h1>
+        {% for vehicle in vehicles %}
+            <li>{{vehicle.vehicle_brand}}
+                <br> {{vehicle.vehicle_model}} <br> {{vehicle.vehicle_status}}</li>
+
+                <br>
+        {% endfor %}
+    </body>
+</html>
