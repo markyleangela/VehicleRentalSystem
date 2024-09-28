@@ -1,16 +1,73 @@
+{% load static %}
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static './css/vehicle_list.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+    <title>HOME</title>
+</head>
+<body>
+    <div class="upper-part">
+        <section class="head-nav">
+            <div class="filter-container">
+                <label for="filter">FILTER BY:</label>
+                <select id="filter" class="filter-dropdown">
+                    <option value="all">VIEW ALL</option>
+                    <option value="option1">Option 1</option>
+                    <option value="option2">Option 2</option>
+                    <option value="option3">Option 3</option>
+                </select>
+            </div>
+            <div class="search-container">
+                <input type="text" id="search" class="search-bar" placeholder="Search...">
+                <button class="search-button">Search</button>
+            </div>
 
-<html>
-    <head>
-        <title>LIST OF VEHICLES</title>
-    </head>
-    <body>
-        <h1>LIST OF VEHICLES</h1>
-        {% for vehicle in vehicles %}
-            <li>{{vehicle.vehicle_brand}}
-                <br> {{vehicle.vehicle_model}} <br> {{vehicle.vehicle_status}}</li>
-
-                <br>
-        {% endfor %}
-    </body>
+            <div class="menu-container">
+                <div class="burger-menu" id="burger-menu">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+                <nav class="dropdown-menu" id="dropdown-menu">
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </section>
+    </div>
+    
+    <div class="lower-part">
+        <section class="view-detail-container">
+            <h3>View Details</h3>
+            <ul>
+                <li>Details about Vehicle</li>
+            </ul>
+        </section>
+        <section class="vehicle-list-container">
+            <ul>
+                {% for vehicle in vehicles %}
+                <li>
+                    <div class="vehicle-item">
+                      <img src="car-image1.jpg" alt="Vehicle 1">
+                      <div class="vehicle-info">
+                        <h3>{{vehicle.vehicle_model}}</h3>
+                        <p>{{vehicle.vehicle_type}}</p>
+                        <p>{{vehicle.vehicle_price}}</p>
+                        <button>View Details</button>
+                        <button>Book</button>
+                      </div>
+                    </div>
+                {% endfor %}
+            </ul>
+        </section>
+    </div>
+    
+</body>
 </html>
