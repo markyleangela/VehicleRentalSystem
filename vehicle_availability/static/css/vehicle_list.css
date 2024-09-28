@@ -143,18 +143,18 @@ body {
 .lower-part {
     display: flex;
     gap: 20px;
-    height: 100vh; /* Take full viewport height */
-    overflow: hidden; /* Prevent main page scroll */
+    height: 100vh;
+    overflow: hidden; 
     margin: 10px;
-    font-family: 'Anton', sans-serif;
+    /* font-family: 'Anton', sans-serif; */
   }
   
   .view-detail-container {
-    flex: 1 15%; /* Fixed width of 20% */
+    flex: 1 15%;
     border: 1px solid #ccc;
     padding: 20px;
-    height: 50vh; /* Fixed height for view details */
-    align-self: flex-start; /* Prevents it from stretching */
+    height: 50vh;
+    align-self: flex-start; 
     position: sticky;
 }
 
@@ -164,9 +164,9 @@ body {
 }
   
   .vehicle-list-container {
-    flex: 2 70%; /* Occupy 80% of the width */
-    height: 100vh; /* Occupy full page height */
-    overflow-y: auto; /* Enable scrolling for vehicle list */
+    flex: 2 70%;
+    height: 100vh; 
+    overflow-y: auto; 
   }
   
   .vehicle-list-container ul {

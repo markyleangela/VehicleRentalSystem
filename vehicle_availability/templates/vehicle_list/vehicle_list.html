@@ -44,12 +44,24 @@
     </div>
     
     <div class="lower-part">
+        {% block detail %}
         <section class="view-detail-container">
+            
             <h3>View Details</h3>
             <ul>
-                <li>Details about Vehicle</li>
+                <li>
+                    {% if vehicle_detail %}
+                        <p>Brand: {{ vehicle_detail.vehicle_brand }}</p>
+                        <p>Model: {{ vehicle_detail.vehicle_model }}</p>
+                        <p>Type: {{ vehicle_detail.vehicle_type}}</p>
+                        <p>Price: {{ vehicle_detail.vehicle_price }}</p>
+                        <p>Status: {{ vehicle_detail.vehicle_status }}</p>
+                    {% endif %}
+                </li>
+                
             </ul>
         </section>
+        {% endblock %}
         <section class="vehicle-list-container">
             <ul>
                 {% for vehicle in vehicles %}
@@ -60,12 +72,19 @@
                         <h3>{{vehicle.vehicle_model}}</h3>
                         <p>{{vehicle.vehicle_type}}</p>
                         <p>{{vehicle.vehicle_price}}</p>
-                        <button>View Details</button>
-                        <button>Book</button>
+
+                        <form method="POST" action="">
+                            {% csrf_token %}
+                            <button type="submit" name="vehicle_id" value="{{ vehicle.vehicle_id }}">View Details</button>
+                            <button>Book</button>
+                        </form>
+                        
                       </div>
                     </div>
                 {% endfor %}
             </ul>
+
+            
         </section>
     </div>
     
