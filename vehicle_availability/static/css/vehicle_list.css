@@ -10,6 +10,12 @@ body {
     font-family: Arial, sans-serif;
 }
 
+.highlight {
+
+    background-color: #7C93C3;
+    padding: 5px;
+}
+
 .filter-container {
     display: flex;
     align-items: center;
@@ -19,6 +25,16 @@ body {
     margin-right: 10px;
     font-size: 1.75vh;
   
+}
+
+.filter-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: #1E2A5E; 
+    color: white; 
+    cursor: pointer;
+    transition: background-color 0.3s; 
 }
 
 .filter-dropdown {
@@ -43,6 +59,18 @@ body {
 .filter-dropdown option {
     padding: 10px; 
 }
+
+.filter-container button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: #1E2A5E; 
+    color: white; 
+    cursor: pointer;
+    transition: background-color 0.3s; 
+}
+
+
 
 .search-container {
     display: flex;
@@ -149,7 +177,7 @@ body {
     /* font-family: 'Anton', sans-serif; */
   }
   
-  .view-detail-container {
+.view-detail-container {
     flex: 1 15%;
     border: 1px solid #ccc;
     padding: 20px;
@@ -160,6 +188,13 @@ body {
 
 .view-detail-container li {
     list-style: None;
+
+}
+
+.view-detail-container ul{
+    margin: 0;
+    padding: 0;
+
 
 }
   
@@ -203,7 +238,13 @@ body {
   }
   
   .vehicle-info button {
-    margin-right: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: #1E2A5E; 
+    color: white; 
+    cursor: pointer;
+    transition: background-color 0.3s; 
   }
 
   

@@ -17,5 +17,5 @@ class Vehicle(models.Model):
     vehicle_brand = models.CharField(max_length=100)
     vehicle_type = models.CharField(max_length=50, choices=TYPE_CHOICES)
     vehicle_price = models.FloatField(default=0.00)
-    vehicle_status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="available")
+    vehicle_status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="Available")
 
