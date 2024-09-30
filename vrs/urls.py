@@ -22,4 +22,5 @@ urlpatterns = [
     path("", include("landing_page.urls")),
     path('home', include("vehicle_availability.urls")),
     path('login/', include("login_page.urls")),
+    path('register/', include("register.urls")),
 ]
