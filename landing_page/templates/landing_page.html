@@ -21,10 +21,11 @@
             <div class="buttons">     
                 <form method="POST" >
                     {% csrf_token %}
-                    <button type="submit" class="login-btn">Login</button>
+                    <button type="submit" class="login-btn" name="action" value="login">Login</button>
+                    <button type="submit" class="register-btn" name="action" value="register">Register</button>
                 </form>
                 
-                <button class="register-btn">Register</button>
+                
             </div>
         </div>
         <div class="right">
