@@ -1,0 +1,29 @@
+{% load static %}
+
+<html lang="en"></html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Rental System</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login_page.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>LOGIN</h1>
+        <div class="login-container">
+            <form method="post">
+                {% csrf_token %}
+                <input type="username" name="username" placeholder="Username" required><br><br>
+                <input type="password" name="password" placeholder="Password" required><br><br>
+                {% if form.non_field_errors %}
+                    <div class="error" style="color: red;">{{ form.non_field_errors }}</div>
+                {% endif %}
+                <input type="submit" value="Log-in">
+            </form>
+            <p><a href="">Forgot your password?</a></p>
+            <p> Don't have an account? <a href="">Register</a></p>
+        </div>
+    </div>
+</body>
+</html>

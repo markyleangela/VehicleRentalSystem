@@ -1,0 +1,106 @@
+body {
+    font-family: 'Anton', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    margin-left: 30%;
+    margin-top: 50px;
+}
+
+
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+/* Image preview section */
+.image-preview-container {
+    flex: 1;
+    text-align: center;
+    margin-right: 50px;
+}
+
+.image-preview-container img {
+    max-width: 100%;
+    height: auto;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Form section */
+.form-container {
+    flex: 1;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form-fields input,
+.form-fields select,
+.form-fields textarea {
+    width: 90%;  /* Makes fields take up the full container width */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;  /* Ensures padding is included in the total width */
+}
+
+.form-fields label {
+    text-align: left;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.button-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.submit-btn {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    font-family: 'Anton', sans-serif;
+}
+
+.submit-btn:hover {
+    background-color: #218838;
+}
+
+.cancel-btn {
+    padding: 10px 20px;
+    background-color: #dc3545;  /* Red color for cancel */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 18px;
+    margin-left: 10px;
+}
+
+.cancel-btn:hover {
+    background-color: #c82333; /* Darker red on hover */
+}

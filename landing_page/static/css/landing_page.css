@@ -1,0 +1,100 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: #FFFFFF;
+}
+
+.left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+ 
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    width: 300px;
+
+}
+
+.logo img {
+    width: 300px;
+
+    
+}
+
+.title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.description {
+    font-size: 30px;
+    text-align: center;
+    color: #1F2C56;
+    font-family: 'Anton', sans-serif;
+    height: 20vh;
+
+    
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    margin-top: 40px;
+    height: 20vh;
+}
+
+.buttons button {
+    padding: 10px 30px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+
+}
+
+
+.login-btn {
+    background-color: #1F2C56;
+    color: #FFFFFF;
+}
+
+.register-btn {
+    background-color: #7489B5;
+    color: #FFFFFF;
+}
+
+.right {    
+    height: 100vh;  
+    width: 60vw; 
+
+    background-color: #1c2b5a; 
+    border-top-left-radius: 60% 100%; 
+    border-bottom-left-radius: 60% 100%; 
+    display: flex;
+    justify-content: center;   
+    align-items: center;        
+    overflow: hidden;       
+}
+
+.car-image img {
+    max-width: 100%;
+    height: auto;
+    width: 1500px;
+}
+
