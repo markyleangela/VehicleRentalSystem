@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'login_page',
     'register',
+    'crud_operations_for_vehicles',
+    
 ]
 
 MIDDLEWARE = [
