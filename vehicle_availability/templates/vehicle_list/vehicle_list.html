@@ -39,9 +39,9 @@
                 </div>
                 <nav class="dropdown-menu" id="dropdown-menu">
                     <ul>
-                        <li><a href="#Profile">Home</a></li>
-                        <li><a href="#Booking">About</a></li>
-                        <li><a href="#Logout">Services</a></li>
+                        <li><a href="#Profile">Profile</a></li>
+                        <li><a href="#Bookings">Bookings</a></li>
+                        <li><a href="#Logout">Log Out</a></li>
                     </ul>
                 </nav>
             </div>
@@ -71,7 +71,7 @@
                 {% for vehicle in vehicles %}
                 <li id="vehicle_{{ vehicle.vehicle_id }}" class="{% if vehicle_detail and vehicle.vehicle_id == vehicle_detail.vehicle_id %}highlight{% endif %}">
                     <div class="vehicle-item">
-                      <img src="car-image1.jpg" alt="{{ vehicle.vehicle_model }}">
+                      <img src="{{ vehicle.image_base64 }}" alt="{{ vehicle.vehicle_model }}">
                       <div class="vehicle-info">
                         <h3>{{ vehicle.vehicle_model }}</h3>
                         <p>{{ vehicle.vehicle_type }}</p>
