@@ -10,7 +10,7 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ['first_name', 'last_name', 'phone_number', 'birth_date']  
+        fields = ['first_name', 'last_name','license_no', 'phone_number', 'birth_date']  
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
