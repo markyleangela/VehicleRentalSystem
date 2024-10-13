@@ -6,6 +6,7 @@ class ProfileForm(forms.ModelForm):
     # Adding fields for first name and last name
     first_name = forms.CharField(max_length=30, required=False, label='First Name')
     last_name = forms.CharField(max_length=30, required=False, label='Last Name')
+    profile_image = forms.ImageField(label='Image', required=True)
 
     class Meta:
         model = Profile

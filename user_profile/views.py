@@ -5,18 +5,25 @@ from .models import Profile
 import base64
 from io import BytesIO
 from PIL import Image
+import os
+from django.conf import settings
+from django.templatetags.static import static  # Import static for default image
 
 @login_required
 def update_profile(request):
     profile, created = Profile.objects.get_or_create(user=request.user)
 
     if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES, instance=profile, user=request.user)
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
-            form.save()  # Save profile and user data
-            return redirect('user_profile')  # Redirect to the profile view after saving
+            # Handle profile image blob
+            if 'profile_image' in request.FILES:
+                image_file = request.FILES['profile_image']
+                profile.profile_image = image_file.read()  # Store as binary data (blob)
+            form.save()  # Save profile data
+            return redirect('user_profile')  # Redirect to profile view after saving
     else:
-        form = ProfileForm(instance=profile, user=request.user)  # Pass user to prepopulate first and last name
+        form = ProfileForm(instance=profile)
 
     return render(request, 'update_profile.html', {'form': form})
 
@@ -24,7 +31,43 @@ def update_profile(request):
 def view_profile(request):
     try:
         profile = Profile.objects.get(user=request.user)
+        
+        if profile.profile_image:
+            try:
+                # Convert the binary image (blob) to base64 for rendering in HTML
+                image = Image.open(BytesIO(profile.profile_image))
+                
+                # Convert image mode if necessary
+                if image.mode == 'RGBA':
+                    image = image.convert('RGB')
+                
+                # Save image to a buffer in the appropriate format
+                buffer = BytesIO()
+                image_format = image.format if image.format else 'JPEG'  # Default to JPEG
+                image.save(buffer, format=image_format)
+                
+                # Get MIME type and base64 encode the image
+                mime_type = f"image/{image_format.lower()}"
+                profile.image_base64 = f"data:{mime_type};base64,{base64.b64encode(buffer.getvalue()).decode('utf-8')}"
+            except Exception as e:
+                print(f"Error processing image: {e}")
+                profile.image_base64 = None
+        else:
+            # If no profile image, load the default image and encode it as base64
+            default_image_path = static('images/default-profile.jpg')  # Use static method for default image
+            try:
+                with open(os.path.join(settings.BASE_DIR, default_image_path), 'rb') as default_image_file:
+                    default_image = Image.open(default_image_file)
+                    
+                    if default_image.mode == 'RGBA':
+                        default_image = default_image.convert('RGB')
+                    
+                    buffer = BytesIO()
+                    default_image.save(buffer, format='JPEG')  # Save as JPEG
+                    profile.image_base64 = f"data:image/jpeg;base64,{base64.b64encode(buffer.getvalue()).decode('utf-8')}"
+            except FileNotFoundError:
+                profile.image_base64 = None  # Handle missing default image
     except Profile.DoesNotExist:
-        profile = None 
-
+        profile = None
+    
     return render(request, 'user_profile.html', {'profile': profile, 'user': request.user})
