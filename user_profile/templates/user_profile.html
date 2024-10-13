@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form with Clickable Image and Preview</title>
+    <link rel="stylesheet" href="{% static 'css/user_profile.css' %}">
+</head>
+<body>
+    <div class="container">
+        <form>
+            <div class="profile-pic-wrapper">
+                <label for="file-input">
+                    <img src="image.png" id="profile-pic" alt="Profile Picture">
+                    <input id="file-input" type="file" accept="image/*">
+                </label>
+            </div>
+            <div class="input-group">
+                <div class="input-row">
+                    <input type="text" placeholder="First Name">
+                    <input type="text" placeholder="Last Name">
+                </div>
+                <input type="email" placeholder="Email">
+                <input type="password" placeholder="Password">
+                <div class="input-row">
+                    <input type="text" placeholder="Phone Number">
+                    <input type="date" placeholder="Birthdate">
+                </div>
+            </div>
+            <div class="button-group">
+                <button type="submit" class="submit-btn">Submit</button>
+                <button type="button" class="cancel-btn">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <script >
+        // Get the file input and image elements
+        const fileInput = document.getElementById('file-input');
+        const profilePic = document.getElementById('profile-pic');
+
+        // Add an event listener to handle file input change
+        fileInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    profilePic.src = e.target.result; 
+                };
+                reader.readAsDataURL(file); 
+            }
+        });
+
+    </script>
+</body>
+</html>
