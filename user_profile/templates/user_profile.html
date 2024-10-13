@@ -1,59 +1,36 @@
-{% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form with Clickable Image and Preview</title>
-    <link rel="stylesheet" href="{% static 'css/user_profile.css' %}">
+    <title>View Profile</title>
 </head>
 <body>
     <div class="container">
-        <form>
-            <div class="profile-pic-wrapper">
-                <label for="file-input">
-                    <img src="image.png" id="profile-pic" alt="Profile Picture">
-                    <input id="file-input" type="file" accept="image/*">
-                </label>
+        <h2>User Profile</h2>
+        {% if profile %}
+            <div class="profile-section">
+                <h3>Profile Information</h3>
+                <p><strong>First Name:</strong> {{ user.first_name }}</p>
+                <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Phone Number:</strong> {{ profile.phone_number }}</p>
+                <p><strong>Birthdate:</strong> {{ profile.birth_date }}</p>
+                <p><strong>License Number:</strong> {{ profile.license_number }}</p>
+                <p><strong>Registration Date:</strong> {{ profile.registration_date }}</p>
+                
+                <h3>Profile Image:</h3>
+                {% if profile.image_base64 %}
+                    <img src="{{ profile.image_base64 }}" alt="Profile Image of {{ user.first_name }} {{ user.last_name }}"/>
+                {% else %}
+                    <p>No profile image uploaded.</p>
+                {% endif %}
             </div>
-            <div class="input-group">
-                <div class="input-row">
-                    <input type="text" placeholder="First Name">
-                    <input type="text" placeholder="Last Name">
-                </div>
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Password">
-                <div class="input-row">
-                    <input type="text" placeholder="Phone Number">
-                    <input type="date" placeholder="Birthdate">
-                </div>
-            </div>
-            <div class="button-group">
-                <button type="submit" class="submit-btn">Submit</button>
-                <button type="button" class="cancel-btn">Cancel</button>
-            </div>
-        </form>
+        {% else %}
+            <p>No profile available. Please update your profile.</p>
+        {% endif %}
+        
+        <a href="{% url 'update_profile' %}">Edit Profile</a>
     </div>
-
-    <script >
-        // Get the file input and image elements
-        const fileInput = document.getElementById('file-input');
-        const profilePic = document.getElementById('profile-pic');
-
-        // Add an event listener to handle file input change
-        fileInput.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    profilePic.src = e.target.result; 
-                };
-                reader.readAsDataURL(file); 
-            }
-        });
-
-    </script>
 </body>
 </html>

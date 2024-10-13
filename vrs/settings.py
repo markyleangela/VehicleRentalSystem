@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'register',
     'crud_operations_for_vehicles',
     'user_profile'
+
     
 ]
 
