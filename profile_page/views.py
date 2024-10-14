@@ -28,7 +28,7 @@ def update_profile(request):
                 profile.profile_image = request.FILES['profile_image'].read()  
                 profile.save()  # Save the updated profile image
 
-            return redirect('user_profile')
+            return redirect('profile_page')
     else:
         form = ProfileForm(instance=profile, user=request.user)
 
