@@ -4,22 +4,17 @@ from django.http import HttpResponse
 import base64
 from io import BytesIO
 from PIL import Image
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 
 from vehicles.models import Vehicle
 
 # Create your views here.
-from venv import logger
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
-import base64
-from io import BytesIO
-from PIL import Image
-from vehicles.models import Vehicle
-
-def vehicle_list(request, vehicle_id=None):
-    vehicles = Vehicle.objects.filter(vehicle_is_deleted=False)
-    vehicle_type = request.GET.get('vehicle_type', 'all')
+@login_required
+def vehicle_list(request, vehicle_id = None):
+    vehicles = Vehicle.objects.all() #use .filter to list specific vehicles
+    vehicle_type = request.GET.get('vehicle_type', 'all') 
     vehicle_search = request.GET.get('vehicle_search')
 
     if vehicle_type != 'all':
@@ -65,17 +60,18 @@ def vehicle_list(request, vehicle_id=None):
     })
 
 
-def vehicle_image(request, vehicle_id):
-    try:
-        vehicle = Vehicle.objects.get(pk=vehicle_id)
-        if vehicle.vehicle_blobimage:
-            return HttpResponse(vehicle.vehicle_blobimage, content_type='image/jpeg')
-        else:
-            return HttpResponse("Image not available", content_type='text/plain')
-    except Vehicle.DoesNotExist:
-        return HttpResponse("Vehicle not found", content_type='text/plain')
 
+    return render(request, 'vehicle_list/vehicle_list.html', {
+        'vehicles': vehicles,
+        'type_filter': vehicle_type, 
+        
+    })
 
+def logout_view(request):
+    if request.method == 'POST':
+        logout(request)
+        return redirect('login_page')
+    return render(request, 'logout.html')
 
 
 

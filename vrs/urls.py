@@ -23,5 +23,7 @@ urlpatterns = [
     path('home/', include("vehicle_availability.urls")),
     path('login/', include("login_page.urls")),
     path('register/', include("register.urls")),
+    path('create_vehicle/', include("crud_operations_for_vehicles.urls")),
+    path('profile/', include("profile_page.urls")),
     path('vehicles/', include("crud_operations_for_vehicles.urls")),
 ]
