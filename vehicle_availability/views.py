@@ -3,6 +3,7 @@ import base64
 from io import BytesIO
 from PIL import Image
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 
 from vehicles.models import Vehicle
@@ -57,6 +58,11 @@ def vehicle_list(request, vehicle_id = None):
         
     })
 
+def logout_view(request):
+    if request.method == 'POST':
+        logout(request)
+        return redirect('login_page')
+    return render(request, 'logout.html')
 
 
 

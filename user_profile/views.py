@@ -8,6 +8,7 @@ from PIL import Image
 import os
 from django.conf import settings
 from django.templatetags.static import static  # Import static for default image
+from django.contrib.auth import logout
 
 
 @login_required
@@ -118,3 +119,10 @@ def view_profile(request):
         profile = None
     
     return render(request, 'user_profile.html', {'profile': profile, 'user': request.user})
+
+
+def logout_view(request):
+    if request.method == 'POST':
+        logout(request)
+        return redirect('your_redirect_url')
+    return render(request, 'your_app/logout_confirm.html')
