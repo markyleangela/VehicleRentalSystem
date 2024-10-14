@@ -92,9 +92,17 @@ body {
     overflow: hidden;       
 }
 
-.car-image img {
-    max-width: 100%;
-    height: auto;
-    width: 1500px;
+.car-image {
+    width: 100%;  /* Make it take the full width of the parent */
+    display: flex; /* Ensure it uses flexbox for centering */
+    justify-content: center; /* Center the image horizontally */
+    align-items: center; /* Center the image vertically if needed */
 }
 
+.car-image img {
+    width: 100%; /* Make the image responsive */
+    max-width: none; /* Remove max-width to allow for bigger images */
+    height: auto; /* Maintain aspect ratio */
+    /* Optional: Add a specific height if desired */
+    /* height: 80%;  Adjust this value to your preference */
+}
