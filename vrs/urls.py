@@ -16,12 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+    
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("landing_page.urls")),
     path('home', include("vehicle_availability.urls")),
     path('login/', include("login_page.urls")),
     path('register/', include("register.urls")),
+<<<<<<< HEAD
     path('create_vehicle/', include("crud_operations_for_vehicles.urls")),
+=======
+    path('vehicles/', include("crud_operations_for_vehicles.urls")),
+    path('accounts/', include('accounts.urls')),
+>>>>>>> 3788c37 (Implemented accounts for universal user profile)
 ]
