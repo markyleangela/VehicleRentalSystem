@@ -2,11 +2,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 import base64
 from io import BytesIO
 from PIL import Image
+from django.contrib.auth.decorators import login_required
 
 
 from vehicles.models import Vehicle
 
 # Create your views here.
+@login_required
 def vehicle_list(request, vehicle_id = None):
     vehicles = Vehicle.objects.all() #use .filter to list specific vehicles
     vehicle_type = request.GET.get('vehicle_type', 'all') 
