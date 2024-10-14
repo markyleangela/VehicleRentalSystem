@@ -1,38 +1,19 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Profile</title>
-    <link rel="stylesheet" href="{% static 'css/user_profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/update_profile.css' %}">
 </head>
 <body>
     <div class="container">
         <form action="{% url 'update_profile' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            <div class="profile-pic-wrapper">
-                <label for="file-input">
-                    {% if profile.image_base64 %}
-                        <img src="{{ profile.image_base64 }}" id="profile-pic" alt="Profile Picture">
-                    {% else %}
-                        <img src="{% static 'images/default_profile.png' %}" id="profile-pic" alt="Default Profile Picture">
-                    {% endif %}
-                    <input id="file-input" type="file" accept="image/*" name="profile_image" style="display: none;">
-                </label>
-            </div>
+
             <div class="input-group">
-                <div class="input-row">
-                    <input type="text" name="first_name" placeholder="First Name" value="{{ user.first_name }}" required>
-                    <input type="text" name="last_name" placeholder="Last Name" value="{{ user.last_name }}" required>
-                </div>
-                <input type="email" name="email" placeholder="Email" value="{{ user.email }}" required>
-                <input type="license" name="license" placeholder="License No.">
-                <div class="input-row">
-                    <input type="text" name="phone_number" placeholder="Phone Number" value="{{ profile.phone_number }}">
-                    <input type="date" name="birth_date" placeholder="Birthdate" value="{{ profile.birth_date }}">
-                </div>
+                {{ form.as_p }}  
             </div>
             <div class="button-group">
                 <button type="submit" class="submit-btn">Submit</button>

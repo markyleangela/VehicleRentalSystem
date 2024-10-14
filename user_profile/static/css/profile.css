@@ -1,82 +1,94 @@
-/* static/css/profile.css */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f4f4f4;
+    background-color: #fff;
+    margin: 0;
 }
 
-.container {
+.profile-container {
     width: 400px;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
+.profile-pic-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
 img.profile-pic {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     object-fit: cover;
+    margin-bottom: 10px;
 }
 
-h2 {
-    margin-top: 10px;
+.profile-name {
     font-size: 24px;
     font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
 }
 
-.details {
+.profile-details {
     margin-top: 20px;
-    text-align: left;
 }
 
-.details span {
+.profile-field {
     display: block;
-    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 25px;
     font-size: 16px;
+    text-align: center;
 }
 
-.actions {
+.profile-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.half {
+    width: 48%;
+}
+
+.profile-value {
+    font-size: 16px;
+    color: #333;
+}
+
+.profile-actions {
+    display: flex;
+    justify-content: space-between;
     margin-top: 20px;
 }
 
-button, a.edit-btn, a.back-btn {
-    display: inline-block;
-    padding: 10px 20px;
+.edit-btn, .back-btn {
+    width: 120px;
+    padding: 10px;
+    border-radius: 25px;
     text-decoration: none;
-    border-radius: 5px;
     font-size: 16px;
-    color: white;
-    margin: 5px;
+    text-align: center;
+    display: inline-block;
+    color: #fff;
 }
 
 .edit-btn {
-    width: 100px;
-    padding: 10px;
-    border: none;
-    border-radius: 25px;
-    font-size: 16px;
-    cursor: pointer;
     background-color: #002f6c;
 }
 
 .back-btn {
-    width: 100px;
-    padding: 10px;
-    border: none;
-    border-radius: 30px;
-    font-size: 16px;
-    cursor: pointer;
-    color: black;
     background-color: #b3c2d4;
-    
+    color: #000;
 }
 
-button:hover, a:hover {
-    opacity: 0.8;
+.edit-btn:hover, .back-btn:hover {
+    opacity: 0.9;
 }
