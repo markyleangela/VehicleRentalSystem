@@ -1,0 +1,86 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f8f8;
+}
+
+.container {
+    width: 500px;
+ 
+    border-radius: 10px;
+    padding: 20px;
+
+    text-align: center;
+}
+
+.profile-pic-wrapper {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.profile-pic-wrapper img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    border: 1px solid black;
+}
+
+.profile-pic-wrapper input[type="file"] {
+    display: none;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.input-row {
+    display: flex;
+    gap: 15px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    text-align: center;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.submit-btn, .cancel-btn {
+    width: 100px;
+    padding: 10px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.submit-btn {
+    background-color: #002f6c;
+    color: white;
+}
+
+.cancel-btn {
+    background-color: #b3c2d4;
+    color: black;
+}

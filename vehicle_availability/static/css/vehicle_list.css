@@ -123,35 +123,47 @@ body {
     transition: 0.4s;
 }
 
-.dropdown-menu {
-    display: none; 
-    position: absolute;
-    top: 50px; 
-    right: 10px;
-    background-color: #444;
-    border-radius: 5px;
-    padding: 10px;
+/* Add this to your vehicle_list.css or a new CSS file */
+.sidebar {
+    position: fixed; /* Fixed position to stay in place */
+    top: 0; /* Align to the top */
+    right: -250px; /* Hide off-screen initially on the right */
+    width: 250px; /* Width of the sidebar */
+    height: 100%; /* Full height */
+    background-color:white; /* Background color */
+    color: black; /* Text color */
+    transition: right 0.3s ease; /* Smooth transition */
+    padding: 20px; /* Padding inside sidebar */
+    z-index: 1000; /* Stay above other content */
+    box-shadow: -2px 0px 2px grey;
 }
 
-.dropdown-menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+.sidebar.open {
+    right: 0; /* Slide in when opened */
 }
 
-.dropdown-menu li {
-    margin: 10px 0;
+.sidebar ul {
+    list-style: none; /* Remove bullet points */
+    padding: 0; /* Remove padding */
 }
 
-.dropdown-menu a {
-    color: white;
-    text-decoration: none;
-    padding: 5px 10px;
-    display: block; 
+.sidebar li {
+    margin: 15px 0; /* Space between items */
 }
+
+.sidebar a {
+    color: black; /* Link color */
+    text-decoration: none; /* Remove underline */
+}
+
+.sidebar a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+
 
 .dropdown-menu a:hover {
-    background-color: #555; 
+    background-color: white; 
 }
 
 

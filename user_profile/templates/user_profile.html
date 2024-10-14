@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Profile</title>
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}?v={{ STATIC_VERSION }}">
+
+</head>
+<body>
+    <div class="profile-container">
+        <!-- Profile Picture -->
+        <div class="profile-pic-container">
+            {% if profile.image_base64 %}
+                <img class="profile-pic" src="{{ profile.image_base64 }}" alt="Profile Image">
+            {% else %}
+            <img src="{% static 'images/default-profile.jpg' %}" alt="Default Profile Image">
+
+            {% endif %}
+        </div>
+
+        <!-- Name -->
+        <h2 class="profile-name">{{ user.first_name }} {{ user.last_name }}</h2>
+
+        <!-- Profile Details -->
+        <div class="profile-details">
+            <div class="profile-field">
+                <span class="profile-value" placeholder="Email">{{ user.email }}</span>
+            </div>
+            <div class="profile-field">
+                <span class="profile-value" placeholder="License No.">{{ profile.license_no }}</span>
+            </div>
+
+            <div class="profile-row">
+                <div class="profile-field half">
+                    <span class="profile-value" placeholder="Phone Number">{{ profile.phone_number }}</span>
+                </div>
+                <div class="profile-field half">
+                    <span class="profile-value" placeholder="birth Date">{{ profile.birth_date }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit and Back Buttons -->
+        <div class="profile-actions">
+            <a href="{% url 'update_profile' %}" class="edit-btn">EDIT</a>
+            <a href="{% url 'home' %}" class="back-btn">BACK</a>
+        </div>
+    </div>
+</body>
+</html>

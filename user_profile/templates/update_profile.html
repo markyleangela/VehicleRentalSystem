@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Profile</title>
+    <link rel="stylesheet" href="{% static 'css/update_profile.css' %}">
+</head>
+<body>
+    <div class="container">
+        <form action="{% url 'update_profile' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="input-group">
+                {{ form.as_p }}  
+            </div>
+            <div class="button-group">
+                <button type="submit" class="submit-btn">Submit</button>
+                <button type="button" class="cancel-btn" onclick="window.location.href='{% url 'user_profile' %}';">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Get the file input and image elements
+        const fileInput = document.getElementById('file-input');
+        const profilePic = document.getElementById('profile-pic');
+
+        // Add an event listener to handle file input change
+        fileInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    profilePic.src = e.target.result; 
+                };
+                reader.readAsDataURL(file); 
+            }
+        });
+    </script>
+</body>
+</html>
