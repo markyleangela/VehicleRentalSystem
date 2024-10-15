@@ -70,8 +70,6 @@ body {
     transition: background-color 0.3s; 
 }
 
-
-
 .search-container {
     display: flex;
     align-items: center;
@@ -100,6 +98,23 @@ body {
     background-color: #0056b3; 
 }
 
+.create-vehicle-container a {
+    margin-top: 1vh;
+    font-size: 14px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: #1E2A5E;
+    color: white ;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: inline-block;
+}
+
+.create-vehicle-container a:hover {
+    background-color: #0056b3 !important; 
+}
 
 .menu-container {
     display: flex;
@@ -259,4 +274,26 @@ body {
     transition: background-color 0.3s; 
   }
 
-  
+  .UD-operations{
+    display: flex;
+  }
+
+  .UD-operations button{
+    background-color: #E22226;
+  }
+
+
+  .UD-operations a {
+    margin-right: 5px;
+    font-size: 14px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: #1E2A5E;
+    color: white ;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: inline-block;
+    background-color: #7C93C3;
+  }

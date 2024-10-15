@@ -1,0 +1,58 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Rental System - Update Vehicle</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/create_vehicle.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>UPDATE VEHICLE</h1>
+
+    <div class="container">
+        <div class="image-preview-container">
+            <img id="imagePreview" src="{% if vehicle.image_base64 %}{{ vehicle.image_base64 }}{% endif %}" alt="Image Preview" style="display: block;" />
+        </div>
+        {{ vehicle_id }}
+        <div class="form-container">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-fields">
+                    {{ form.as_p }}
+                </div>
+                
+                {% if form.non_field_errors %}
+                    <div class="error">{{ form.non_field_errors }}</div>
+                {% endif %}
+
+                <div class="button-container">
+                    <button type="submit" class="submit-btn">Save</button>
+                    <a href="{% url 'read_vehicle_page' %}" class="cancel-btn">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Image preview -->
+    <script>
+        document.querySelector('input[type="file"]').addEventListener('change', function(event) {
+            const [file] = event.target.files;
+            const preview = document.getElementById('imagePreview');
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.style.display = 'none';
+                preview.src = '';
+            }
+        });
+
+    </script>
+</body>
+</html>
