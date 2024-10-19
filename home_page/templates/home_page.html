@@ -1,0 +1,79 @@
+{% load static %} <!-- Load static files -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/home_page.css' %}"> <!-- Link to your CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
+    <title>Home</title>
+</head>
+<body>
+    <section class="upper-section">
+        <div class="nav-container">
+            <nav class="nav-bar">
+                <ul id="nav-links">
+                    <li><a href="#Home">Home</a></li>
+                    <li><a href="#Vehicles">Vehicles</a></li>
+                    <li><a href="#About Us">About Us</a></li>
+                    <div class="burger-menu" id="burger-menu">
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                    </div>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="cover-img">
+            <img src="{% static 'images/cover-img.jpg' %}" alt="blue car"> <!-- Link to your image -->
+            <h1 class="cover-statement">Make the Right Choice. <b>Book</b> your Dream vehicle</h1>
+        </div>
+    </section>
+
+    <section class="mid-section">
+        <h1 class='featured-text'>FEATURED VEHICLES</h1>
+    </section>
+    
+    <section class="lower-section">
+        {% for vehicle in vehicles|slice:":3" %} 
+        <section class="vehicle-list-container">
+            <ul>
+        
+                <li id="vehicle_{{ vehicle.vehicle_id }}" class="{% if vehicle_detail and vehicle.vehicle_id == vehicle_detail.vehicle_id %}highlight{% endif %}">
+                    <div class="vehicle-item">
+                        <img src="{{ vehicle.image_base64 }}" alt="{{ vehicle.vehicle_model }}">
+                        <div class="vehicle-info">
+                            <h3>{{ vehicle.vehicle_model }}</h3>
+                            <p>{{ vehicle.vehicle_type }}</p>
+                            <p class="vehicle-price">Php {{ vehicle.vehicle_price }}/day</p>
+                        </div>
+                        <div class="vehicle-button-container">
+                            <form method="POST" action="">
+                                {% csrf_token %}
+                                <button type="submit" name="vehicle_id" value="{{ vehicle.vehicle_id }}">View</button>
+                            </form>
+                        </div>
+                    </div>
+                </li>
+         
+            </ul>
+            
+        </section>
+        {% endfor %}
+
+        
+    </section>
+
+    <script>
+        const burgerMenu = document.getElementById('burger-menu');
+        const navLinks = document.getElementById('nav-links');
+
+        burgerMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            burgerMenu.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

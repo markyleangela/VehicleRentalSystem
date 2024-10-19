@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'login_page',
     'register',
     'crud_operations_for_vehicles',
-    'profile_page'
+    'profile_page',
+    'home_page',
 
     
 ]
