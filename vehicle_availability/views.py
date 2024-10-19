@@ -23,12 +23,21 @@ def vehicle_list(request, vehicle_id = None):
     for vehicle in vehicles:
         if vehicle.vehicle_blobimage:
             image = Image.open(BytesIO(vehicle.vehicle_blobimage))
-            if image.mode == 'RGBA':
-                image = image.convert('RGB')
+            
+            # Keep transparency for PNGs (no conversion to RGB)
             buffer = BytesIO()
             image_format = image.format if image.format else 'JPEG'
-            image.save(buffer, format=image_format)
-            mime_type = f"image/{image_format.lower()}"
+            
+            # Handle PNG images with RGBA (keeping transparency)
+            if image_format == 'PNG' and image.mode == 'RGBA':
+                image.save(buffer, format='PNG')
+                mime_type = "image/png"
+            else:
+                # For non-PNG images or images without transparency, use JPEG
+                image = image.convert('RGB')
+                image.save(buffer, format='JPEG')
+                mime_type = "image/jpeg"
+            
             vehicle.image_base64 = f"data:{mime_type};base64,{base64.b64encode(buffer.getvalue()).decode('utf-8')}"
         else:
             vehicle.image_base64 = None
@@ -61,11 +70,7 @@ def vehicle_list(request, vehicle_id = None):
 
 
 
-    return render(request, 'vehicle_list/vehicle_list.html', {
-        'vehicles': vehicles,
-        'type_filter': vehicle_type, 
-        
-    })
+
 
 def logout_view(request):
     if request.method == 'POST':

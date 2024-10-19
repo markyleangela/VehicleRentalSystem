@@ -1,4 +1,3 @@
-
 {% load static %}
 
 <!DOCTYPE html>
@@ -12,29 +11,23 @@
 </head>
 <body>
     <div class="upper-part">
-        
-        
-            <div class="nav-container">
-            
-                <nav class="nav-bar">
-                    <div class="logo">
-                        <img src="{% static 'images/Logo-Clear.png' %}" alt="Logo">
-                    </div>
-                    <ul id="nav-links">
-                        <li><a href="{% url 'home' %}">Home</a></li>
-                        <li><a href="{% url 'vehicle_list' %}">Vehicles</a></li>
-                        <li><a href="#About Us">About Us</a></li>
-                        
-                        
-                    </ul>
-                    <div class="burger-menu" id="burger-menu">
-                        <div class="line"></div>
-                        <div class="line"></div>
-                        <div class="line"></div>
-                    </div>
-                    
-                </nav>
-            </div>
+        <div class="nav-container">
+            <nav class="nav-bar">
+                <div class="logo">
+                    <img src="{% static 'images/Logo-Clear.png' %}" alt="Logo">
+                </div>
+                <ul id="nav-links">
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'vehicle_list' %}">Vehicles</a></li>
+                    <li><a href="#About Us">About Us</a></li>
+                </ul>
+                <div class="burger-menu" id="burger-menu">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+            </nav>
+        </div>
      
         <section class="head-nav">
             <div class="filter-container">
@@ -55,9 +48,8 @@
                     <button type='submit' class="search-button">Search</button>
                 </form>
             </div>
-
         </section>
-    </section>
+    </div>
 
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
@@ -69,57 +61,50 @@
     </aside>
 
     <div class="lower-part">
-        <section class="view-detail-container">
-            <h3>View Details</h3>
-            <ul id="vehicle-detail-list">
-                <li>
-                    {% if vehicle_detail %}
-                        <p>Brand: {{ vehicle_detail.vehicle_brand }}</p>
-                        <p>Model: {{ vehicle_detail.vehicle_model }}</p>
-                        <p>Type: {{ vehicle_detail.vehicle_type }}</p>
-                        <p>Price / Day: {{ vehicle_detail.vehicle_price }}</p>
-                        <p>Status: {{ vehicle_detail.vehicle_status }}</p>
-                    {% else %}
-                        <p>No Vehicle Selected</p>
-                    {% endif %}
-                </li>
-            </ul>
-        </section>
-
-        <section class="vehicle-list-container">
-            <ul>
-                {% for vehicle in vehicles %}
-                <li id="vehicle_{{ vehicle.vehicle_id }}" class="{% if vehicle_detail and vehicle.vehicle_id == vehicle_detail.vehicle_id %}highlight{% endif %}">
-                    <div class="vehicle-item">
-                        <img src="{{ vehicle.image_base64 }}" alt="{{ vehicle.vehicle_model }}">
-                        <div class="vehicle-info">
-                            <h3>{{ vehicle.vehicle_model }}</h3>
-                            <p>{{ vehicle.vehicle_type }}</p>
-                            <p>{{ vehicle.vehicle_price }}</p>
-
-                            <form method="POST" action="">
-                                {% csrf_token %}
-                                <button type="submit" name="vehicle_id" value="{{ vehicle.vehicle_id }}">View Details</button>
-                                <button type="submit">Book</button>
-                            </form>
-                        </div>
+        {% for vehicle in vehicles %} 
+        <section class="vehicle-list-container {% if vehicle_detail and vehicle.vehicle_id == vehicle_detail.vehicle_id %}highlight{% endif %}">
+            <li id="vehicle_{{ vehicle.vehicle_id }}">
+                <div class="vehicle-item">
+                    <img src="{{ vehicle.image_base64 }}" alt="{{ vehicle.vehicle_model }}">
+                    <div class="vehicle-info">
+                        <br>
+                        <h3>{{ vehicle.vehicle_brand }}</h3>
+                        <h3>{{ vehicle.vehicle_model }}</h3>
+                        <p>{{ vehicle.vehicle_type }}</p>
+                        <p class="vehicle-price">Php {{ vehicle.vehicle_price }}/day</p>
                     </div>
-                </li>
-                {% endfor %}
-            </ul>
+                    <div class="vehicle-button-container">
+                        <form method="POST" action="">
+                            {% csrf_token %}
+                            <button type="button" class="view-button" 
+        data-vehicle-id="{{ vehicle.vehicle_id }}"
+        data-vehicle-brand="{{ vehicle.vehicle_brand }}"
+        data-vehicle-model="{{ vehicle.vehicle_model }}"
+        data-vehicle-type="{{ vehicle.vehicle_type }}"
+        data-vehicle-price="{{ vehicle.vehicle_price }}"
+        data-vehicle-image="{{vehicle.image_base64 }}">View</button>
+
+                        </form>
+                    </div>
+                </div>
+            </li>
         </section>
+        {% endfor %}
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const burgerMenu = document.getElementById('burger-menu');
-            const sidebar = document.getElementById('sidebar');
-    
-            burgerMenu.addEventListener('click', function() {
-                sidebar.classList.toggle('open'); // Toggle the sidebar
-            });
-        });
-    </script>
-    
+    <!-- Modal Structure -->
+    <div id="vehicle-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="close-modal">&times;</span>
+            <h2>Vehicle Details</h2>
+            <div id="modal-vehicle-info">
+                    
+            </div>
+            <button>BOOK</button>
+        </div>
+    </div>
+
+    <!-- Load JavaScript file -->
+    <script src="{% static 'js/script.js' %}" defer></script>
 </body>
 </html>
