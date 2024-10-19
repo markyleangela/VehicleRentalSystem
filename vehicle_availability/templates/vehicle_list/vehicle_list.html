@@ -1,4 +1,6 @@
+
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +12,30 @@
 </head>
 <body>
     <div class="upper-part">
+        
+        
+            <div class="nav-container">
+            
+                <nav class="nav-bar">
+                    <div class="logo">
+                        <img src="{% static 'images/Logo-Clear.png' %}" alt="Logo">
+                    </div>
+                    <ul id="nav-links">
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'vehicle_list' %}">Vehicles</a></li>
+                        <li><a href="#About Us">About Us</a></li>
+                        
+                        
+                    </ul>
+                    <div class="burger-menu" id="burger-menu">
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                    </div>
+                    
+                </nav>
+            </div>
+     
         <section class="head-nav">
             <div class="filter-container">
                 <form method="GET" action="">
@@ -30,15 +56,8 @@
                 </form>
             </div>
 
-            <div class="menu-container">
-                <div class="burger-menu" id="burger-menu">
-                    <div class="line"></div>
-                    <div class="line"></div>
-                    <div class="line"></div>
-                </div>
-            </div>
         </section>
-    </div>
+    </section>
 
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
