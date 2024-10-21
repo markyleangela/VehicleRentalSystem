@@ -1,0 +1,23 @@
+
+
+{% block content %}
+  <h2>Your Bookings</h2>
+
+  {% if records %}
+    <ul>
+      {% for record in records %}
+        <li>
+            Customer : {{record.customer}}
+          Vehicle: {{ record.vehicle }} <br>
+          Start Date: {{ record.start_date }} <br>
+          Return Date: {{ record.return_date|default:"Not Returned" }} <br>
+          Total Amount: {{ record.total_amount }} <br>
+          Payment Status: {{ record.payment_status|yesno:"Paid,Not Paid" }} <br>
+          Return Status: {{ record.return_status|yesno:"Returned,Not Returned" }} <br>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No bookings found.</p>
+  {% endif %}
+{% endblock %}

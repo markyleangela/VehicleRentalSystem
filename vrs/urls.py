@@ -27,5 +27,6 @@ urlpatterns = [
     path('profile/', include("profile_page.urls")),
     path('vehicles/', include("crud_operations_for_vehicles.urls")),
     path('home/', include("home_page.urls")),
+    path('booking_list/', include("booking_list_page.urls")),
 
 ]
