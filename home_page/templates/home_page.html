@@ -48,8 +48,7 @@
     <section class="lower-section">
         {% for vehicle in vehicles|slice:":3" %} 
         <section class="vehicle-list-container">
-            <ul>
-        
+
                 <li id="vehicle_{{ vehicle.vehicle_id }}" class="{% if vehicle_detail and vehicle.vehicle_id == vehicle_detail.vehicle_id %}highlight{% endif %}">
                     <div class="vehicle-item">
                         <img src="{{ vehicle.image_base64 }}" alt="{{ vehicle.vehicle_model }}">
@@ -63,28 +62,37 @@
                         <div class="vehicle-button-container">
                             <form method="POST" action="">
                                 {% csrf_token %}
-                                <button type="submit" name="vehicle_id" value="{{ vehicle.vehicle_id }}">View</button>
+                                <button type="button" class="view-button" 
+        data-vehicle-id="{{ vehicle.vehicle_id }}"
+        data-vehicle-brand="{{ vehicle.vehicle_brand }}"
+        data-vehicle-model="{{ vehicle.vehicle_model }}"
+        data-vehicle-type="{{ vehicle.vehicle_type }}"
+        data-vehicle-price="{{ vehicle.vehicle_price }}"
+        data-vehicle-image="{{vehicle.image_base64 }}">View</button>
                             </form>
                         </div>
                     </div>
                 </li>
          
-            </ul>
-            
+     
         </section>
         {% endfor %}
 
         
     </section>
 
-    <script>
-        const burgerMenu = document.getElementById('burger-menu');
-        const navLinks = document.getElementById('nav-links');
+    <div id="vehicle-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="close-modal">&times;</span>
+            <h2>Vehicle Details</h2>
+            <div id="modal-vehicle-info">
+                    
+            </div>
+            <button>BOOK</button>
+        </div>
+    </div>
 
-        burgerMenu.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            burgerMenu.classList.toggle('active');
-        });
-    </script>
+    <!-- Load JavaScript file -->
+    <script src="{% static 'js/homepage_script.js' %}" defer></script>
 </body>
 </html>
