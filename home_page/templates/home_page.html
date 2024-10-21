@@ -1,0 +1,98 @@
+{% load static %} <!-- Load static files -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/home_page.css' %}"> <!-- Link to your CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
+    <title>Home</title>
+</head>
+<body>
+    <section class="upper-section">
+        {% block navigation %}
+        <div class="nav-container">
+            
+            <nav class="nav-bar">
+                <div class="logo">
+                    <img src="{% static 'images/Logo-Clear.png' %}" alt="Logo">
+                </div>
+                <ul id="nav-links">
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="">Vehicles</a></li>
+                    <li><a href="#About Us">About Us</a></li>
+                    
+                    
+                </ul>
+                <div class="burger-menu" id="burger-menu">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+                
+            </nav>
+        </div>
+        {% endblock %}
+
+        <div class="cover-img">
+            <img src="{% static 'images/cover-img.jpg' %}" alt="blue car"> <!-- Link to your image -->
+            <h1 class="cover-statement">Make the Right Choice. <b>Book</b> your Dream vehicle</h1>
+        </div>
+    </section>
+
+    <section class="mid-section">
+        <h1 class='featured-text'>FEATURED VEHICLES</h1>
+    </section>
+    
+    <section class="lower-section">
+        {% for vehicle in vehicles %} 
+        <section class="vehicle-list-container">
+
+                <li id="vehicle_{{ vehicle.vehicle_id }}" class="{% if vehicle_detail and vehicle.vehicle_id == vehicle_detail.vehicle_id %}highlight{% endif %}">
+                    <div class="vehicle-item">
+                        <img src="{{ vehicle.image_base64 }}" alt="{{ vehicle.vehicle_model }}">
+                        <div class="vehicle-info">
+                            <br>
+                            <h3>{{ vehicle.vehicle_brand }}</h3>
+                            <h3>{{ vehicle.vehicle_model }}</h3>
+                            <p>{{ vehicle.vehicle_type }}</p>
+                            <p class="vehicle-price">Php {{ vehicle.vehicle_price }}/day</p>
+                        </div>
+                        <div class="vehicle-button-container">
+                            <form method="POST" action="">
+                                {% csrf_token %}
+                                <button type="button" class="view-button" 
+        data-vehicle-id="{{ vehicle.vehicle_id }}"
+        data-vehicle-brand="{{ vehicle.vehicle_brand }}"
+        data-vehicle-model="{{ vehicle.vehicle_model }}"
+        data-vehicle-type="{{ vehicle.vehicle_type }}"
+        data-vehicle-price="{{ vehicle.vehicle_price }}"
+        data-vehicle-image="{{vehicle.image_base64 }}">View</button>
+                            </form>
+                        </div>
+                    </div>
+                </li>
+         
+     
+        </section>
+        {% endfor %}
+
+        
+    </section>
+
+    <div id="vehicle-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="close-modal">&times;</span>
+            <h2>Vehicle Details</h2>
+            <div id="modal-vehicle-info">
+                    
+            </div>
+            <button>BOOK</button>
+        </div>
+    </div>
+
+    <!-- Load JavaScript file -->
+    <script src="{% static 'js/homepage_script.js' %}" defer></script>
+</body>
+</html>

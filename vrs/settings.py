@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'landing_page.apps.LandingPageConfig',
-    'vehicle_availability.apps.VehicleAvailabilityConfig',
+
     'vehicles.apps.VehiclesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'login_page',
     'register',
     'crud_operations_for_vehicles',
-    'profile_page'
+    'profile_page',
+    'home_page',
 
     
 ]
@@ -64,7 +65,7 @@ ROOT_URLCONF = 'vrs.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, "templates")],
+        'DIRS': [], #os.path.join(BASE_DIR, "templates")
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

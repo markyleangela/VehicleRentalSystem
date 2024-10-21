@@ -1,0 +1,314 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+.upper-section {
+    position: relative;
+}
+
+.nav-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+  
+
+}
+
+.nav-bar {
+
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+    align-items: center;
+    height: 15vh;
+}
+
+.logo img{
+    height: 20vh;
+    
+}
+
+.nav-bar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    font-size: 1.2rem;
+    align-items: center;
+}
+
+.nav-bar ul li {
+    display: inline;
+}
+
+.nav-bar ul li a {
+    color: white;
+    padding: 30px;
+    display: block;
+    text-decoration: none;
+}
+
+.cover-img {
+    position: relative; 
+    width: 100%;
+    height: 700px; /* Fixed height */
+    overflow: hidden;
+}
+
+.cover-img img {
+    width: 100%;
+    height: 100%; /* Ensures the image fills the container */
+    object-fit: cover; /* Ensures the image covers the area */
+}
+
+.cover-statement {
+    position: absolute;
+    bottom: 20px; 
+    left: 50%;
+    transform: translateX(-50%); 
+    color: white;
+    font-size: 2rem; 
+    text-align: center;
+    white-space: nowrap; 
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-family: 'Secular One', sans-serif; /* Apply Secular One font */
+}
+
+.cover-statement b {
+    color: #1E2A5E; /* Keep the bold text color */
+}
+
+@media (max-width: 700px) {
+    .cover-statement {
+        font-size: 1.5rem; /* Adjust font size for smaller screens */
+    }
+
+    .lower-section {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+
+.cover-statement b {
+    color: #1E2A5E; /* Keep the bold text color */
+}
+
+/* Lower Section Styles */
+.lower-section {
+    min-height: 100vh; /* Ensures enough height to scroll */
+    padding: 10px; /* Padding for content */
+    background-color: #f5f5f5; /* Optional background color for visibility */
+    
+}
+
+.burger-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px; /* Adjust width as needed */
+    height: 25px; /* Adjust height as needed */
+    cursor: pointer; /* Change cursor on hover */
+}
+
+.line {
+    height: 4px; /* Height of the lines */
+    width: 100%; /* Full width of the burger menu */
+    background-color: #333; /* Color of the lines */
+    transition: all 0.3s ease; /* Smooth transition for animation */
+}
+
+.burger-menu.active .line:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px); /* Rotate top line */
+}
+
+.burger-menu.active .line:nth-child(2) {
+    opacity: 0; /* Hide middle line */
+}
+
+.burger-menu.active .line:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px); /* Rotate bottom line */
+}
+
+
+.lower-section {
+    display: flex;
+    justify-content: center;
+  
+    
+}
+
+.featured-text {
+    font-family: 'Secular One', sans-serif; /* Apply Secular One font */
+}
+
+.vehicle-list-container {
+    background-color: white;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 20px;
+    width: 300px; /* Fixed width */
+    height: 400px; /* Fixed height */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+    overflow: hidden; /* Ensures that content doesn't overflow */
+}
+
+.vehicle-list-container li {
+    list-style-type: none;
+}
+
+.vehicle-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%; /* Ensure the vehicle-item takes up full container height */
+}
+
+
+.vehicle-item img {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    height: 150px; /* Fixed height */
+    object-fit: contain;
+    flex-grow: 1; /* This allows the image to take up available space */
+}
+
+
+
+.vehicle-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+.vehicle-item img {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    height: 150px; /* Fixed height */
+    object-fit: contain;
+    flex-grow: 1; /* This allows the image to take up available space */
+}
+
+.vehicle-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: auto; /* Pushes the info to the bottom */
+    text-align: left; /* Align text to left */
+    font-family: 'Secular One', sans-serif; /* Apply Secular One font */
+}
+
+.vehicle-info h3 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 10px 0 5px 0;
+}
+
+.vehicle-info p {
+    font-size: 1rem;
+    margin: 5px 0;
+}
+
+.vehicle-price {
+    font-weight: bold;
+    color: #666;
+}
+
+.vehicle-button-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: auto; /* Push the button to the bottom */
+}
+
+.vehicle-button-container button {
+    background-color: #1E2A5E;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.vehicle-button-container button:hover {
+    background-color: #16204A;
+}
+
+
+
+
+
+
+
+.mid-section {
+    display: flex;
+    justify-content: center;
+}
+
+
+.vehicle-info button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: #1E2A5E; 
+    color: white; 
+    cursor: pointer;
+    transition: background-color 0.3s; 
+  }
+
+
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
