@@ -312,3 +312,47 @@ section {
     text-decoration: none;
     cursor: pointer;
 }
+
+
+
+
+.burger-menu {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.line {
+    height: 4px;
+    width: 30px;
+    background-color: black;
+    margin: 3px 0;
+}
+
+.dropdown {
+    display: none; /* Hidden by default */
+    background-color: white;
+    position: absolute;
+    top: 50px; /* Adjust based on your layout */
+    left: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+.dropdown ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown ul li a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: black;
+}
+
+.dropdown ul li a:hover {
+    background-color: #f0f0f0; /* Highlight on hover */
+}

@@ -13,23 +13,27 @@
     <section class="upper-section">
         {% block navigation %}
         <div class="nav-container">
-            
             <nav class="nav-bar">
                 <div class="logo">
                     <img src="{% static 'images/Logo-Clear.png' %}" alt="Logo">
                 </div>
                 <ul id="nav-links">
                     <li><a href="{% url 'home' %}">Home</a></li>
-                    <li><a href="">Vehicles</a></li>
-                    <li><a href="#About Us">About Us</a></li>
-                    
-                    
+                    <li><a href="">About Us</a></li>
+                    <li><a href="#Contact Us">Contact Us</a></li>
                 </ul>
                 <div class="burger-menu" id="burger-menu">
                     <div class="line"></div>
                     <div class="line"></div>
                     <div class="line"></div>
                 </div>
+                <nav class="dropdown" id="dropdownMenu">
+                    <ul>
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">Bookings</a></li>
+                        <li><a href="#">Logout</a></li>
+                    </ul>
+                </nav>
                 
             </nav>
         </div>
@@ -48,7 +52,6 @@
     <section class="lower-section">
         {% for vehicle in vehicles %} 
         <section class="vehicle-list-container">
-
                 <li id="vehicle_{{ vehicle.vehicle_id }}" class="{% if vehicle_detail and vehicle.vehicle_id == vehicle_detail.vehicle_id %}highlight{% endif %}">
                     <div class="vehicle-item">
                         <img src="{{ vehicle.image_base64 }}" alt="{{ vehicle.vehicle_model }}">
@@ -63,22 +66,18 @@
                             <form method="POST" action="">
                                 {% csrf_token %}
                                 <button type="button" class="view-button" 
-        data-vehicle-id="{{ vehicle.vehicle_id }}"
-        data-vehicle-brand="{{ vehicle.vehicle_brand }}"
-        data-vehicle-model="{{ vehicle.vehicle_model }}"
-        data-vehicle-type="{{ vehicle.vehicle_type }}"
-        data-vehicle-price="{{ vehicle.vehicle_price }}"
-        data-vehicle-image="{{vehicle.image_base64 }}">View</button>
+                                    data-vehicle-id="{{ vehicle.vehicle_id }}"
+                                    data-vehicle-brand="{{ vehicle.vehicle_brand }}"
+                                    data-vehicle-model="{{ vehicle.vehicle_model }}"
+                                    data-vehicle-type="{{ vehicle.vehicle_type }}"
+                                    data-vehicle-price="{{ vehicle.vehicle_price }}"
+                                    data-vehicle-image="{{vehicle.image_base64 }}">View</button>
                             </form>
                         </div>
                     </div>
                 </li>
-         
-     
         </section>
         {% endfor %}
-
-        
     </section>
 
     <div id="vehicle-modal" class="modal">
@@ -86,7 +85,6 @@
             <span class="close-button" id="close-modal">&times;</span>
             <h2>Vehicle Details</h2>
             <div id="modal-vehicle-info">
-                    
             </div>
             <button>BOOK</button>
         </div>

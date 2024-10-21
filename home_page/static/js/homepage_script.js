@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
     const modal = document.getElementById('vehicle-modal');
     const closeModalButton = document.getElementById('close-modal');
+    const burgerMenu = document.getElementById("burger-menu"); // Update ID to match HTML
+    const dropdownMenu = document.getElementById("dropdownMenu");
 
     // Open modal when clicking the "View" button
     document.querySelectorAll('.view-button').forEach(button => {
@@ -19,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 <h3>${vehicleModel}</h3>
                 <p>${vehicleType}</p>
                 <p class="vehicle-price">Php ${vehiclePrice}/day</p>
-                
             `;
 
             modal.style.display = 'block'; // Show the modal
@@ -36,5 +37,11 @@ document.addEventListener('DOMContentLoaded', function () {
         if (event.target === modal) {
             modal.style.display = 'none';
         }
+    });
+
+    // Toggle dropdown menu visibility when clicking the burger menu
+    burgerMenu.addEventListener("click", () => {
+        // Toggle dropdown menu display
+        dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
     });
 });
