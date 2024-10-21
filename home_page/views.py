@@ -1,5 +1,3 @@
-
-
 from venv import logger
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
@@ -14,9 +12,13 @@ from vehicles.models import Vehicle
 
 # Create your views here.
 @login_required
-def homepage_view(request, vehicle_id = None):
+def vehicle_list(request, vehicle_id = None):
     vehicles = Vehicle.objects.all() #use .filter to list specific vehicles
+    vehicle_type = request.GET.get('vehicle_type', 'all') 
+    vehicle_search = request.GET.get('vehicle_search')
 
+    if vehicle_type != 'all':
+        vehicles = vehicles.filter(vehicle_type=vehicle_type)
 
     for vehicle in vehicles:
         if vehicle.vehicle_blobimage:
@@ -39,7 +41,6 @@ def homepage_view(request, vehicle_id = None):
             vehicle.image_base64 = f"data:{mime_type};base64,{base64.b64encode(buffer.getvalue()).decode('utf-8')}"
         else:
             vehicle.image_base64 = None
-
 
     vehicle_detail = None  # Initialize vehicle_detail
 
@@ -64,4 +65,19 @@ def homepage_view(request, vehicle_id = None):
     return render(request, 'home_page.html', {
         'vehicles': vehicles,
         'vehicle_detail': vehicle_detail,
+        'type_filter': vehicle_type,
     })
+
+
+
+
+
+def logout_view(request):
+    if request.method == 'POST':
+        logout(request)
+        return redirect('login_page')
+    return render(request, 'logout.html')
+
+
+
+

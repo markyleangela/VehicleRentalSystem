@@ -20,7 +20,7 @@
                 </div>
                 <ul id="nav-links">
                     <li><a href="{% url 'home' %}">Home</a></li>
-                    <li><a href="{% url 'vehicle_list' %}">Vehicles</a></li>
+                    <li><a href="">Vehicles</a></li>
                     <li><a href="#About Us">About Us</a></li>
                     
                     
@@ -46,7 +46,7 @@
     </section>
     
     <section class="lower-section">
-        {% for vehicle in vehicles|slice:":3" %} 
+        {% for vehicle in vehicles %} 
         <section class="vehicle-list-container">
 
                 <li id="vehicle_{{ vehicle.vehicle_id }}" class="{% if vehicle_detail and vehicle.vehicle_id == vehicle_detail.vehicle_id %}highlight{% endif %}">

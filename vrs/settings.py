@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'landing_page.apps.LandingPageConfig',
-    'vehicle_availability.apps.VehicleAvailabilityConfig',
+
     'vehicles.apps.VehiclesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
