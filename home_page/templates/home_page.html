@@ -34,7 +34,6 @@
                         <li><a href="#">Logout</a></li>
                     </ul>
                 </nav>
-                
             </nav>
         </div>
         {% endblock %}
@@ -48,38 +47,34 @@
     <section class="mid-section">
         <h1 class='featured-text'>FEATURED VEHICLES</h1>
     </section>
-    
+
     <section class="lower-section">
-        <div class="vehicle-list-wrapper"> <!-- New wrapper -->
-            {% for vehicle in vehicles %} 
-            <div class="vehicle-list-container"> <!-- Changed to div for better structure -->
-                <li id="vehicle_{{ vehicle.vehicle_id }}" class="{% if vehicle_detail and vehicle.vehicle_id == vehicle_detail.vehicle_id %}highlight{% endif %}">
-                    <div class="vehicle-item">
-                        <img src="{{ vehicle.image_base64 }}" alt="{{ vehicle.vehicle_model }}">
-                        <div class="vehicle-info">
-                            <br>
-                            <h3>{{ vehicle.vehicle_brand }}</h3>
-                            <h3>{{ vehicle.vehicle_model }}</h3>
-                            <p>{{ vehicle.vehicle_type }}</p>
-                            <p class="vehicle-price">Php {{ vehicle.vehicle_price }}/day</p>
-                        </div>
-                        <div class="vehicle-button-container">
-                            <form method="POST" action="">
-                                {% csrf_token %}
-                                <button type="button" class="view-button" 
-                                    data-vehicle-id="{{ vehicle.vehicle_id }}"
-                                    data-vehicle-brand="{{ vehicle.vehicle_brand }}"
-                                    data-vehicle-model="{{ vehicle.vehicle_model }}"
-                                    data-vehicle-type="{{ vehicle.vehicle_type }}"
-                                    data-vehicle-price="{{ vehicle.vehicle_price }}"
-                                    data-vehicle-image="{{vehicle.image_base64 }}">View</button>
-                            </form>
-                        </div>
+        <div class="vehicle-list-wrapper">
+            {% for data in vehicle_data %}
+            <div class="vehicle-list-container">
+                <div class="vehicle-item">
+                    <img src="{{ data.vehicles.0.image_base64 }}" alt="{{ data.vehicle_model.model }}">
+                    <div class="vehicle-info">
+                        <h3>{{ data.vehicle_model.vehicle_brand }}</h3>
+                        <h3>{{ data.vehicle_model.vehicle_model }}</h3>
+                        <p>Price: Php {{ data.vehicle_model.vehicle_price}}/day</p>
+                        <p>Available Units: {{ data.available_count }}</p>
                     </div>
-                </li>
-            </div> <!-- End of vehicle-list-container -->
+                    <div class="vehicle-button-container">
+                        <button type="button" class="view-button"
+                            data-vehicle-id="{{ data.vehicles.0.vehicle_id }}"
+                            data-vehicle-brand="{{ data.vehicle_model.brand }}"
+                            data-vehicle-model="{{ data.vehicle_model.model }}"
+                            data-vehicle-description="{{ data.vehicle_model.vehicle_description }}"
+                            data-vehicle-price="{{ data.vehicle_model.price_per_day }}"
+                            data-vehicle-image="{{ data.vehicles.0.image_base64 }}">
+                            View
+                        </button>
+                    </div>
+                </div>
+            </div>
             {% endfor %}
-        </div> <!-- End of vehicle-list-wrapper -->
+        </div>
     </section>
     
 

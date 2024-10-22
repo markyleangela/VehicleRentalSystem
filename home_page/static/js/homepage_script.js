@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
     const modal = document.getElementById('vehicle-modal');
     const closeModalButton = document.getElementById('close-modal');
-    const burgerMenu = document.getElementById("burger-menu"); // Update ID to match HTML
-    const dropdownMenu = document.getElementById("dropdownMenu");
+    const burgerMenu = document.getElementById("burger-menu"); // Burger menu for mobile navigation
+    const dropdownMenu = document.getElementById("dropdownMenu"); // Dropdown menu
 
     // Open modal when clicking the "View" button
     document.querySelectorAll('.view-button').forEach(button => {
@@ -13,12 +13,14 @@ document.addEventListener('DOMContentLoaded', function () {
             const vehicleType = this.getAttribute('data-vehicle-type');
             const vehiclePrice = this.getAttribute('data-vehicle-price');
             const vehicleImg = this.getAttribute('data-vehicle-image');
+            const vehicleDesc = this.getAttribute('data-vehicle-description');
 
             // Populate modal with vehicle details
             document.getElementById('modal-vehicle-info').innerHTML = `
                 <img src="${vehicleImg}" alt="${vehicleModel}" style="width: 100%; max-width: 300px;"/>
                 <h3>${vehicleBrand}</h3>
                 <h3>${vehicleModel}</h3>
+                <p>${vehicleDesc ? vehicleDesc : 'No description available'}</p>
                 <p>${vehicleType}</p>
                 <p class="vehicle-price">Php ${vehiclePrice}/day</p>
             `;
@@ -39,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Toggle dropdown menu visibility when clicking the burger menu
+    // Toggle dropdown menu visibility when clicking the burger menu (for mobile)
     burgerMenu.addEventListener("click", () => {
         // Toggle dropdown menu display
         dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
