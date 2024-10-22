@@ -9,38 +9,44 @@
 
 </head>
 <body>
-    <div class="profile-container">
-        <!-- Profile Picture -->
-        <div class="profile-pic-container">
-            {% if profile.image_base64 %}
-                <img class="profile-pic" src="{{ profile.image_base64 }}" alt="Profile Image">
-            {% else %}
-            <img src="{% static 'images/default-profile.jpg' %}" alt="Default Profile Image">
+    <h1>My Profile</h1>
+    <div class='all-info-container'>
+        <div class='profile-section'>
+        
+            <div class="profile-pic-container">
+                {% if profile.image_base64 %}
+                    <img class="profile-pic" src="{{ profile.image_base64 }}" alt="Profile Image">
+                {% else %}
+                <img src="{% static '' %}" alt="Default Profile Image">
+    
+                {% endif %}
+            </div>
+            <div class='name-license-container'>
+                <h2 class="profile-name">{{ user.first_name }} {{ user.last_name }}SAMANTHA SMITH</h2>
+                <span class="profile-value" placeholder="License No.">{{ profile.license_no }} License No. H12193198</span>
+            </div>
+            <div class='edit-button'>
+                <button>EDIT</button>
 
-            {% endif %}
+            </div>
+            
+        </div>
+    
+        <div class='personal-info-section'>
+            <p>First Name</p>
+            <p>Last Name</p>
+            <p>Birth Date</p>
+        </div>
+    
+        <div class='contact-info-section'>
+            <p>Email Address</p>
+            <p>Contact Number</p>
+            
         </div>
 
-        <!-- Name -->
-        <h2 class="profile-name">{{ user.first_name }} {{ user.last_name }}</h2>
-
-        <!-- Profile Details -->
-        <div class="profile-details">
-            <div class="profile-field">
-                <span class="profile-value" placeholder="Email">{{ user.email }}</span>
-            </div>
-            <div class="profile-field">
-                <span class="profile-value" placeholder="License No.">{{ profile.license_no }}</span>
-            </div>
-
-            <div class="profile-row">
-                <div class="profile-field half">
-                    <span class="profile-value" placeholder="Phone Number">{{ profile.phone_number }}</span>
-                </div>
-                <div class="profile-field half">
-                    <span class="profile-value" placeholder="birth Date">{{ profile.birth_date }}</span>
-                </div>
-            </div>
-        </div>
+    </div>
+    
+   
 
         <!-- Edit and Back Buttons -->
         <div class="profile-actions">

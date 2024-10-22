@@ -1,94 +1,42 @@
-body {
-    font-family: 'Arial', sans-serif;
+html, body {
+    height: 100%; /* Set height to 100% for both html and body */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+
+}
+
+body::before {
+    content: '';
+    position: absolute; /* Position the overlay */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background-image: url('../images/cover-img.jpg'); /* Background image */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; /* Cover the whole area */
+    opacity: 0.2; /* Set opacity (0 to 1, where 0 is fully transparent and 1 is fully opaque) */
+    z-index: -1; /* Place it behind other content */
+}
+
+
+.all-info-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-color: #fff;
-    margin: 0;
+    gap: 30px;
 }
 
-.profile-container {
-    width: 400px;
-    text-align: center;
+.profile-section, .personal-info-section, .contact-info-section  {
+    background-color: white;
+    width: 80%;
+    border-radius: 10px;
+
 }
 
-.profile-pic-container {
+.profile-section {
     display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-img.profile-pic {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 10px;
-}
-
-.profile-name {
-    font-size: 24px;
-    font-weight: bold;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-}
-
-.profile-details {
-    margin-top: 20px;
-}
-
-.profile-field {
-    display: block;
-    border: 1px solid #ccc;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 25px;
-    font-size: 16px;
-    text-align: center;
-}
-
-.profile-row {
-    display: flex;
-    justify-content: space-between;
-}
-
-.half {
-    width: 48%;
-}
-
-.profile-value {
-    font-size: 16px;
-    color: #333;
-}
-
-.profile-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-
-.edit-btn, .back-btn {
-    width: 120px;
-    padding: 10px;
-    border-radius: 25px;
-    text-decoration: none;
-    font-size: 16px;
-    text-align: center;
-    display: inline-block;
-    color: #fff;
-}
-
-.edit-btn {
-    background-color: #002f6c;
-}
-
-.back-btn {
-    background-color: #b3c2d4;
-    color: #000;
-}
-
-.edit-btn:hover, .back-btn:hover {
-    opacity: 0.9;
 }
