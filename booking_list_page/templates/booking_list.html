@@ -1,23 +1,69 @@
-
-
-{% block content %}
-  <h2>Your Bookings</h2>
-
-  {% if records %}
-    <ul>
-      {% for record in records %}
-        <li>
-            Customer : {{record.customer}}
-          Vehicle: {{ record.vehicle }} <br>
-          Start Date: {{ record.start_date }} <br>
-          Return Date: {{ record.return_date|default:"Not Returned" }} <br>
-          Total Amount: {{ record.total_amount }} <br>
-          Payment Status: {{ record.payment_status|yesno:"Paid,Not Paid" }} <br>
-          Return Status: {{ record.return_status|yesno:"Returned,Not Returned" }} <br>
-        </li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p>No bookings found.</p>
-  {% endif %}
-{% endblock %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Bookings</title>
+    <link rel="stylesheet" href="{% static 'css/booking_list.css' %}"> <!-- Link to your CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="bookings-container">
+        <h2>Your Bookings</h2>
+        <div class="tabs">
+            <button class="tab active">All</button>
+            <button class="tab">In-Progress</button>
+            <button class="tab">Completed</button>
+        </div>
+        <div class="table-container">
+            <table class="bookings-table">
+                <thead>
+                    <tr>
+                        <th>Rental ID</th>
+                        <th>Vehicle</th>
+                        <th>Start Date</th>
+                        <th>Return Date</th>
+                        <th>Total Amount</th>
+                        <th>Return Status</th>
+                        <th>Payment Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if records %}
+                        {% for record in records %}
+                            <tr>
+                                <td>#{{ record.rental_id }}</td> <!-- Shows the record number -->
+                                <td>{{ record.vehicle.vehicle_id }}</td>
+                                <td>{{ record.start_date }}</td>
+                                <td>{{ record.return_date|default:"Not Returned" }}</td>
+                                <td>{{ record.total_amount }}</td>
+                                <td>
+                                    {% if record.return_status %}
+                                        <span class="returned">Returned</span>
+                                    {% else %}
+                                        <span class="pending-return">Pending Return</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if record.payment_status %}
+                                        <span class="paid">Paid</span>
+                                    {% else %}
+                                        <span class="not-paid">Not Paid</span>
+                                    {% endif %}
+                                </td>
+                                <td><i class="fa fa-eye"></i></td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="8">No bookings found.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
