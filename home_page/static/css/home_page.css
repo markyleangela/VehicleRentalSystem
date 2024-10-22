@@ -154,6 +154,12 @@ section {
     font-family: 'Secular One', sans-serif; /* Apply Secular One font */
 }
 
+.vehicle-list-wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Four columns */
+    gap: 20px; /* Space between items */
+}
+
 .vehicle-list-container {
     background-color: white;
     border-radius: 10px;

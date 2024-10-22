@@ -29,8 +29,8 @@
                 </div>
                 <nav class="dropdown" id="dropdownMenu">
                     <ul>
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Bookings</a></li>
+                        <li><a href="{% url 'profile_page' %}">Profile</a></li>
+                        <li><a href="{% url 'profile_page' %}">Bookings</a></li>
                         <li><a href="#">Logout</a></li>
                     </ul>
                 </nav>
@@ -50,8 +50,9 @@
     </section>
     
     <section class="lower-section">
-        {% for vehicle in vehicles %} 
-        <section class="vehicle-list-container">
+        <div class="vehicle-list-wrapper"> <!-- New wrapper -->
+            {% for vehicle in vehicles %} 
+            <div class="vehicle-list-container"> <!-- Changed to div for better structure -->
                 <li id="vehicle_{{ vehicle.vehicle_id }}" class="{% if vehicle_detail and vehicle.vehicle_id == vehicle_detail.vehicle_id %}highlight{% endif %}">
                     <div class="vehicle-item">
                         <img src="{{ vehicle.image_base64 }}" alt="{{ vehicle.vehicle_model }}">
@@ -76,9 +77,11 @@
                         </div>
                     </div>
                 </li>
-        </section>
-        {% endfor %}
+            </div> <!-- End of vehicle-list-container -->
+            {% endfor %}
+        </div> <!-- End of vehicle-list-wrapper -->
     </section>
+    
 
     <div id="vehicle-modal" class="modal">
         <div class="modal-content">
