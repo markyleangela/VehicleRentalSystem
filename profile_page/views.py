@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import ProfileForm
-from .models import Profile
+from user_profile.models import ProfileInfo
 import base64
 from io import BytesIO
 from PIL import Image
@@ -14,7 +14,7 @@ from django.contrib.auth import logout
 @login_required
 def update_profile(request):
     # Get or create the profile for the logged-in user
-    profile, created = Profile.objects.get_or_create(user=request.user)
+    profile, created = ProfileInfo.objects.get_or_create(user=request.user)
 
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES, instance=profile, user=request.user)
@@ -78,7 +78,7 @@ def update_profile(request):
 @login_required
 def view_profile(request):
     try:
-        profile = Profile.objects.get(user=request.user)
+        profile = ProfileInfo.objects.get(user=request.user)
         
         if profile.profile_image:
             try:
@@ -115,14 +115,10 @@ def view_profile(request):
                     profile.image_base64 = f"data:image/jpeg;base64,{base64.b64encode(buffer.getvalue()).decode('utf-8')}"
             except FileNotFoundError:
                 profile.image_base64 = None  # Handle missing default image
-    except Profile.DoesNotExist:
+    except ProfileInfo.DoesNotExist:
         profile = None
     
     return render(request, 'user_profile.html', {'profile': profile, 'user': request.user})
 
 
-def logout_view(request):
-    if request.method == 'POST':
-        logout(request)
-        return redirect('your_redirect_url')
-    return render(request, 'your_app/logout_confirm.html')
+

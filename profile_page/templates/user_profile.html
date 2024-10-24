@@ -25,8 +25,8 @@
                 {% endif %}
             </div>
             <div class='name-license-container'>
-                <h2 class="profile-name">{{ user.first_name }} {{ user.last_name }}SAMANTHA SMITH</h2>
-                <span class="profile-value" placeholder="License No.">{{ profile.license_no }} License No. H12193198</span>
+                <h2 class="profile-name">{{ user.first_name }} {{ user.last_name }}</h2>
+                <span class="profile-value" placeholder="License No.">License No. {{ profile.license_no }} </span>
                 <p>Fully Verified <i class="fas fa-check-circle"></i></p>
 
             </div>
@@ -48,9 +48,9 @@
                 </div>
     
                 <div class='personal-info-value'>
-                    <p>Samantha</p>
-                    <p>Smith</p>
-                    <p>October 10, 2000</p>
+                    <p>{{ user.first_name }}</p>
+                    <p>{{ user.last_name }}</p>
+                    <p>{{profile.birth_date}}</p>
                 </div>
             </div>
             
@@ -72,8 +72,8 @@
                 </div>
     
                 <div class='personal-info-value'>
-                    <p>samantha@gmail.com</p>
-                    <p>09458795029</p>
+                    <p>{{user.email}}</p>
+                    <p>{{profile.phone_number}}</p>
                
                 </div>
             </div>

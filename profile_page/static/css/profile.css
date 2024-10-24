@@ -37,6 +37,14 @@ body::before {
     gap: 30px;
 }
 
+.profile-pic {
+    width: 150px; /* Set the width */
+    height: 150px; /* Set the height */
+    object-fit: cover; /* Ensures the image covers the area while maintaining aspect ratio */
+    border-radius: 50%; /* Optional: If you want a circular image */
+}
+
+
 .edit-button {
     margin-left: auto;
 }

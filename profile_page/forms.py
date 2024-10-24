@@ -1,6 +1,6 @@
 # forms.py
 from django import forms
-from .models import Profile
+from user_profile.models import ProfileInfo
 
 class ProfileForm(forms.ModelForm):
     # Adding fields for first name and last name
@@ -9,7 +9,7 @@ class ProfileForm(forms.ModelForm):
     profile_image = forms.ImageField(label='Image', required=True)
 
     class Meta:
-        model = Profile
+        model = ProfileInfo
         fields = ['first_name', 'last_name','license_no', 'phone_number', 'birth_date']  
 
     def __init__(self, *args, **kwargs):
