@@ -2,6 +2,7 @@ html, body {
     height: 100%; /* Set height to 100% for both html and body */
     margin: 0; /* Remove default margin */
     padding: 0; /* Remove default padding */
+    overflow: scroll;
 
 }
 
@@ -27,16 +28,53 @@ body::before {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 20px;
+    font-family: 'Secular One', sans-serif;
+}
+
+.profile-section {
+    display: flex;
     gap: 30px;
 }
+
+.edit-button {
+    margin-left: auto;
+}
+
 
 .profile-section, .personal-info-section, .contact-info-section  {
     background-color: white;
     width: 80%;
     border-radius: 10px;
+    padding: 20px;
 
 }
 
-.profile-section {
+
+.personal-info-label, .personal-info-value {
     display: flex;
+    gap: 50px;
+    align-items: center;
+   
+}
+
+
+.personal-info-section, .contact-info-section{
+
+    display: flex;
+
+}
+
+.edit-btn, .back-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: #1E2A5E; 
+    color: white; 
+    cursor: pointer;
+    transition: background-color 0.3s; 
+}
+
+a {
+    text-decoration: none;
 }

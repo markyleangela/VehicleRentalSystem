@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,24 +7,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Profile</title>
     <link rel="stylesheet" href="{% static 'css/profile.css' %}?v={{ STATIC_VERSION }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
 </head>
 <body>
-    <h1>My Profile</h1>
+   
     <div class='all-info-container'>
+        <h1>My Profile</h1>
         <div class='profile-section'>
         
             <div class="profile-pic-container">
                 {% if profile.image_base64 %}
                     <img class="profile-pic" src="{{ profile.image_base64 }}" alt="Profile Image">
                 {% else %}
-                <img src="{% static '' %}" alt="Default Profile Image">
+                <img src="" alt="Default Profile Image">
     
                 {% endif %}
             </div>
             <div class='name-license-container'>
                 <h2 class="profile-name">{{ user.first_name }} {{ user.last_name }}SAMANTHA SMITH</h2>
                 <span class="profile-value" placeholder="License No.">{{ profile.license_no }} License No. H12193198</span>
+                <p>Fully Verified <i class="fas fa-check-circle"></i></p>
+
             </div>
             <div class='edit-button'>
                 <button>EDIT</button>
@@ -33,26 +38,63 @@
         </div>
     
         <div class='personal-info-section'>
-            <p>First Name</p>
-            <p>Last Name</p>
-            <p>Birth Date</p>
+            
+            <div class='info-edit'>
+                <h3>Personal Information</h3>
+                <div class='personal-info-label'>
+                    <p>First Name</p>
+                    <p>Last Name</p>
+                    <p>Birth Date</p>
+                </div>
+    
+                <div class='personal-info-value'>
+                    <p>Samantha</p>
+                    <p>Smith</p>
+                    <p>October 10, 2000</p>
+                </div>
+            </div>
+            
+            
+
+            <div class='edit-button'>
+                <button>EDIT</button>
+
+            </div>
         </div>
     
         <div class='contact-info-section'>
-            <p>Email Address</p>
-            <p>Contact Number</p>
+            <div class='info-edit'>
+                <h3>Contact Information</h3>
+                <div class='personal-info-label'>
+                    <p>Email Address</p>
+                    <p>Contact Number</p>
+            
+                </div>
+    
+                <div class='personal-info-value'>
+                    <p>samantha@gmail.com</p>
+                    <p>09458795029</p>
+               
+                </div>
+            </div>
+            
+            
+
+            <div class='edit-button'>
+                <button>EDIT</button>
+
+            </div>
             
         </div>
 
-    </div>
-    
-   
-
-        <!-- Edit and Back Buttons -->
         <div class="profile-actions">
             <a href="{% url 'update_profile' %}" class="edit-btn">EDIT</a>
             <a href="{% url 'home' %}" class="back-btn">BACK</a>
         </div>
+
     </div>
+        <!-- Edit and Back Buttons -->
+        
+
 </body>
 </html>
