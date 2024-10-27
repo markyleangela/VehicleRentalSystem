@@ -179,3 +179,24 @@ h2 {
 }
 
 
+.back-btn {
+
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: #1E2A5E; 
+    color: white; 
+    cursor: pointer;
+    transition: background-color 0.3s; 
+}
+
+.profile-actions{
+    width: 90%;
+    display: flex;
+    justify-content: end;
+
+}
+
+a {
+    text-decoration: none;
+}

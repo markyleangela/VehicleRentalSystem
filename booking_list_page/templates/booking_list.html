@@ -12,9 +12,10 @@
 </head>
 <body>
  
-
+    
   
     <div class="bookings-container">
+        
         <h2>Your Bookings</h2>
         <div class="tabs">
             <button class="tab active" onclick="filterBookings('all')">All</button>
@@ -86,6 +87,8 @@
         </div>
     </div>
 
+    
+
     <div id="vehicle-modal" class="modal">
         
         <div class="modal-content">
@@ -99,6 +102,11 @@
             
             <span class="close-button" id="close-modal">&times;</span>
         </div>
+    </div>
+
+    <div class="profile-actions">
+        
+        <a href="{% url 'home' %}" class="back-btn">BACK</a>
     </div>
     <script src="{% static 'js/booking_list.js' %}" defer></script>
 
