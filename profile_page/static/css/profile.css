@@ -63,6 +63,9 @@ body::before {
     display: flex;
     gap: 50px;
     align-items: center;
+
+    /* display: grid;
+    grid-template-columns: repeat(2, 1fr); */
    
 }
 
@@ -86,3 +89,4 @@ body::before {
 a {
     text-decoration: none;
 }
+
