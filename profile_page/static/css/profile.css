@@ -1,8 +1,8 @@
 html, body {
     height: 100%; /* Set height to 100% for both html and body */
     margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */
-    overflow: scroll;
+    padding: 10px; /* Remove default padding */
+    overflow: auto;
 
 }
 
@@ -29,7 +29,7 @@ body::before {
     justify-content: center;
     align-items: center;
     gap: 20px;
-    font-family: 'Secular One', sans-serif;
+    /* font-family: 'Secular One', serif; */
 }
 
 .profile-section {
@@ -47,10 +47,18 @@ body::before {
 
 .edit-button {
     margin-left: auto;
+ 
+}
+
+.edit-button a {
+    text-decoration: none;
+    color: #1E2A5E;
+   
 }
 
 
-.profile-section, .personal-info-section, .contact-info-section  {
+
+.profile-section, .personal-info-section {
     background-color: white;
     width: 80%;
     border-radius: 10px;
@@ -59,24 +67,17 @@ body::before {
 }
 
 
-.personal-info-label, .personal-info-value {
-    display: flex;
-    gap: 50px;
-    align-items: center;
-
-    /* display: grid;
-    grid-template-columns: repeat(2, 1fr); */
-   
-}
 
 
-.personal-info-section, .contact-info-section{
+
+.personal-info-section{
 
     display: flex;
 
 }
 
-.edit-btn, .back-btn {
+.back-btn {
+
     padding: 10px 20px;
     border: none;
     border-radius: 20px;
@@ -86,7 +87,25 @@ body::before {
     transition: background-color 0.3s; 
 }
 
+.profile-actions{
+    width: 80%;
+    display: flex;
+    justify-content: end;
+
+}
+
 a {
     text-decoration: none;
 }
 
+
+.personal-info-label, .personal-info-value {
+    /* display: flex;
+    gap: 50px;
+    align-items: center; */
+
+    display: grid;
+    grid-template-columns: repeat(3, 2fr);
+    gap: 3rem;
+   
+}

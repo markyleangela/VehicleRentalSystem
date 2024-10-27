@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .forms import ProfileForm
+from .forms import ProfileForm, PersonalDetailsForm
 from user_profile.models import ProfileInfo
 import base64
 from io import BytesIO
@@ -9,6 +9,7 @@ import os
 from django.conf import settings
 from django.templatetags.static import static  # Import static for default image
 from django.contrib.auth import logout
+import re
 
 
 @login_required
@@ -20,7 +21,23 @@ def update_profile(request):
         form = ProfileForm(request.POST, request.FILES, instance=profile, user=request.user)
         if form.is_valid():
             # Save form data (first name, last name, etc.)
-            form.save()  
+            form.save()
+
+            # Validate the license number if it exists in the form
+            license_number = form.cleaned_data.get('license_no')  # Adjust this based on your form field name
+            if license_number:
+                if not is_valid_license_format(license_number):
+                    form.add_error('license_no', 'Invalid format license number.')
+                    return render(request, 'update_profile.html', {'form': form, 'profile': profile})
+                elif not is_unique_license_number(license_number, request.user):
+                    form.add_error('license_no', 'Duplicate license number.')
+                    return render(request, 'update_profile.html', {'form': form, 'profile': profile})
+                else:
+                    profile.user_status = True  # Set verified status if valid
+            else:
+                profile.user_status = False  # Set unverified status if no license number
+
+            profile.save()  # Save the updated profile status
 
             # Check for the image upload
             if 'profile_image' in request.FILES and request.FILES['profile_image']:
@@ -72,14 +89,31 @@ def update_profile(request):
     return render(request, 'update_profile.html', {'form': form, 'profile': profile})
 
 
+@login_required
+def update_details(request):
+    # Get or create the profile for the logged-in user
+    profile, created = ProfileInfo.objects.get_or_create(user=request.user)
 
+    if request.method == 'POST':
+        form = PersonalDetailsForm(request.POST, instance=profile, user=request.user)
+        if form.is_valid():
+            # Save form data (like first name, last name, etc.)
+            form.save()
+            return redirect('profile_page')
+    else:
+        form = PersonalDetailsForm(instance=profile, user=request.user)  # Load form with existing profile details
+
+    return render(request, 'update_details.html', {'form': form, 'profile': profile})
 
 
 @login_required
 def view_profile(request):
     try:
         profile = ProfileInfo.objects.get(user=request.user)
-        
+
+        # Check the license number validation and set user status
+    
+
         if profile.profile_image:
             try:
                 # Convert the binary image (blob) to base64 for rendering in HTML
@@ -115,10 +149,30 @@ def view_profile(request):
                     profile.image_base64 = f"data:image/jpeg;base64,{base64.b64encode(buffer.getvalue()).decode('utf-8')}"
             except FileNotFoundError:
                 profile.image_base64 = None  # Handle missing default image
+        profile.verification_status = "Verified" if profile.user_status else "Unverified"
     except ProfileInfo.DoesNotExist:
         profile = None
     
+    # Determine user status for display
+    
+
     return render(request, 'user_profile.html', {'profile': profile, 'user': request.user})
 
 
+def is_valid_license_format(license_number):
+    # Pattern: One uppercase letter followed by two digits, a dash, two digits, a dash, and then five digits
+    pattern = r"^[A-Z]\d{2}-\d{2}-\d{6}$"
+ 
+    return bool(re.match(pattern, license_number))
 
+
+def is_unique_license_number(license_number, user):
+    # Check for the license number in the database excluding the current user's profile
+    return not ProfileInfo.objects.exclude(user=user).filter(license_no=license_number).exists()
+
+
+
+# def validate_license_number(license_number):
+#     if is_valid_license_format(license_number) and is_unique_license_number(license_number, request.user):
+#         return True
+#     return False

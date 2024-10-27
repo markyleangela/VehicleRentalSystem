@@ -5,12 +5,34 @@
     font-family: Arial, sans-serif;
 }
 
-body {
+
+html, body {
+    height: 100%; /* Set height to 100% for both html and body */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f8f8f8;
+    
+
+}
+
+body::before {
+    content: '';
+    position: absolute; /* Position the overlay */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background-image: url('../images/cover-img.jpg'); /* Background image */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; /* Cover the whole area */
+    opacity: 0.2; /* Set opacity (0 to 1, where 0 is fully transparent and 1 is fully opaque) */
+    z-index: -1; /* Place it behind other content */
 }
 
 .container {
@@ -20,6 +42,7 @@ body {
     padding: 20px;
 
     text-align: center;
+
 }
 
 .profile-pic-wrapper {
@@ -45,6 +68,10 @@ body {
     flex-direction: column;
     gap: 15px;
     margin-bottom: 20px;
+
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
 }
 
 .input-row {
@@ -83,4 +110,12 @@ body {
 .cancel-btn {
     background-color: #b3c2d4;
     color: black;
+}
+
+
+#imagePreview {
+    width: 100%; /* Image scales to fill the width of its container */
+    height: auto; /* Maintain aspect ratio */
+    max-height: 200px; /* Optional: Set a max height to prevent excessive growth */
+    object-fit: cover; /* Crop image if it's larger than container */
 }
