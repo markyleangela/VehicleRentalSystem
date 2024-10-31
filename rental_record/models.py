@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from vehicles.models import Vehicle
 
 class RentalRecord(models.Model):
+    rental_id = models.AutoField(primary_key=True)
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
     vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
     start_date = models.DateField()

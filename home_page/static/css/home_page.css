@@ -154,6 +154,12 @@ section {
     font-family: 'Secular One', sans-serif; /* Apply Secular One font */
 }
 
+.vehicle-list-wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Four columns */
+    gap: 20px; /* Space between items */
+}
+
 .vehicle-list-container {
     background-color: white;
     border-radius: 10px;
@@ -244,12 +250,13 @@ section {
 }
 
 .vehicle-button-container button {
-    background-color: #1E2A5E;
-    color: white;
-    padding: 10px 15px;
+    padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 20px;
+    background-color: #1E2A5E; 
+    color: white; 
     cursor: pointer;
+    transition: background-color 0.3s; 
 }
 
 .vehicle-button-container button:hover {
@@ -292,12 +299,21 @@ section {
 }
 
 .modal-content {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
     background-color: #fefefe;
+    font-family: 'Secular One', sans-serif; 
     margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
+    padding: 30px;
+    border-radius: 10px;
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
+  
 }
+
+
 
 .close-button {
     color: #aaa;
@@ -311,4 +327,173 @@ section {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+
+
+
+.burger-menu {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.line {
+    height: 4px;
+    width: 30px;
+    background-color: black;
+    margin: 3px 0;
+}
+
+
+#dropdownMenu {
+    display: none; /* Initially hidden */
+    position: absolute;
+    font-family: 'Secular One', sans-serif;
+    top: 80px;
+    right: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 180px;
+    border-radius: 5px;
+    padding: 5px;
+    z-index: 1000;
+   
+    
+}
+
+#dropdownMenu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+ 
+}
+
+
+
+#dropdownMenu ul li {
+    width: 100%;
+
+}
+
+#dropdownMenu ul li a {
+    text-decoration: none;
+    color: #333;
+}
+
+
+
+#dropdownMenu ul li a:hover {
+    color:  #1E2A5E;
+}
+
+
+/* Active class to show the dropdown */
+#dropdownMenu.active {
+    display: block;
+  
+}
+
+.head-nav {
+    display: flex;
+
+    justify-content: space-between;
+    margin-left: 5vw;
+    margin-right: 5vw;
+
+}
+
+.filter-container {
+    display: flex;
+    align-items: center;
+}
+
+.filter-container label {
+    margin-right: 10px;
+    font-size: 1.75vh;
+  
+}
+
+.filter-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: #1E2A5E; 
+    color: white; 
+    cursor: pointer;
+    transition: background-color 0.3s; 
+}
+
+.filter-dropdown {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px; 
+    appearance: none; 
+    background-color: white; 
+    cursor: pointer;
+    width: 20vh;
+    text-align: center;
+}
+
+
+.filter-dropdown::after {
+    content: '▼'; 
+    position: absolute;
+    right: 20px; 
+    pointer-events: none; 
+}
+
+.filter-dropdown option {
+    padding: 10px; 
+}
+
+.filter-container button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: #1E2A5E; 
+    color: white; 
+    cursor: pointer;
+    transition: background-color 0.3s; 
+}
+
+
+.brand-model-price {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: x-large;
+   
+    
+ 
+}
+
+.specs-1, .specs-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Four columns */
+    font-family: 'Roboto', sans-serif;
+    width: 40%;
+  
+
+}
+
+
+.book-button {
+    display: flex;
+    justify-content: end;
+
+    
+}
+
+
+.book-button button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: #1E2A5E; 
+    color: white; 
+    cursor: pointer;
+    transition: background-color 0.3s; 
 }

@@ -7,29 +7,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/home_page.css' %}"> <!-- Link to your CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Home</title>
 </head>
 <body>
     <section class="upper-section">
         {% block navigation %}
         <div class="nav-container">
-            
             <nav class="nav-bar">
                 <div class="logo">
                     <img src="{% static 'images/Logo-Clear.png' %}" alt="Logo">
                 </div>
                 <ul id="nav-links">
                     <li><a href="{% url 'home' %}">Home</a></li>
-                    <li><a href="">Vehicles</a></li>
-                    <li><a href="#About Us">About Us</a></li>
-                    
-                    
+                    <li><a href="">About Us</a></li>
+                    <li><a href="#Contact Us">Contact Us</a></li>
                 </ul>
                 <div class="burger-menu" id="burger-menu">
                     <div class="line"></div>
                     <div class="line"></div>
                     <div class="line"></div>
                 </div>
+                <nav class="dropdown" id="dropdownMenu">
+                    <ul>
+                        <li>
+                            <a href="{% url 'profile_page' %}">
+                                <i class="fas fa-user"></i> Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'booking_list' %}">
+                                <i class="fas fa-book"></i> Bookings
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'logout' %}">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                
                 
             </nav>
         </div>
@@ -42,13 +60,30 @@
     </section>
 
     <section class="mid-section">
-        <h1 class='featured-text'>FEATURED VEHICLES</h1>
+        <h1 class='featured-text'>LIST OF VEHICLES</h1>
+        
+    </section>
+    <section class="head-nav">
+        <div class="filter-container">
+            <form method="GET" action="">
+                <select id="filter" name="vehicle_type" class="filter-dropdown">
+                    <option value="all" {% if type_filter == 'all' %}selected{% endif %}>VIEW ALL</option>
+                    <option value="4 seater" {% if type_filter == '4 seater' %}selected{% endif %}>4 seater</option>
+                    <option value="6 seater" {% if type_filter == '6 seater' %}selected{% endif %}>6 seater</option>
+                    <option value="1 seater" {% if type_filter == 'Motorcycle' %}selected{% endif %}>Motorcycle</option>
+                </select>
+                <button class="filter-button" type="submit">Filter By</button>
+            </form>
+        </div>
+
+        
     </section>
     
     <section class="lower-section">
-        {% for vehicle in vehicles %} 
-        <section class="vehicle-list-container">
-
+        
+        <div class="vehicle-list-wrapper"> <!-- New wrapper -->
+            {% for vehicle in vehicles %} 
+            <div class="vehicle-list-container"> <!-- Changed to div for better structure -->
                 <li id="vehicle_{{ vehicle.vehicle_id }}" class="{% if vehicle_detail and vehicle.vehicle_id == vehicle_detail.vehicle_id %}highlight{% endif %}">
                     <div class="vehicle-item">
                         <img src="{{ vehicle.image_base64 }}" alt="{{ vehicle.vehicle_model }}">
@@ -63,32 +98,34 @@
                             <form method="POST" action="">
                                 {% csrf_token %}
                                 <button type="button" class="view-button" 
-        data-vehicle-id="{{ vehicle.vehicle_id }}"
-        data-vehicle-brand="{{ vehicle.vehicle_brand }}"
-        data-vehicle-model="{{ vehicle.vehicle_model }}"
-        data-vehicle-type="{{ vehicle.vehicle_type }}"
-        data-vehicle-price="{{ vehicle.vehicle_price }}"
-        data-vehicle-image="{{vehicle.image_base64 }}">View</button>
+                                    data-vehicle-id="{{ vehicle.vehicle_id }}"
+                                    data-vehicle-brand="{{ vehicle.vehicle_brand }}"
+                                    data-vehicle-model="{{ vehicle.vehicle_model }}"
+                                    data-vehicle-type="{{ vehicle.vehicle_type }}"
+                                    data-vehicle-price="{{ vehicle.vehicle_price }}"
+                                    data-vehicle-image="{{vehicle.image_base64 }}">View</button>
                             </form>
                         </div>
                     </div>
                 </li>
-         
-     
-        </section>
-        {% endfor %}
-
-        
+            </div> <!-- End of vehicle-list-container -->
+            {% endfor %}
+        </div> <!-- End of vehicle-list-wrapper -->
     </section>
+    
 
     <div id="vehicle-modal" class="modal">
+        
         <div class="modal-content">
-            <span class="close-button" id="close-modal">&times;</span>
-            <h2>Vehicle Details</h2>
-            <div id="modal-vehicle-info">
-                    
+            
+            <div id="modal-vehicle-img">
+              
             </div>
-            <button>BOOK</button>
+            <div id="modal-vehicle-info"> 
+                
+            </div>
+            
+            <span class="close-button" id="close-modal">&times;</span>
         </div>
     </div>
 

@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
     const modal = document.getElementById('vehicle-modal');
     const closeModalButton = document.getElementById('close-modal');
+    const burgerMenu = document.getElementById("burger-menu"); // Update ID to match HTML
+    const dropdownMenu = document.getElementById("dropdownMenu");
 
     // Open modal when clicking the "View" button
     document.querySelectorAll('.view-button').forEach(button => {
@@ -14,11 +16,37 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Populate modal with vehicle details
             document.getElementById('modal-vehicle-info').innerHTML = `
-                <img src="${vehicleImg}" alt="${vehicleModel}" style="width: 100%; max-width: 300px;"/>
-                <h3>${vehicleBrand}</h3>
-                <h3>${vehicleModel}</h3>
-                <p>${vehicleType}</p>
-                <p class="vehicle-price">Php ${vehiclePrice}/day</p>
+                <div class='brand-model-price'><h3>${vehicleBrand} ${vehicleModel}</h3>
+                    <p class="vehicle-price">Php ${vehiclePrice}/day</p>
+                </div>
+   
+                <div class='vehicle-specs'> 
+                    <div class='specs-1'>
+                        <p><i class="fas fa-car"></i> ${vehicleType}</p>
+                        <p><i class="fas fa-suitcase"></i> 1 large bag</p>
+                    </div>
+
+                    <div class='specs-2'>
+                        <p><i class="fas fa-cog"></i> Automatic</p>
+                        <p><i class="fas fa-road"></i> Unlimited Mileage</p>
+                    </div>
+                    
+                    
+                </div>
+
+                
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                 Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                  when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+
+                <div class='book-button'>
+                    <button >BOOK</button>
+                </div>
+                
+            `;
+
+            document.getElementById('modal-vehicle-img').innerHTML = `
+                <img src="${vehicleImg}" alt="${vehicleModel}" style="width: 100%; max-width: 550px;"/>
                 
             `;
 
@@ -37,4 +65,10 @@ document.addEventListener('DOMContentLoaded', function () {
             modal.style.display = 'none';
         }
     });
+
+    // Toggle dropdown menu visibility when clicking the burger menu
+    burgerMenu.addEventListener("click", () => {
+        dropdownMenu.classList.toggle("active");
+    });
+    
 });

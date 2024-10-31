@@ -71,7 +71,7 @@ def vehicle_list(request, vehicle_id = None):
 
 
 
-
+@login_required
 def logout_view(request):
     if request.method == 'POST':
         logout(request)

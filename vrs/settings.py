@@ -46,6 +46,11 @@ INSTALLED_APPS = [
     'crud_operations_for_vehicles',
     'profile_page',
     'home_page',
+    'rental_record',
+    'booking_list_page',
+    'user_profile',
+    'license'
+    
 
     
 ]

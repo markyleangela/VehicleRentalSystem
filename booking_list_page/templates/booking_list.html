@@ -1,0 +1,114 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Bookings</title>
+    <link rel="stylesheet" href="{% static 'css/booking_list.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+ 
+    
+  
+    <div class="bookings-container">
+        
+        <h2>Your Bookings</h2>
+        <div class="tabs">
+            <button class="tab active" onclick="filterBookings('all')">All</button>
+            <button class="tab" onclick="filterBookings('in-progress')">In-Progress</button>
+            <button class="tab" onclick="filterBookings('completed')">Completed</button>
+        </div>
+        <div class="table-container">
+            <table class="bookings-table">
+                <thead>
+                    <tr>
+                        <th>Rental ID</th>
+                        <th>Vehicle ID</th>
+                        <th>Start Date</th>
+                        <th>Return Date</th>
+                        <th>Total Amount</th>
+                        <th>Return Status</th>
+                        <th>Payment Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if records %}
+                        {% for record in records %}
+                            <tr class="{% if not record.return_status %}in-progress{% else %}completed{% endif %}">
+                                <td>#{{ record.rental_id }}</td>
+                                <td>{{ record.vehicle.vehicle_id }}</td>
+                                <td>{{ record.start_date }}</td>
+                                <td>{{ record.return_date|default:"Not Returned" }}</td>
+                                <td>{{ record.total_amount }}</td>
+                                <td>
+                                    {% if record.return_status %}
+                                        <span class="returned">Returned</span>
+                                    {% else %}
+                                        <span class="pending-return">Pending Return</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if record.payment_status %}
+                                        <span class="paid">Paid</span>
+                                    {% else %}
+                                        <span class="not-paid">Not Paid</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <button class="view-action-button" 
+                                        data-rental-id="{{ record.rental_id }}" 
+                                        data-vehicle-id="{{ record.vehicle.vehicle_id }}" 
+                                        data-rental-start-date="{{ record.start_date }}" 
+                                        data-rental-return-date="{{ record.return_date|default:'Not Returned' }}" 
+                                        data-rental-amount="{{ record.total_amount }}" 
+                                        data-vehicle-model="{{ record.vehicle.vehicle_model }}"
+                                        data-vehicle-brand="{{ record.vehicle.vehicle_brand }}"
+                                        data-rental-payment-date="{{ record.payment_date }}"
+                                        data-rental-payment-status="{{ record.payment_status }}"
+                                        data-rental-customer="{{ record.customer }}">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                </td>
+                                
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="8">No bookings found.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    
+
+    <div id="vehicle-modal" class="modal">
+        
+        <div class="modal-content">
+            
+            <div id="modal-vehicle-img">
+              
+            </div>
+            <div id="modal-vehicle-info"> 
+                
+            </div>
+            
+            <span class="close-button" id="close-modal">&times;</span>
+        </div>
+    </div>
+
+    <div class="profile-actions">
+        
+        <a href="{% url 'home' %}" class="back-btn">BACK</a>
+    </div>
+    <script src="{% static 'js/booking_list.js' %}" defer></script>
+
+</body>
+</html>
