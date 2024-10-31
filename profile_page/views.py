@@ -11,6 +11,10 @@ from django.templatetags.static import static  # Import static for default image
 from django.contrib.auth import logout
 import re
 
+from license.models import License
+
+
+
 
 @login_required
 def update_profile(request):
@@ -24,13 +28,13 @@ def update_profile(request):
             form.save()
 
             # Validate the license number if it exists in the form
-            license_number = form.cleaned_data.get('license_no')  # Adjust this based on your form field name
+            license_number = form.cleaned_data.get('license_no')
             if license_number:
-                if not is_valid_license_format(license_number):
-                    form.add_error('license_no', 'Invalid format license number.')
+                if not is_valid_license(license_number, request.user):
+                    form.add_error('license_no', 'Invalid license number.')
                     return render(request, 'update_profile.html', {'form': form, 'profile': profile})
-                elif not is_unique_license_number(license_number, request.user):
-                    form.add_error('license_no', 'Duplicate license number.')
+                elif not is_valid_license_format(license_number):
+                    form.add_error('license_no', 'Invalid format ex. G00-000-000000')
                     return render(request, 'update_profile.html', {'form': form, 'profile': profile})
                 else:
                     profile.user_status = True  # Set verified status if valid
@@ -42,7 +46,7 @@ def update_profile(request):
             # Check for the image upload
             if 'profile_image' in request.FILES and request.FILES['profile_image']:
                 # Read and save the uploaded image as a binary blob
-                profile.profile_image = request.FILES['profile_image'].read()  
+                profile.profile_image = request.FILES['profile_image'].read()
                 profile.save()  # Save the updated profile image
 
             return redirect('profile_page')
@@ -61,7 +65,7 @@ def update_profile(request):
             
             # Save image to a buffer in the appropriate format
             buffer = BytesIO()
-            image_format = image.format if image.format else 'JPEG'  # Default to JPEG
+            image_format = image.format if image.format else 'JPEG'
             image.save(buffer, format=image_format)
             
             # Get MIME type and base64 encode the image
@@ -81,14 +85,12 @@ def update_profile(request):
                     default_image = default_image.convert('RGB')
                 
                 buffer = BytesIO()
-                default_image.save(buffer, format='JPEG')  # Save as JPEG
+                default_image.save(buffer, format='JPEG')
                 profile.image_base64 = f"data:image/jpeg;base64,{base64.b64encode(buffer.getvalue()).decode('utf-8')}"
         except FileNotFoundError:
             profile.image_base64 = None  # Handle missing default image
 
     return render(request, 'update_profile.html', {'form': form, 'profile': profile})
-
-
 @login_required
 def update_details(request):
     # Get or create the profile for the logged-in user
@@ -159,6 +161,14 @@ def view_profile(request):
     return render(request, 'user_profile.html', {'profile': profile, 'user': request.user})
 
 
+def is_valid_license(license_number, user):
+    # Check if the license exists in the License table (dummy data)
+    if not License.objects.filter(license_number=license_number).exists():
+        return False  # License number does not exist in dummy data
+
+    # Check if the license number is unique to the user in ProfileInfo
+    return not ProfileInfo.objects.exclude(user=user).filter(license_no=license_number).exists()
+
 def is_valid_license_format(license_number):
     # Pattern: One uppercase letter followed by two digits, a dash, two digits, a dash, and then five digits
     pattern = r"^[A-Z]\d{2}-\d{2}-\d{6}$"
@@ -166,13 +176,4 @@ def is_valid_license_format(license_number):
     return bool(re.match(pattern, license_number))
 
 
-def is_unique_license_number(license_number, user):
-    # Check for the license number in the database excluding the current user's profile
-    return not ProfileInfo.objects.exclude(user=user).filter(license_no=license_number).exists()
 
-
-
-# def validate_license_number(license_number):
-#     if is_valid_license_format(license_number) and is_unique_license_number(license_number, request.user):
-#         return True
-#     return False
