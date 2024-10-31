@@ -15,6 +15,47 @@ from license.models import License
 
 
 
+def process_profile_image(profile):
+
+    #Process the profile image for display. If no image is uploaded, use the default image.
+
+    if profile.profile_image:
+        try:
+            # Convert the binary image to base64 for rendering in HTML
+            image = Image.open(BytesIO(profile.profile_image))
+            
+            # Convert image mode if necessary
+            if image.mode == 'RGBA':
+                image = image.convert('RGB')
+            
+            # Save image to a buffer in the appropriate format
+            buffer = BytesIO()
+            image_format = image.format if image.format else 'JPEG'
+            image.save(buffer, format=image_format)
+            
+            # Get MIME type and base64 encode the image
+            mime_type = f"image/{image_format.lower()}"
+            return f"data:{mime_type};base64,{base64.b64encode(buffer.getvalue()).decode('utf-8')}"
+        except Exception as e:
+            print(f"Error processing image: {e}")
+            return None
+    else:
+        # If no profile image, load the default image and encode it as base64
+        default_image_path = static('images/default-profile.jpg')
+        try:
+            with open(os.path.join(settings.BASE_DIR, default_image_path), 'rb') as default_image_file:
+                default_image = Image.open(default_image_file)
+                
+                if default_image.mode == 'RGBA':
+                    default_image = default_image.convert('RGB')
+                
+                buffer = BytesIO()
+                default_image.save(buffer, format='JPEG')
+                return f"data:image/jpeg;base64,{base64.b64encode(buffer.getvalue()).decode('utf-8')}"
+        except FileNotFoundError:
+            print("Default profile image not found.")
+            return None
+
 
 @login_required
 def update_profile(request):
@@ -32,65 +73,34 @@ def update_profile(request):
             if license_number:
                 if not is_valid_license(license_number, request.user):
                     form.add_error('license_no', 'Invalid license number.')
+                    profile.user_status = False
                     return render(request, 'update_profile.html', {'form': form, 'profile': profile})
                 elif not is_valid_license_format(license_number):
                     form.add_error('license_no', 'Invalid format ex. G00-000-000000')
+                    profile.user_status = False
                     return render(request, 'update_profile.html', {'form': form, 'profile': profile})
                 else:
                     profile.user_status = True  # Set verified status if valid
             else:
                 profile.user_status = False  # Set unverified status if no license number
 
-            profile.save()  # Save the updated profile status
+            profile.save()  
 
             # Check for the image upload
             if 'profile_image' in request.FILES and request.FILES['profile_image']:
                 # Read and save the uploaded image as a binary blob
                 profile.profile_image = request.FILES['profile_image'].read()
-                profile.save()  # Save the updated profile image
+                profile.save() 
 
             return redirect('profile_page')
     else:
         form = ProfileForm(instance=profile, user=request.user)
 
     # Process the image for rendering
-    if profile.profile_image:
-        try:
-            # Convert the binary image (blob) to base64 for rendering in HTML
-            image = Image.open(BytesIO(profile.profile_image))
-            
-            # Convert image mode if necessary
-            if image.mode == 'RGBA':
-                image = image.convert('RGB')
-            
-            # Save image to a buffer in the appropriate format
-            buffer = BytesIO()
-            image_format = image.format if image.format else 'JPEG'
-            image.save(buffer, format=image_format)
-            
-            # Get MIME type and base64 encode the image
-            mime_type = f"image/{image_format.lower()}"
-            profile.image_base64 = f"data:{mime_type};base64,{base64.b64encode(buffer.getvalue()).decode('utf-8')}"
-        except Exception as e:
-            print(f"Error processing image: {e}")
-            profile.image_base64 = None
-    else:
-        # If no profile image, load the default image and encode it as base64
-        default_image_path = static('images/default-profile.jpg')
-        try:
-            with open(os.path.join(settings.BASE_DIR, default_image_path), 'rb') as default_image_file:
-                default_image = Image.open(default_image_file)
-                
-                if default_image.mode == 'RGBA':
-                    default_image = default_image.convert('RGB')
-                
-                buffer = BytesIO()
-                default_image.save(buffer, format='JPEG')
-                profile.image_base64 = f"data:image/jpeg;base64,{base64.b64encode(buffer.getvalue()).decode('utf-8')}"
-        except FileNotFoundError:
-            profile.image_base64 = None  # Handle missing default image
+    profile.image_base64 = process_profile_image(profile)
 
     return render(request, 'update_profile.html', {'form': form, 'profile': profile})
+
 @login_required
 def update_details(request):
     # Get or create the profile for the logged-in user
