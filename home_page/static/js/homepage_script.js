@@ -13,6 +13,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const vehicleType = this.getAttribute('data-vehicle-type');
             const vehiclePrice = this.getAttribute('data-vehicle-price');
             const vehicleImg = this.getAttribute('data-vehicle-image');
+            const vehicleDesc = this.getAttribute('data-vehicle-desc');
+            const vehicleTrans = this.getAttribute('data-vehicle-transmission');
+            const vehicleCargo = this.getAttribute('data-vehicle-cargo');
 
             // Populate modal with vehicle details
             document.getElementById('modal-vehicle-info').innerHTML = `
@@ -23,11 +26,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 <div class='vehicle-specs'> 
                     <div class='specs-1'>
                         <p><i class="fas fa-car"></i> ${vehicleType}</p>
-                        <p><i class="fas fa-suitcase"></i> 1 large bag</p>
+                        <p><i class="fas fa-suitcase"></i>${vehicleCargo}</p>
                     </div>
 
                     <div class='specs-2'>
-                        <p><i class="fas fa-cog"></i> Automatic</p>
+                        <p><i class="fas fa-cog"></i>${vehicleTrans}</p>
                         <p><i class="fas fa-road"></i> Unlimited Mileage</p>
                     </div>
                     
@@ -35,9 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </div>
 
                 
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                 Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                  when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                <p> ${vehicleDesc}</p>
 
                 <div class='book-button'>
                     <button >BOOK</button>
@@ -46,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
             `;
 
             document.getElementById('modal-vehicle-img').innerHTML = `
-                <img src="${vehicleImg}" alt="${vehicleModel}" style="width: 100%; max-width: 550px;"/>
+                <img src="${vehicleImg}" alt="${vehicleModel}" style="width: 400px; height: auto;" />
                 
             `;
 
