@@ -199,8 +199,8 @@ def change_password(request):
         form = CustomPasswordChangeForm(user=request.user, data=request.POST)
         if form.is_valid():
             user = form.save()
-            update_session_auth_hash(request, user)  # Important to keep the user logged in after changing password
-            return redirect('profile')  # Redirect to the profile page or wherever you want
+            update_session_auth_hash(request, user)
+            return redirect('profile') 
     else:
         form = CustomPasswordChangeForm(user=request.user)
     

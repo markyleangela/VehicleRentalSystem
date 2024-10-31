@@ -1,25 +1,25 @@
 html, body {
-    height: 100%; /* Set height to 100% for both html and body */
-    margin: 0; /* Remove default margin */
-    padding: 10px; /* Remove default padding */
+    height: 100%; 
+    margin: 0; 
+    padding: 10px; 
     overflow: auto;
 
 }
 
 body::before {
     content: '';
-    position: absolute; /* Position the overlay */
+    position: absolute; 
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
 
-    background-image: url('../images/cover-img.jpg'); /* Background image */
+    background-image: url('../images/cover-img.jpg'); 
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover; /* Cover the whole area */
-    opacity: 0.2; /* Set opacity (0 to 1, where 0 is fully transparent and 1 is fully opaque) */
-    z-index: -1; /* Place it behind other content */
+    background-size: cover; 
+    opacity: 0.2; 
+    z-index: -1;
 }
 
 
@@ -38,10 +38,10 @@ body::before {
 }
 
 .profile-pic {
-    width: 150px; /* Set the width */
-    height: 150px; /* Set the height */
-    object-fit: cover; /* Ensures the image covers the area while maintaining aspect ratio */
-    border-radius: 50%; /* Optional: If you want a circular image */
+    width: 150px; 
+    height: 150px; 
+    object-fit: cover;
+    border-radius: 50%; 
 }
 
 
@@ -112,31 +112,31 @@ a {
 
 
 .tabs {
-    display: flex; /* Use flexbox for horizontal tab layout */
+    display: flex; 
 }
 
 .tab {
-    background-color: #f5f5f5; /* Light background for tabs */
-    border: none; /* Remove default border */
-    padding: 10px 20px; /* Padding for spacing */
-    cursor: pointer; /* Pointer cursor for interactivity */
-    border-radius: 5px 5px 0 0; /* Rounded top corners */
-    margin-right: 5px; /* Space between tabs */
-    color: #555; /* Default text color */
-    transition: background-color 0.3s, color 0.3s; /* Smooth color transition */
+    background-color: #f5f5f5; 
+    border: none; 
+    padding: 10px 20px; 
+    cursor: pointer; 
+    border-radius: 5px 5px 0 0; 
+    margin-right: 5px; 
+    color: #555; 
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .tab.active {
-    background-color: #ffffff; /* White background for active tab */
-    border-bottom: 2px solid blue; /* Blue underline for active tab */
-    color: black; /* Darker text color for active tab */
+    background-color: #ffffff; 
+    border-bottom: 2px solid blue; 
+    color: black;
 }
 
 /* Table Styles */
 .table-container {
-    border: 1px solid #ddd; /* Light gray border for the table container */
-    border-radius: 8px; /* Rounded corners for table */
-    overflow: hidden; /* Prevent overflow of inner elements */
+    border: 1px solid #ddd; 
+    border-radius: 8px; 
+    overflow: hidden; 
 }
 
 .tab-content {
