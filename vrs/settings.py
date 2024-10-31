@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'home_page',
     'rental_record',
     'booking_list_page',
-    'user_profile'
+    'user_profile',
+    'license'
     
 
     
