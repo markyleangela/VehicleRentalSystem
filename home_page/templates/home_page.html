@@ -70,7 +70,7 @@
                     <option value="all" {% if type_filter == 'all' %}selected{% endif %}>VIEW ALL</option>
                     <option value="4 seater" {% if type_filter == '4 seater' %}selected{% endif %}>4 seater</option>
                     <option value="6 seater" {% if type_filter == '6 seater' %}selected{% endif %}>6 seater</option>
-                    <option value="1 seater" {% if type_filter == 'Motorcycle' %}selected{% endif %}>Motorcycle</option>
+                    <option value="2 seater" {% if type_filter == 'Motorcycle' %}selected{% endif %}>Motorcycle</option>
                 </select>
                 <button class="filter-button" type="submit">Filter By</button>
             </form>
@@ -103,7 +103,10 @@
                                     data-vehicle-model="{{ vehicle.vehicle_model }}"
                                     data-vehicle-type="{{ vehicle.vehicle_type }}"
                                     data-vehicle-price="{{ vehicle.vehicle_price }}"
-                                    data-vehicle-image="{{vehicle.image_base64 }}">View</button>
+                                    data-vehicle-image="{{vehicle.image_base64 }}"
+                                    data-vehicle-desc="{{vehicle.vehicle_description}}"
+                                    data-vehicle-transmission="{{vehicle.vehicle_transmission}}"
+                                    data-vehicle-cargo="{{vehicle.vehicle_cargo}}">View</button>
                             </form>
                         </div>
                     </div>

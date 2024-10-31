@@ -12,6 +12,7 @@ from django.contrib.auth import logout
 import re
 
 from license.models import License
+from .forms import CustomPasswordChangeForm
 
 
 
@@ -185,5 +186,24 @@ def is_valid_license_format(license_number):
  
     return bool(re.match(pattern, license_number))
 
+
+
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import update_session_auth_hash
+from django.shortcuts import render, redirect
+from .forms import CustomPasswordChangeForm
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = CustomPasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            return redirect('profile') 
+    else:
+        form = CustomPasswordChangeForm(user=request.user)
+    
+    return render(request, 'user_profile.html', {'form': form})
 
 

@@ -5,6 +5,7 @@ from user_profile.models import ProfileInfo
 
 from django import forms
 from user_profile.models import ProfileInfo
+from django.contrib.auth.forms import PasswordChangeForm
 
 class ProfileForm(forms.ModelForm):
     profile_image = forms.ImageField(label='Image', required=True)
@@ -65,3 +66,26 @@ class PersonalDetailsForm(forms.ModelForm):
             user.save()
             self.instance.save()
         return self.instance
+    
+
+
+
+
+
+
+
+
+
+class CustomPasswordChangeForm(PasswordChangeForm):
+    class Meta:
+        model = User
+        fields = ['old_password', 'new_password1', 'new_password2']
+
+    def clean_new_password2(self):
+        new_password1 = self.cleaned_data.get('new_password1')
+        new_password2 = self.cleaned_data.get('new_password2')
+
+        if new_password1 and new_password2 and new_password1 != new_password2:
+            raise forms.ValidationError("The two password fields didn't match.")
+        
+        return new_password2

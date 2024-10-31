@@ -471,8 +471,10 @@ section {
 }
 
 .specs-1, .specs-2 {
+
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Four columns */
+    grid-template-columns: repeat(2, auto); 
+    gap: 10px; /* Optional: space between grid items */
     font-family: 'Roboto', sans-serif;
     width: 40%;
   
