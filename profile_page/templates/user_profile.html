@@ -8,79 +8,120 @@
     <title>View Profile</title>
     <link rel="stylesheet" href="{% static 'css/profile.css' %}?v={{ STATIC_VERSION }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
 </head>
-<body>
-    <div class='all-info-container'>
-        <h1>My Profile</h1>
+<body> 
+
+    <div class='temp'>
+        <section class="upper-section">
+            <div class="nav-container">
+                <nav class="nav-bar">
+                    <div class="logo">
+                        <img src="{% static 'images/Logo-Clear.png' %}" alt="Logo">
+                    </div>
+                    <ul id="nav-links">
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="">About Us</a></li>
+                        <li><a href="#Contact Us">Contact Us</a></li>
+                    </ul>
+                    <div class="burger-menu" id="burger-menu">
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                    </div>
+                    <nav class="dropdown" id="dropdownMenu">
+                        <ul>
+                            <li>
+                                <a href="{% url 'profile_page' %}">
+                                    <i class="fas fa-user"></i> Profile
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'booking_list' %}">
+                                    <i class="fas fa-book"></i> Bookings
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'logout' %}">
+                                    <i class="fas fa-sign-out-alt"></i> Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </nav>
+            </div>
+        </section>
         
-        <div class="tabs">
-            <button class="tab active" onclick="changeTab('profile')">Profile</button>
-            <a href="{% url 'account_info' %}">
-                <button class="tab">Account Information</button>
-            </a>
-        </div>
+        <section class='lower-section'>
+            <div class='all-info-container'>
+                <div class="tabs">
+                    <button class="tab active" onclick="changeTab('profile')">Profile</button>
+                    <a href="{% url 'account_info' %}">
+                        <button class="tab">Account Information</button>
+                    </a>
+                </div>
+                
+                <div id="profile" class="tab-content active">
+                    <div class='profile-section'>
+                        <div class="profile-pic-container">
+                            {% if profile.image_base64 %}
+                                <img class="profile-pic" src="{{ profile.image_base64 }}" alt="Profile Image">
+                            {% else %}
+                                <img src="" alt="Default Profile Image">
+                            {% endif %}
+                        </div>
+                        <div class='name-license-container'>
+                            <h2 class="profile-name">{{ user.first_name }} {{ user.last_name }}</h2>
+                            <span class="profile-value">License No. {{ profile.license_no }}</span>
+                         
+                            {% if profile.user_status %}
+                                <p>Fully Verified <i class="fas fa-check-circle"></i></p>
+                            {% else %}
+                                <p>Not Verified <i class="fas fa-times-circle"></i></p>
+                            {% endif %}
+                        </div>
+                        <div class='edit-button'>
+                            <a href="{% url 'update_profile' %}"><i class="fas fa-edit"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class='personal-info-section'>
+                        <div class='info-edit'>
+                            <h3>Personal Information</h3>
+                            <div class='personal-info-label'>
+                                <p>First Name</p>
+                                <p>Last Name</p>
+                                <p>Birth Date</p>
+                            </div>
+                            <div class='personal-info-value'>
+                                <p>{{ user.first_name }}</p>
+                                <p>{{ user.last_name }}</p>
+                                <p>{{ profile.birth_date }}</p>
+                            </div>
         
-        <div id="profile" class="tab-content active">
-            <div class='profile-section'>
-                <div class="profile-pic-container">
-                    {% if profile.image_base64 %}
-                        <img class="profile-pic" src="{{ profile.image_base64 }}" alt="Profile Image">
-                    {% else %}
-                        <img src="" alt="Default Profile Image">
-                    {% endif %}
+                            <h3>Contact Information</h3>
+                            <div class='personal-info-label'>
+                                <p>Email Address</p>
+                                <p>Contact Number</p>
+                            </div>
+                            <div class='personal-info-value'>
+                                <p>{{ user.email }}</p>
+                                <p>{{ profile.phone_number }}</p>
+                            </div>
+                        </div>
+                        <div class='edit-button'>
+                            <a href="{% url 'update_details' %}"><i class="fas fa-edit"></i></a>
+                        </div>
+                    </div>
                 </div>
-                <div class='name-license-container'>
-                    <h2 class="profile-name">{{ user.first_name }} {{ user.last_name }}</h2>
-                    <span class="profile-value">License No. {{ profile.license_no }}</span>
-                 
-                    {% if profile.user_status %}
-                        <p>Fully Verified <i class="fas fa-check-circle"></i></p>
-                    {% else %}
-                        <p>Not Verified <i class="fas fa-times-circle"></i></p>
-                    {% endif %}
-                </div>
-                <div class='edit-button'>
-                    <a href="{% url 'update_profile' %}"><i class="fas fa-edit"></i></a>
+        
+                <div class="profile-actions">
+                    <a href="{% url 'home' %}" class="back-btn">BACK</a>
                 </div>
             </div>
-            
-            <div class='personal-info-section'>
-                <div class='info-edit'>
-                    <h3>Personal Information</h3>
-                    <div class='personal-info-label'>
-                        <p>First Name</p>
-                        <p>Last Name</p>
-                        <p>Birth Date</p>
-                    </div>
-                    <div class='personal-info-value'>
-                        <p>{{ user.first_name }}</p>
-                        <p>{{ user.last_name }}</p>
-                        <p>{{ profile.birth_date }}</p>
-                    </div>
-
-                    <h3>Contact Information</h3>
-                    <div class='personal-info-label'>
-                        <p>Email Address</p>
-                        <p>Contact Number</p>
-                    </div>
-                    <div class='personal-info-value'>
-                        <p>{{ user.email }}</p>
-                        <p>{{ profile.phone_number }}</p>
-                    </div>
-                </div>
-                <div class='edit-button'>
-                    <a href="{% url 'update_details' %}"><i class="fas fa-edit"></i></a>
-                </div>
-            </div>
-        </div>
-
-        
-
-        <div class="profile-actions">
-            <a href="{% url 'home' %}" class="back-btn">BACK</a>
-        </div>
+        </section>
     </div>
-
+    
     <script src="{% static 'js/profile.js' %}"></script>
 </body>
 </html>
