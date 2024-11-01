@@ -1,5 +1,5 @@
 from django.db import models
-
+import base64
 # Create your models here.
 class Vehicle(models.Model):
     STATUS_CHOICES = [
@@ -37,4 +37,10 @@ class Vehicle(models.Model):
     vehicle_cargo =  models.CharField(max_length=50, choices=CARGO_CHOICES,null=True)
 
     def __str__(self):
-        return f"{self.vehicle_model} {self.vehicle_brand} {self.vehicle_type} {self.vehicle_price} {self.vehicle_status}"
+        return f"{self.vehicle_model} {self.vehicle_brand} {self.vehicle_type} {self.vehicle_price}"
+    
+
+    def image_base64(self):
+        if self.vehicle_blobimage:
+            return base64.b64encode(self.vehicle_blobimage).decode('utf-8')
+        return None

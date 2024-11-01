@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'css/booking_list.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
 </head>
 <body>
  
@@ -70,7 +71,10 @@
                                         data-vehicle-brand="{{ record.vehicle.vehicle_brand }}"
                                         data-rental-payment-date="{{ record.payment_date }}"
                                         data-rental-payment-status="{{ record.payment_status }}"
-                                        data-rental-customer="{{ record.customer }}">
+                                        data-rental-return-status="{{ record.return_status }}"
+                                        data-rental-customer="{{ record.customer }}"
+                                        data-rental-vehicle="{{ record.vehicle }}"
+                                        data-vehicle-img="{{ record.vehicle.image_base64 }}">
                                         <i class="fa fa-eye"></i>
                                     </button>
                                 </td>
@@ -84,6 +88,7 @@
                     {% endif %}
                 </tbody>
             </table>
+           
         </div>
     </div>
 
@@ -92,7 +97,7 @@
     <div id="vehicle-modal" class="modal">
         
         <div class="modal-content">
-            
+         
             <div id="modal-vehicle-img">
               
             </div>
@@ -108,7 +113,10 @@
         
         <a href="{% url 'home' %}" class="back-btn">BACK</a>
     </div>
+
+    
     <script src="{% static 'js/booking_list.js' %}" defer></script>
+   
 
 </body>
 </html>
