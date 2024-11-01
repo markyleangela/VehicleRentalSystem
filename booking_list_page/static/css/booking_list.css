@@ -44,6 +44,7 @@ button.view-action-button {
     padding: 20px;
     box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.25);
     border-radius: 8px;
+    font-family: 'Roboto', sans-serif;
 }
 
 h2 {
@@ -149,6 +150,7 @@ h2 {
 
 .modal-content {
     display: flex;
+   
     gap: 20px;
     justify-content: center;
     align-items: center;
@@ -158,8 +160,12 @@ h2 {
     padding: 30px;
     border-radius: 10px;
     border: 1px solid #888;
-    width: fit-content; /* Could be more or less, depending on screen size */
+    width:fit-content; /* Could be more or less, depending on screen size */
   
+}
+
+.modal-content.div{
+    margin: 10px;
 }
 
 
@@ -200,3 +206,94 @@ h2 {
 a {
     text-decoration: none;
 }
+
+
+.rental-dates {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+
+#modal-vehicle-info{
+    font-family: 'Roboto', sans-serif;
+}
+
+
+/* Modal container styles */
+#modal-vehicle-info {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Image styling */
+#modal-vehicle-img img {
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/* Title styles */
+#modal-vehicle-info h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Rental ID styles */
+.rental-vehicle-id h3 {
+    font-size: 18px;
+    color: #555;
+}
+
+/* Rental dates section styles */
+.rental-dates {
+    margin: 15px 0;
+}
+
+.rental-dates p {
+    margin: 5px 0;
+    color: #666;
+}
+
+/* Strong text styles for important details */
+.rental-dates strong,
+.rental-date strong {
+    color: #000;
+}
+
+/* Rental date section styles */
+.rental-date {
+    background-color: #e9ecef;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+/* Icons styles */
+.rental-date i,
+.rental-dates i {
+    color: #007bff;
+    margin-right: 5px;
+}
+
+/* Customer and amount styles */
+.rental-date p {
+    margin: 5px 0;
+}
+
+/* Add some responsiveness */
+@media (max-width: 768px) {
+    .modal-content {
+        flex-direction: column;
+    }
+    #modal-vehicle-img img {
+        width: 100%;
+        height: auto;
+    }
+
+    #modal-vehicle-info {
+        padding: 15px;
+    }
+}
+
