@@ -18,30 +18,30 @@ from .forms import CustomPasswordChangeForm
 
 def process_profile_image(profile):
 
-    #Process the profile image for display. If no image is uploaded, use the default image.
+ 
 
     if profile.profile_image:
         try:
-            # Convert the binary image to base64 for rendering in HTML
+        
             image = Image.open(BytesIO(profile.profile_image))
             
-            # Convert image mode if necessary
+       
             if image.mode == 'RGBA':
                 image = image.convert('RGB')
             
-            # Save image to a buffer in the appropriate format
+           
             buffer = BytesIO()
             image_format = image.format if image.format else 'JPEG'
             image.save(buffer, format=image_format)
             
-            # Get MIME type and base64 encode the image
+        
             mime_type = f"image/{image_format.lower()}"
             return f"data:{mime_type};base64,{base64.b64encode(buffer.getvalue()).decode('utf-8')}"
         except Exception as e:
             print(f"Error processing image: {e}")
             return None
     else:
-        # If no profile image, load the default image and encode it as base64
+       
         default_image_path = static('images/default-profile.jpg')
         try:
             with open(os.path.join(settings.BASE_DIR, default_image_path), 'rb') as default_image_file:
@@ -71,29 +71,37 @@ def update_profile(request):
 
             # Validate the license number if it exists in the form
             license_number = form.cleaned_data.get('license_no')
+            print(license_number)
+
             if license_number:
+                # Check if the license is valid
                 if not is_valid_license(license_number, request.user):
                     form.add_error('license_no', 'Invalid license number.')
                     profile.user_status = False
-                    return render(request, 'update_profile.html', {'form': form, 'profile': profile})
                 elif not is_valid_license_format(license_number):
                     form.add_error('license_no', 'Invalid format ex. G00-000-000000')
                     profile.user_status = False
-                    return render(request, 'update_profile.html', {'form': form, 'profile': profile})
                 else:
-                    profile.user_status = True  # Set verified status if valid
+                    # Set verified status if valid
+                    profile.user_status = True  
             else:
-                profile.user_status = False  # Set unverified status if no license number
+                # Set unverified status if no license number
+                profile.user_status = False  
 
-            profile.save()  
+            profile.save()  # Save the updated status to the profile
 
             # Check for the image upload
             if 'profile_image' in request.FILES and request.FILES['profile_image']:
                 # Read and save the uploaded image as a binary blob
                 profile.profile_image = request.FILES['profile_image'].read()
-                profile.save() 
+                profile.save()
 
-            return redirect('profile_page')
+            # If there are any errors in the form, return to the form with errors
+            if form.errors:
+                return render(request, 'update_profile.html', {'form': form, 'profile': profile})
+
+            return redirect('profile_page')  # Redirect after successful update
+
     else:
         form = ProfileForm(instance=profile, user=request.user)
 
@@ -101,6 +109,7 @@ def update_profile(request):
     profile.image_base64 = process_profile_image(profile)
 
     return render(request, 'update_profile.html', {'form': form, 'profile': profile})
+
 
 @login_required
 def update_details(request):
@@ -126,43 +135,8 @@ def view_profile(request):
 
         # Check the license number validation and set user status
     
-
-        if profile.profile_image:
-            try:
-                # Convert the binary image (blob) to base64 for rendering in HTML
-                image = Image.open(BytesIO(profile.profile_image))
-                
-                # Convert image mode if necessary
-                if image.mode == 'RGBA':
-                    image = image.convert('RGB')
-                
-                # Save image to a buffer in the appropriate format
-                buffer = BytesIO()
-                image_format = image.format if image.format else 'JPEG'  # Default to JPEG
-                image.save(buffer, format=image_format)
-                
-                # Get MIME type and base64 encode the image
-                mime_type = f"image/{image_format.lower()}"
-                profile.image_base64 = f"data:{mime_type};base64,{base64.b64encode(buffer.getvalue()).decode('utf-8')}"
-            except Exception as e:
-                print(f"Error processing image: {e}")
-                profile.image_base64 = None
-        else:
-            # If no profile image, load the default image and encode it as base64
-            default_image_path = static('images/default-profile.jpg')  # Use static method for default image
-            try:
-                with open(os.path.join(settings.BASE_DIR, default_image_path), 'rb') as default_image_file:
-                    default_image = Image.open(default_image_file)
-                    
-                    if default_image.mode == 'RGBA':
-                        default_image = default_image.convert('RGB')
-                    
-                    buffer = BytesIO()
-                    default_image.save(buffer, format='JPEG')  # Save as JPEG
-                    profile.image_base64 = f"data:image/jpeg;base64,{base64.b64encode(buffer.getvalue()).decode('utf-8')}"
-            except FileNotFoundError:
-                profile.image_base64 = None  # Handle missing default image
         profile.verification_status = "Verified" if profile.user_status else "Unverified"
+        profile.image_base64 = process_profile_image(profile)
     except ProfileInfo.DoesNotExist:
         profile = None
     
@@ -195,15 +169,20 @@ from .forms import CustomPasswordChangeForm
 
 @login_required
 def change_password(request):
+    profile, created = ProfileInfo.objects.get_or_create(user=request.user)
+
     if request.method == 'POST':
         form = CustomPasswordChangeForm(user=request.user, data=request.POST)
         if form.is_valid():
-            user = form.save()
-            update_session_auth_hash(request, user)
-            return redirect('profile') 
+            user = form.save()  # Save the new password
+            update_session_auth_hash(request, user)  # Keep the user logged in
+            return redirect('login_page')  # Redirect to the profile page after success
     else:
         form = CustomPasswordChangeForm(user=request.user)
-    
-    return render(request, 'user_profile.html', {'form': form})
+
+    return render(request, 'account_info.html', {
+        'form': form,  # Pass the form to the template
+        'profile': profile,  # Pass the profile to the template if needed
+    })
 
 

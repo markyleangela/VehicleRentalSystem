@@ -14,8 +14,10 @@
             
             <div class="input-group">
                 <div class="image-preview-container">
-                    <img id="imagePreview" src="{% if profile.image_base64 %}{{ profile.image_base64 }}{% endif %}" alt="Image Preview" style="display: block;" />
+                    <img id="imagePreview" src="{% if profile.image_base64 %}{{ profile.image_base64 }}{% else %}https://via.placeholder.com/200{% endif %}" alt="Image Preview" />
                 </div>
+                <!-- File input for selecting a new profile image -->
+                <input type="file" id="file-input" name="profile_image" accept="image/*" onchange="previewImage(event)"  />
                 {{ form.as_p }}  
             </div>
             <div class="button-group">
@@ -26,22 +28,21 @@
     </div>
 
     <script>
-        // Get the file input and image elements
-        const fileInput = document.getElementById('file-input');
-        const profilePic = document.getElementById('profile-pic');
-
-        // Add an event listener to handle file input change
-        fileInput.addEventListener('change', function(event) {
-            const file = event.target.files[0];
+        function previewImage(event) {
+            const file = event.target.files[0]; // Get the selected file
+            const imagePreview = document.getElementById('imagePreview'); // Get the image preview element
 
             if (file) {
-                const reader = new FileReader();
+                const reader = new FileReader(); // Create a FileReader to read the file
+
+                // Define the onload function to update the image source
                 reader.onload = function(e) {
-                    profilePic.src = e.target.result; 
+                    imagePreview.src = e.target.result; // Set the image source to the file's data URL
                 };
-                reader.readAsDataURL(file); 
+
+                reader.readAsDataURL(file); // Read the file as a data URL
             }
-        });
+        }
     </script>
 </body>
 </html>

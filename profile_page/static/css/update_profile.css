@@ -1,121 +1,110 @@
-* {
-    box-sizing: border-box;
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
     margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
-
-
-html, body {
-    height: 100%; /* Set height to 100% for both html and body */
-    margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */
-
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    
-
-}
-
-body::before {
-    content: '';
-    position: absolute; /* Position the overlay */
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    background-image: url('../images/cover-img.jpg'); /* Background image */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover; /* Cover the whole area */
-    opacity: 0.2; /* Set opacity (0 to 1, where 0 is fully transparent and 1 is fully opaque) */
-    z-index: -1; /* Place it behind other content */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full viewport height */
 }
 
 .container {
-    width: 500px;
- 
-    border-radius: 10px;
+    max-width: 600px;
+    margin: auto;
     padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
 
+h1 {
     text-align: center;
-
-}
-
-.profile-pic-wrapper {
-    position: relative;
+    color: #333;
     margin-bottom: 20px;
-}
-
-.profile-pic-wrapper img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    cursor: pointer;
-    border: 1px solid black;
-}
-
-.profile-pic-wrapper input[type="file"] {
-    display: none;
 }
 
 .input-group {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    align-items: center;
+}
+
+.image-preview-container {
     margin-bottom: 20px;
-
-    background-color: white;
-    padding: 20px;
-    border-radius: 15px;
-}
-
-.input-row {
-    display: flex;
-    gap: 15px;
-}
-
-.input-group input {
-    width: 100%;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 25px;
-    text-align: center;
+    width: 100%;
+    max-width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+}
+
+.image-preview-container img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 8px;
+}
+
+input[type="text"], 
+input[type="email"], 
+input[type="password"], 
+input[type="file"] {
+    width: 100%; /* Full width */
+    padding: 10px; /* Space inside input fields */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 4px; /* Slightly rounded corners */
+    box-sizing: border-box; /* Include padding in width */
+}
+
+input[type="file"] {
+    padding: 0;
 }
 
 .button-group {
     display: flex;
-    justify-content: center;
-    gap: 10px;
+    justify-content: space-between;
+    margin-top: 20px;
 }
 
-.submit-btn, .cancel-btn {
-    width: 100px;
-    padding: 10px;
+.submit-btn,
+.cancel-btn {
+    padding: 10px 20px;
     border: none;
-    border-radius: 25px;
+    border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .submit-btn {
-    background-color: #002f6c;
+    background-color: #1E2A5E; /* Green */
     color: white;
 }
 
 .cancel-btn {
-    background-color: #b3c2d4;
-    color: black;
+    background-color: #f44336; /* Red */
+    color: white;
 }
 
+.submit-btn:hover {
+    background-color: #45a049; /* Darker green */
+}
 
-#imagePreview {
-    width: 100%; /* Image scales to fill the width of its container */
-    height: auto; /* Maintain aspect ratio */
-    max-height: 200px; /* Optional: Set a max height to prevent excessive growth */
-    object-fit: cover; /* Crop image if it's larger than container */
+.cancel-btn:hover {
+    background-color: #f44336; /* Darker red */
+}
+
+/* Optional: Add responsiveness for smaller screens */
+@media (max-width: 600px) {
+    .button-group {
+        flex-direction: column;
+    }
+
+    .submit-btn, .cancel-btn {
+        width: 100%;
+        margin: 5px 0;
+    }
 }

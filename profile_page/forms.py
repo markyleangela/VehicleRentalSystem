@@ -1,18 +1,12 @@
-# forms.py
 from django import forms
 from django.contrib.auth.models import User
-from user_profile.models import ProfileInfo
-
-from django import forms
 from user_profile.models import ProfileInfo
 from django.contrib.auth.forms import PasswordChangeForm
 
 class ProfileForm(forms.ModelForm):
-    profile_image = forms.ImageField(label='Image', required=True)
-
     class Meta:
         model = ProfileInfo
-        fields = ['license_no']
+        fields = ['license_no']  # Keep only the license_no field
 
     def __init__(self, *args, **kwargs):
         # Extract `user` from kwargs
@@ -20,15 +14,13 @@ class ProfileForm(forms.ModelForm):
         super(ProfileForm, self).__init__(*args, **kwargs)
         
         if user:
-            # Initialize `license_no` and `profile_image` with current values from ProfileInfo if they exist
+            # Initialize `license_no` with current value from ProfileInfo if it exists
             profile_info = ProfileInfo.objects.filter(user=user).first()
             if profile_info:
                 self.fields['license_no'].initial = profile_info.license_no
-                self.fields['profile_image'].initial  = profile_info.profile_image
              
-
     def save(self, commit=True):
-        # Save license_no and profile_image to the ProfileInfo instance
+        # Save license_no to the ProfileInfo instance
         profile_info = super(ProfileForm, self).save(commit=False)
         
         if commit:
@@ -41,7 +33,6 @@ class PersonalDetailsForm(forms.ModelForm):
     last_name = forms.CharField(max_length=30, required=False, label='Last Name')
     email = forms.EmailField(required=True, label='Email')  # Added email field
  
-
     class Meta:
         model = ProfileInfo
         fields = ['first_name', 'last_name', 'email', 'phone_number', 'birth_date']
@@ -66,14 +57,6 @@ class PersonalDetailsForm(forms.ModelForm):
             user.save()
             self.instance.save()
         return self.instance
-    
-
-
-
-
-
-
-
 
 
 class CustomPasswordChangeForm(PasswordChangeForm):

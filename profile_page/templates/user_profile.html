@@ -15,7 +15,9 @@
         
         <div class="tabs">
             <button class="tab active" onclick="changeTab('profile')">Profile</button>
-            <button class="tab" onclick="changeTab('account-info')">Account Information</button>
+            <a href="{% url 'account_info' %}">
+                <button class="tab">Account Information</button>
+            </a>
         </div>
         
         <div id="profile" class="tab-content active">
@@ -30,7 +32,7 @@
                 <div class='name-license-container'>
                     <h2 class="profile-name">{{ user.first_name }} {{ user.last_name }}</h2>
                     <span class="profile-value">License No. {{ profile.license_no }}</span>
-                    
+                 
                     {% if profile.user_status %}
                         <p>Fully Verified <i class="fas fa-check-circle"></i></p>
                     {% else %}
@@ -72,46 +74,7 @@
             </div>
         </div>
 
-        <div id="account-info" class="tab-content">
-            <div class="change-password-container">
-                <h2>Change Password</h2>
-                <form action="{% url 'change_password' %}" method="POST">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <label for="current_password">Current Password</label>
-                        <input type="password" id="current_password" name="current_password" required>
-                    </div>
-            
-                    <div class="form-group">
-                        <label for="new_password">New Password</label>
-                        <input type="password" id="new_password" name="new_password" required>
-                    </div>
-            
-                    <div class="form-group">
-                        <label for="confirm_password">Confirm New Password</label>
-                        <input type="password" id="confirm_password" name="confirm_password" required>
-                    </div>
-            
-                    <button type="submit" class="submit-button">Change Password</button>
-                </form>
-            </div>
-
-                        {% if form.errors %}
-                <div class="error-messages">
-                    <ul>
-                        {% for field in form %}
-                            {% for error in field.errors %}
-                                <li>{{ error }}</li>
-                            {% endfor %}
-                        {% endfor %}
-                        {% for error in form.non_field_errors %}
-                            <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
-
-        </div>
+        
 
         <div class="profile-actions">
             <a href="{% url 'home' %}" class="back-btn">BACK</a>

@@ -1,0 +1,87 @@
+/* update_profile.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0; /* Light background for better contrast */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full height of the viewport */
+}
+
+.container {
+    background-color: #ffffff; /* White background for the form */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    padding: 20px; /* Space inside the container */
+    width: 400px; /* Fixed width for the form */
+}
+
+h1 {
+    text-align: center; /* Centered title */
+    margin-bottom: 20px; /* Space below the title */
+    color: #333; /* Dark color for the title */
+}
+
+.input-group {
+    margin-bottom: 20px; /* Space below the input group */
+}
+
+.input-group label {
+    display: block; /* Labels on their own line */
+    margin-bottom: 5px; /* Space below each label */
+    font-weight: bold; /* Bold labels */
+}
+
+.input-group input[type="text"],
+.input-group input[type="email"],
+.input-group input[type="file"],
+.input-group input[type="password"],
+.input-group select {
+    width: 100%; /* Full width */
+    padding: 10px; /* Space inside input fields */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 4px; /* Slightly rounded corners */
+    box-sizing: border-box; /* Include padding in width */
+}
+
+.button-group {
+    text-align: center; /* Center buttons */
+}
+
+.submit-btn, .cancel-btn {
+    background-color:#1E2A5E; /* Green background for submit button */
+    color: white; /* White text color */
+    border: none; /* No border */
+    padding: 10px 20px; /* Space inside buttons */
+    border-radius: 4px; /* Slightly rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin: 5px; /* Space between buttons */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+.submit-btn:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+.cancel-btn {
+    background-color: #f44336; /* Red background for cancel button */
+}
+
+.cancel-btn:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+}
+
+/* Preview image styling */
+.image-preview-container {
+    text-align: center; /* Center the preview image */
+    margin-bottom: 20px; /* Space below the image */
+}
+
+.image-preview-container img {
+    max-width: 100%; /* Responsive image */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 4px; /* Slightly rounded corners for image */
+}
