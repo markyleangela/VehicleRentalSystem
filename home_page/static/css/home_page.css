@@ -31,9 +31,10 @@ section {
     width: 100%;        
     z-index: 1000;      
     background-color: #f5f5f5;
-    color: white;      
-
+    color: white; 
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Add this line */
 }
+
 
 .nav-bar {
 
