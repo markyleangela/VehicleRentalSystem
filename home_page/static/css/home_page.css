@@ -12,7 +12,7 @@ section {
     position: relative;
 }
 
-.nav-container {
+/* .nav-container {
     position: absolute;
     top: 0;
     left: 0;
@@ -22,13 +22,25 @@ section {
     justify-content: center;
   
 
+} */
+
+.nav-container {
+    position: fixed;   
+    top: 0;             
+    left: 0;             
+    width: 100%;        
+    z-index: 1000;      
+    background-color: #f5f5f5;
+    color: white;      
+
 }
 
 .nav-bar {
 
     display: flex;
-    width: 90%;
-    justify-content: space-between;
+    width: 100%;
+    justify-content:space-between;
+
     align-items: center;
     height: 15vh;
 }
@@ -53,7 +65,7 @@ section {
 }
 
 .nav-bar ul li a {
-    color: white;
+    color: #1E2A5E;
     padding: 30px;
     display: block;
     text-decoration: none;

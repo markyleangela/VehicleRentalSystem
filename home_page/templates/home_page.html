@@ -1,3 +1,7 @@
+
+{% extends "base.html" %}
+
+
 {% load static %} <!-- Load static files -->
 
 <!DOCTYPE html>
@@ -6,52 +10,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/home_page.css' %}"> <!-- Link to your CSS -->
-    <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <title>Home</title>
+    
+    {% block title %}Home - VRS{% endblock %}
 </head>
 <body>
+    {% block content %}
     <section class="upper-section">
-        {% block navigation %}
-        <div class="nav-container">
-            <nav class="nav-bar">
-                <div class="logo">
-                    <img src="{% static 'images/Logo-Clear.png' %}" alt="Logo">
-                </div>
-                <ul id="nav-links">
-                    <li><a href="{% url 'home' %}">Home</a></li>
-                    <li><a href="">About Us</a></li>
-                    <li><a href="#Contact Us">Contact Us</a></li>
-                </ul>
-                <div class="burger-menu" id="burger-menu">
-                    <div class="line"></div>
-                    <div class="line"></div>
-                    <div class="line"></div>
-                </div>
-                <nav class="dropdown" id="dropdownMenu">
-                    <ul>
-                        <li>
-                            <a href="{% url 'profile_page' %}">
-                                <i class="fas fa-user"></i> Profile
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{% url 'booking_list' %}">
-                                <i class="fas fa-book"></i> Bookings
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{% url 'logout' %}">
-                                <i class="fas fa-sign-out-alt"></i> Logout
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                
-                
-            </nav>
-        </div>
-        {% endblock %}
+        
 
         <div class="cover-img">
             <img src="{% static 'images/cover-img.jpg' %}" alt="blue car"> <!-- Link to your image -->
@@ -133,6 +98,8 @@
     </div>
 
     <!-- Load JavaScript file -->
-    <script src="{% static 'js/homepage_script.js' %}" defer></script>
+ 
 </body>
 </html>
+
+{% endblock %}
