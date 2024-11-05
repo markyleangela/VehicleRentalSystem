@@ -1,24 +1,9 @@
-html, body {
+body {
     height: 100%; 
     margin: 0; 
- 
+    padding-top: 20vh; /* Adds padding to the top of the body */
     overflow: auto;
-    font-family: 'Secular One', sans-serif;
-}
-
-body::before {
-    content: '';
-    position: absolute; 
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url('../images/cover-img.jpg'); 
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover; 
-    opacity: 0.15; /* Reduced opacity for a softer background */
-    z-index: -1; /* Background behind everything */
+    font-family: 'Secular One', sans-serif; 
 }
 
 .all-info-container {
@@ -126,32 +111,40 @@ input[type="password"]:focus {
 }
 
 /* UPPER SECTION BLOCK OF CSS */
-section {
-    margin-bottom: 0; /* Remove bottom margin */
-}
-
-.upper-section {
-    position: relative;
-    z-index: 2; /* Set a higher z-index for the upper section */
-}
-
 .nav-container {
-    position: relative; /* Change to relative for normal stacking context */
-    display: flex;
-    justify-content: center;
-    z-index: 3; /* Ensure it is above the background */
+    position: fixed;   
+    top: 0;             
+    left: 0;             
+    width: 100%;        
+    z-index: 1000;      
+    background-color: #f5f5f5;
+    color: white; 
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    height: 15vh; /* Set a fixed height for the nav */
 }
+
+/* Add margin to the first section following the nav container */
+section {
+    margin-top: 15vh; /* Push down by the height of the nav */
+    margin: 0; /* Remove bottom margin if needed */
+}
+
+
 
 .nav-bar {
     display: flex;
-    width: 90%;
-    justify-content: space-between;
+    width: 100%;
+    justify-content: space-between; 
     align-items: center;
     height: 15vh;
+    padding: 0 40px;
+    box-sizing: border-box; 
 }
 
-.logo img {
+
+.logo img{
     height: 20vh;
+    
 }
 
 .nav-bar ul {
@@ -169,11 +162,11 @@ section {
 }
 
 .nav-bar ul li a {
-    color: black;
-    padding: 20px;
+    color: #1E2A5E;
+    padding: 30px;
     display: block;
     text-decoration: none;
-    font-size: 1.1rem; /* Adjust this value to your preferred size */
+    font-family: 'Secular One', sans-serif;
 }
 
 .burger-menu {
