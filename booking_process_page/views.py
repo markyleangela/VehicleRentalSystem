@@ -23,7 +23,7 @@ def booking_process(request, vehicle_id):
         days_rented = max((return_date - start_date).days, 0)
         total_amount = days_rented * vehicle.vehicle_price
         
-        rental_record = RentalRecord.objects.create(
+        rental_record = RentalRecord(
             customer=request.user,
             vehicle=vehicle,
             start_date=start_date,
@@ -31,7 +31,36 @@ def booking_process(request, vehicle_id):
             total_amount=total_amount,
             days_rented=days_rented
         )
+
+        rental_record.save()
         
-        return redirect("booking_list")
+        return redirect("payment", rental_id=rental_record.rental_id)
 
     return render(request, "booking_process.html", {"vehicle": vehicle})
+
+
+
+
+@login_required
+def payment(request, rental_id):
+    rental_record = get_object_or_404(RentalRecord, rental_id=rental_id)
+    
+    if request.method == "POST":
+        rental_record.payment_status = True
+        rental_record.payment_date = timezone.now()
+        rental_record.save()
+        
+        return redirect("booking_confirmation", rental_id=rental_record.rental_id)
+
+    return render(request, "payment.html", {"rental_record": rental_record})
+
+
+
+@login_required
+def booking_confirmation(request, rental_id):
+    rental_record = get_object_or_404(RentalRecord, rental_id=rental_id)
+    
+    if rental_record.payment_status:
+        return render(request, "booking_confirmation.html", {"rental_record": rental_record})
+    else:
+        return redirect('payment', rental_id=rental_id)
