@@ -428,3 +428,16 @@ section {
 }
 
 /* UPPER SECTION BLOCK OF CSS */
+
+
+.payment-action button{
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: #1E2A5E; 
+    color: white; 
+    cursor: pointer;
+    transition: background-color 0.3s; 
+    
+}

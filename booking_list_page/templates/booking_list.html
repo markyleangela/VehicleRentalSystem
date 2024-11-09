@@ -60,14 +60,15 @@
                 <table class="bookings-table">
                     <thead>
                         <tr>
-                            <th>Rental ID</th>
+                            <th>Transaction ID</th>
                             <th>Vehicle ID</th>
                             <th>Start Date</th>
                             <th>Return Date</th>
                             <th>Total Amount</th>
                             <th>Return Status</th>
                             <th>Payment Status</th>
-                            <th>Action</th>
+                            <th>View</th>
+                            <th>Rate</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -111,6 +112,21 @@
                                             <i class="fa fa-eye"></i>
                                         </button>
                                     </td>
+
+                                    <td>
+                                        {% if record.is_rated and record.return_status%}
+                                 
+                                            <a class="not-rated" href="{% url 'vehicle_rate' %}"><i class="fas fa-star"></i></a>
+                                       
+                                        
+                                       
+                                        {% else %}
+                                            
+                                            <a class="not-rated" href="{% url 'vehicle_rate' %}"><i class="far fa-star"></i></a>
+                                        {% endif %}
+                                    </td>
+                                    
+                                
                                 </tr>
                             {% endfor %}
                         {% else %}
@@ -126,9 +142,10 @@
         <!-- Modal Structure -->
         <div id="vehicle-modal" class="modal">
             <div class="modal-content">
-                <span id="close-modal" class="close-button">&times;</span>
+                
                 <div id="modal-vehicle-img"></div>
                 <div id="modal-vehicle-info"></div>
+                <span id="close-modal" class="close-button">&times;</span>
             </div>
         </div>
 
