@@ -35,7 +35,8 @@ class Vehicle(models.Model):
     vehicle_description = models.CharField(max_length=500, null=True)
     vehicle_transmission = models.CharField(max_length=50, choices=TRANSMISSION_CHOICES, null=True)
     vehicle_cargo =  models.CharField(max_length=50, choices=CARGO_CHOICES,null=True)
-
+    vehicle_rating = models.FloatField(default=0)
+    
     def __str__(self):
         return f"{self.vehicle_model} {self.vehicle_brand} {self.vehicle_type} {self.vehicle_price}"
     

@@ -28,5 +28,6 @@ urlpatterns = [
     path('vehicles/', include("crud_operations_for_vehicles.urls")),
     path('home/', include("home_page.urls")),
     path('booking_list/', include("booking_list_page.urls")),
+    path('vehicle_rating/', include("rating_page.urls")),
 
 ]

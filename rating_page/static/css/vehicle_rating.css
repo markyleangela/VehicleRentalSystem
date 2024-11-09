@@ -1,0 +1,140 @@
+/* UPPER SECTION BLOCK OF CSS */
+.nav-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #f5f5f5;
+    color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    height: 15vh;
+}
+
+/* Add margin to the first section following the nav container */
+section {
+    margin-top: 15vh;
+    margin: 0;
+}
+
+.nav-bar {
+    display: flex;
+    width: 100%;
+    justify-content: space-between; 
+    align-items: center;
+    height: 100%; /* Use full height of nav container */
+    padding: 0 2%; /* Use percentage for padding */
+    box-sizing: border-box; 
+}
+
+.logo img {
+    height: auto; /* Make it responsive */
+    max-height: 20vh; /* Ensure it doesn't exceed a specific height */
+}
+
+.nav-bar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    font-size: 1.2rem;
+    align-items: center;
+}
+
+.nav-bar ul li {
+    display: inline;
+}
+
+.nav-bar ul li a {
+    color: #1E2A5E;
+    padding: 20px; /* Adjust padding */
+    display: block;
+    text-decoration: none;
+    font-family: 'Secular One', sans-serif;
+}
+
+/* Burger menu styles */
+.burger-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.line {
+    height: 4px;
+    width: 100%;
+    background-color: #333;
+    transition: all 0.3s ease;
+}
+
+/* Burger menu active state */
+.burger-menu.active .line:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.burger-menu.active .line:nth-child(2) {
+    opacity: 0;
+}
+
+.burger-menu.active .line:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Dropdown menu styles */
+#dropdownMenu {
+    display: none;
+    position: absolute;
+    font-family: 'Secular One', sans-serif;
+    top: 80px;
+    right: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 180px;
+    border-radius: 5px;
+    padding: 5px;
+    z-index: 1000;
+}
+
+#dropdownMenu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+#dropdownMenu ul li {
+    width: 100%;
+}
+
+#dropdownMenu ul li a {
+    text-decoration: none;
+    color: #333;
+}
+
+#dropdownMenu ul li a:hover {
+    color: #1E2A5E;
+}
+
+/* Active class to show the dropdown */
+#dropdownMenu.active {
+    display: block;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    
+
+    .all-info-container {
+        padding: 10px; /* Reduce padding on smaller screens */
+    }
+
+    .profile-pic {
+        width: 100px; /* Smaller profile picture */
+        height: 100px; 
+    }
+}

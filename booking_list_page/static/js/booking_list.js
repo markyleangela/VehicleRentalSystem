@@ -38,21 +38,16 @@ document.addEventListener('DOMContentLoaded', function () {
             const vehicleModel = this.getAttribute('data-vehicle-model');
             const vehicle = this.getAttribute('data-rental-vehicle');
             const vehicleImg = this.getAttribute('data-vehicle-img');
-            var paymentStatus = "Unpaid";
-            var returnStatus = "Pending Return";
-
-            if (rentalPaymentStatus == "True") {
-                paymentStatus = "Paid";
-            }
-
-            if (rentalReturnStatus == "True") {
-                returnStatus = "Returned";
-            }
-
+            
+            // Determine payment and return statuses
+            let paymentStatus = rentalPaymentStatus === "True" ? "Paid" : "Unpaid";
+            let returnStatus = rentalReturnStatus === "True" ? "Returned" : "Pending Return";
+    
+            // Set the image in the modal
             document.getElementById('modal-vehicle-img').innerHTML = `
                 <img src="data:image/png;base64,${vehicleImg}" alt="${vehicleModel}" style="width: 400px; height: auto;" />
             `;
-
+    
             // Populate modal with vehicle details
             document.getElementById('modal-vehicle-info').innerHTML = `
                 <h2>${vehicle}</h2>
@@ -77,12 +72,17 @@ document.addEventListener('DOMContentLoaded', function () {
                     <p><i class="far fa-user"></i> <strong>${rentalCustomer}</strong></p>
                     <p>Total Amount: <strong>${rentalAmount}</strong></p>
                 </div>
+                ${rentalPaymentStatus === "False" ? `
+                    <div class='payment-action'>
+                        <button class="payment-button" onclick="makePayment(${rentalId})">Make Payment</button>
+                    </div>
+                ` : ''}
             `;
-
+    
             modal.style.display = 'block'; // Show the modal
         });
     });
-
+    
     // Close the modal when clicking the close button
     closeModalButton.addEventListener('click', function () {
         modal.style.display = 'none';
