@@ -1,16 +1,62 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Profile{% endblock %}
+{% block title %}Vehicle Rating - {{ vehicle.model }}{% endblock %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/vehicle_rating.css' %}?v={{ STATIC_VERSION }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
-    
+    <div class="vehicle-rating-page">
+        <div class="vehicle-header">
+            
+            <p class="average-rating">Average Rating: <strong>{{ avg_rating }}</strong> ({{ count_ratings }} reviews)</p>
+        </div>
+        <img src="data:image/png;base64,{{ vehicle.image_base64 }}" alt="{{ vehicle.vehicle_model }}">
 
-    <script src="{% static 'js/vehicle_rating.js' %}"></script>
+        {% comment %} <div class="ratings-list">
+            {% for rating in ratings %}
+                <div class="review-card">
+                    <div class="user-rating">
+                        <div class="rating-stars">
+                            {% for star in stars %}
+                                {% if star == 'full' %}
+                                    <i class="fas fa-star"></i>  <!-- Full Star -->
+                                {% elif star == 'half' %}
+                                    <i class="fas fa-star-half-alt"></i>  <!-- Half Star -->
+                                {% else %}
+                                    <i class="far fa-star"></i>  <!-- Empty Star -->
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        
+                        
+                        
+                        
+                        <span class="rating-value">{{ rating.rating }} / 5</span>
+                    </div>
+                    <p class="review-text">{{ rating.review }}</p>
+                    <p class="review-author">- <strong>{{ rating.user.username }}</strong></p>
+                    <hr>
+                </div>
+            {% empty %}
+                <p class="no-ratings">No ratings yet. Be the first to rate this vehicle!</p>
+            {% endfor %}
+        </div> {% endcomment %}
+
+        <h3 class="section-title">Submit Your Rating</h3>
+        {% if user.is_authenticated %}
+            <div class="submit-rating-form">
+                <form method="post" class="rating-form">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="submit-btn">Submit Rating</button>
+                </form>
+            </div>
+        {% else %}
+            <p><a href="{% url 'login' %}" class="login-link">Log in</a> to submit a rating.</p>
+        {% endif %}
+    </div>
 {% endblock %}
