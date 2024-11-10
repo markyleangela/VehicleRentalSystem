@@ -73,9 +73,13 @@
         </div> <!-- End of vehicle-list-wrapper -->
     </section>
     
+ 
+        {% block extra_js %}
     <script src="{% static 'js/homepage_script.js' %}?v={{ STATIC_VERSION }}"></script>
-    
+    {% endblock %}
 </body>
 </html>
 
 {% endblock %}
+
+
