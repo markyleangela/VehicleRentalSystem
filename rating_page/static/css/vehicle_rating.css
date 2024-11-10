@@ -1,3 +1,6 @@
+
+
+
 /* UPPER SECTION BLOCK OF CSS */
 .nav-container {
     position: fixed;
@@ -137,4 +140,170 @@ section {
         width: 100px; /* Smaller profile picture */
         height: 100px; 
     }
+}
+
+
+/**/
+
+/* General Styling */
+body {
+    height: 100%; 
+    margin: 0; 
+    padding-top: 20vh; /* Adds padding to the top of the body */
+    overflow: auto;
+    font-family: 'Secular One', sans-serif; 
+}
+
+/* General Styling */
+
+.vehicle-rating-page {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+
+.vehicle-rating-page img {
+    width: 500px;  /* Ensures the image doesn't exceed the width of its container */
+    height: auto;     /* Keeps the aspect ratio intact */
+    display: block;   /* Removes any unwanted spacing below the image */
+    margin: 0 auto;   /* Centers the image horizontally */
+}
+
+
+
+
+.vehicle-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.vehicle-title {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.average-rating {
+    font-size: 1.4rem;
+    color: #1E2A5E;
+    font-weight: 500;
+}
+
+.section-title {
+    font-size: 1.6rem;
+    margin-top: 30px;
+    color:#1E2A5E;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+
+
+
+.review-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+
+
+.submit-rating-form {
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+}
+
+.submit-rating-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.submit-rating-form button {
+    background-color: #1E2A5E;
+    color: white;
+    padding: 12px 25px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-rating-form button:hover {
+    background-color: #0056b3;
+}
+
+.submit-rating-form input, .submit-rating-form select, .submit-rating-form textarea {
+    font-size: 1rem;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.submit-rating-form input:focus, .submit-rating-form select:focus, .submit-rating-form textarea:focus {
+    outline: none;
+    border-color: #1E2A5E;
+}
+
+
+
+/* Style for the rating stars */
+.star-rating {
+    direction: rtl;
+    display: inline-block;
+    font-size: 30px;
+}
+
+.star-rating input[type="radio"] {
+    display: none;
+}
+
+.star-rating label {
+    color: #ccc; /* Gray color for unselected stars */
+    cursor: pointer;
+}
+
+.star-rating input[type="radio"]:checked ~ label {
+    color: gold; /* Color of stars when selected */
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: #ffcc00; /* Highlight stars when hovered */
+}
+
+/* Styling the textarea for the review */
+.submit-rating-form textarea {
+    width: 100%;
+    height: 100px;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+}
+
+/* Style for the submit button */
+.submit-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background-color: #45a049;
 }

@@ -29,5 +29,6 @@ urlpatterns = [
     path('home/', include("home_page.urls")),
     path('booking_list/', include("booking_list_page.urls")),
     path('vehicle_rating/', include("rating_page.urls")),
+    path('vehicle_view/', include("vehicle_detail.urls")),
 
 ]

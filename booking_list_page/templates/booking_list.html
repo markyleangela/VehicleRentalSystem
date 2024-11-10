@@ -114,17 +114,21 @@
                                     </td>
 
                                     <td>
-                                        {% if record.is_rated and record.return_status%}
-                                 
-                                            <a class="not-rated" href="{% url 'vehicle_rate' %}"><i class="fas fa-star"></i></a>
-                                       
-                                        
-                                       
-                                        {% else %}
+                                        {% if record.vehicle and record.is_rated and record.return_status  and record.payment_status%}
+                                            <a class="rated">
+                                                <i class="fas fa-check-circle"></i>
+                                            </a>
+                                        {% elif record.vehicle and not record.is_rated and record.return_status  and record.payment_status %}
                                             
-                                            <a class="not-rated" href="{% url 'vehicle_rate' %}"><i class="far fa-star"></i></a>
+                                            <a class="not-rated" href="{% url 'vehicle_rate' vehicle_id=record.vehicle.vehicle_id %}">
+                                                <i class="far fa-star"></i>
+                                            </a>
+                                        {% else %}
+
+                                        
                                         {% endif %}
                                     </td>
+                                    
                                     
                                 
                                 </tr>

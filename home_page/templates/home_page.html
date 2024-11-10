@@ -60,19 +60,11 @@
                             <p class="vehicle-price">Php {{ vehicle.vehicle_price }}/day</p>
                         </div>
                         <div class="vehicle-button-container">
-                            <form method="POST" action="">
-                                {% csrf_token %}
-                                <button type="button" class="view-button" 
-                                    data-vehicle-id="{{ vehicle.vehicle_id }}"
-                                    data-vehicle-brand="{{ vehicle.vehicle_brand }}"
-                                    data-vehicle-model="{{ vehicle.vehicle_model }}"
-                                    data-vehicle-type="{{ vehicle.vehicle_type }}"
-                                    data-vehicle-price="{{ vehicle.vehicle_price }}"
-                                    data-vehicle-image="{{vehicle.image_base64 }}"
-                                    data-vehicle-desc="{{vehicle.vehicle_description}}"
-                                    data-vehicle-transmission="{{vehicle.vehicle_transmission}}"
-                                    data-vehicle-cargo="{{vehicle.vehicle_cargo}}">View</button>
-                            </form>
+                           
+
+                            <a href="{% url 'vehicle_detail' vehicle_id=vehicle.vehicle_id %}" class="vehicle-link">
+                                <button class="view-detail-btn">View</button>
+                            </a>
                         </div>
                     </div>
                 </li>
@@ -81,24 +73,8 @@
         </div> <!-- End of vehicle-list-wrapper -->
     </section>
     
-
-    <div id="vehicle-modal" class="modal">
-        
-        <div class="modal-content">
-            
-            <div id="modal-vehicle-img">
-              
-            </div>
-            <div id="modal-vehicle-info"> 
-                
-            </div>
-            
-            <span class="close-button" id="close-modal">&times;</span>
-        </div>
-    </div>
-
-    <!-- Load JavaScript file -->
- 
+    <script src="{% static 'js/homepage_script.js' %}?v={{ STATIC_VERSION }}"></script>
+    
 </body>
 </html>
 

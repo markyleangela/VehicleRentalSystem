@@ -1,0 +1,147 @@
+/* General Body Styles */
+body {
+    height: 100%; 
+    margin-top: 100px; 
+
+    overflow: auto;
+    font-family: 'Secular One', sans-serif;
+}
+
+/* Flexbox to center the section vertically and horizontally */
+.vehicle-detail-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;      /* Horizontally center */
+    justify-content: center;  /* Vertically align content from the top */
+    min-height: 100vh;            /* Full viewport height */
+    box-sizing: border-box;
+    height:auto;
+    width: 60%;
+
+    margin-left: 20%;
+    margin-right: 20%;
+
+}
+
+/* Styling for vehicle image container */
+.vehicle-img {
+    max-width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.vehicle-img img {
+    max-width: 100%;
+    height: auto;
+    width: 50vw;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for vehicle info */
+.vehicle-info {
+ 
+    width: 100%;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.vehicle-info p {
+    font-size: 1.1rem;
+    margin: 10px 0;
+    color: #555;
+}
+
+
+
+/* Review and Rating Styles */
+.reviews-section {
+    margin-top: 10px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    height: auto;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}
+
+.reviews-section h4 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.reviews-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.review-item {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+    margin-bottom: 15px;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.review-author {
+    font-weight: bold;
+}
+
+.review-rating {
+    font-size: 1.2rem;
+    color: gold;
+}
+
+.review-rating .filled {
+    color: gold;
+}
+
+.review-rating .empty {
+    color: #ddd;
+}
+
+
+.review-card {
+    padding: 10px;
+    border: black solid 1px;
+}
+
+.review-comment {
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Vehicle Rating Stars */
+.vehicle-rating {
+    margin-top: 20px;
+}
+
+.vehicle-rating h4 {
+    font-size: 1.6rem;
+}
+
+.rating-stars {
+    font-size: 1.5rem;
+    color: gold;
+}
+
+.rating-stars .star.full {
+    color: gold;
+}
+
+.rating-stars .star.half {
+    color: #ffd700;
+}
+
+.rating-stars .star.empty {
+    color: #ddd;
+}
