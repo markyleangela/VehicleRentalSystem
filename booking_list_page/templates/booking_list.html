@@ -115,7 +115,7 @@
 
                                     <td>
                                         {% if record.vehicle and record.is_rated and record.return_status  and record.payment_status%}
-                                            <a class="rated" href="{% url 'vehicle_rate' vehicle_id=record.vehicle.vehicle_id %}">
+                                            <a class="rated">
                                                 <i class="fas fa-check-circle"></i>
                                             </a>
                                         {% elif record.vehicle and not record.is_rated and record.return_status  and record.payment_status %}
