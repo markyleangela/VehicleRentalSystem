@@ -30,5 +30,6 @@ urlpatterns = [
     path('booking_list/', include("booking_list_page.urls")),
     path('vehicle_rating/', include("rating_page.urls")),
     path('vehicle_view/', include("vehicle_detail.urls")),
+    path('about_us/', include("about_us.urls")),
 
 ]
