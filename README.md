@@ -85,16 +85,10 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
+[![Product Name Screen Shot][product-screenshot-1]](https://example.com)
 
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
+Vehicle Rental System designed to streamline the rental process for both customers and administrators. Built with Django, this system allows users to browse available vehicles, book rentals, and manage profiles, while giving administrators control over vehicle inventory and rental records. 
 
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
-
-Use the `BLANK_README.md` to get started.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -120,9 +114,9 @@ To get a local copy up and running follow these simple example steps.
 ### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
-* npm
+* pip
   ```sh
-  npm install npm@latest -g
+  pip install -r requirements.txt
   ```
 
 ### Installation
@@ -134,9 +128,9 @@ _Below is an example of how you can instruct your audience on installing and set
    ```sh
    git clone https://github.com/markyleangela/VehicleRentalSystem.git
    ```
-3. Install NPM packages
+3. Install PIP packages
    ```sh
-   npm install
+   pip install -r requirements.txt
    ```
 4. Enter your API in `config.js`
    ```js
@@ -260,7 +254,8 @@ Use this space to list resources you find helpful and would like to give credit 
 [license-url]: https://github.com/markyleangela/VehicleRentalSystem/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/kyle-angela-mar-405aa3159/
-[product-screenshot]: images/screenshot.png
+[product-screenshot]: images/product-screenshot.png
+[product-screenshot-1]: images/product-screenshot-1.png
 [Django]: https://img.shields.io/badge/django-092E20?style=for-the-badge&logo=django&logoColor=white
 [Django-url]: https://www.djangoproject.com/
 
