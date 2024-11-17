@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'license',
     'rating_page',
     'vehicle_detail',
+    'about_us',
     
 
     
