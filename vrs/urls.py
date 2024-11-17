@@ -31,5 +31,6 @@ urlpatterns = [
     path('vehicle_rating/', include("rating_page.urls")),
     path('vehicle_view/', include("vehicle_detail.urls")),
     path('about_us/', include("about_us.urls")),
+    path('contact_us/', include("contact_page.urls")),
 
 ]

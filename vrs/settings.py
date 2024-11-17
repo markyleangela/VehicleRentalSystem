@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'rating_page',
     'vehicle_detail',
     'about_us',
+    'contact_page'
     
 
     
