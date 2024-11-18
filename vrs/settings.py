@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'user_profile',
     'license',
 
-    'booking_process_page'
+    'booking_process_page',
 
     'rating_page',
     'vehicle_detail',
