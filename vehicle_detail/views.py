@@ -7,20 +7,18 @@ from vehicles.models import Rating
 
 
 def vehicle_detail(request, vehicle_id):
-    # Get the vehicle object by vehicle_id
+   
     vehicle = get_object_or_404(Vehicle, vehicle_id=vehicle_id)
-
-    # Fetch all ratings for the vehicle
     ratings = vehicle.ratings.all()  # Get all ratings for the vehicle
     
-    # Calculate the average rating
-    avg_rating = vehicle.average_rating()  # Assume this method calculates average rating
+ 
+    avg_rating = vehicle.average_rating()  
     count_ratings = vehicle.rating_count()  # Number of ratings for the vehicle
 
-    # Calculate stars for the average rating
+   
     avg_full_stars = int(avg_rating)  # Number of full stars
-    avg_half_star = 1 if avg_rating - avg_full_stars >= 0.5 else 0  # Add half star if fraction >= 0.5
-    avg_empty_stars = 5 - avg_full_stars - avg_half_star  # Remaining stars should be empty
+    avg_half_star = 1 if avg_rating - avg_full_stars >= 0.5 else 0  
+    avg_empty_stars = 5 - avg_full_stars - avg_half_star  
     avg_stars = ['full'] * avg_full_stars + ['half'] * avg_half_star + ['empty'] * avg_empty_stars
 
     # Prepare the individual ratings and their stars
@@ -37,7 +35,8 @@ def vehicle_detail(request, vehicle_id):
         # Add the stars list to the star_ratings
         star_ratings.append({
             'rating': rating,
-            'stars': stars  # List of stars for this rating
+            'stars': stars , # List of stars for this rating
+            'created_at': rating.created_at,
         })
 
     # Pass the context data to the template

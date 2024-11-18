@@ -1,10 +1,22 @@
-/* General Body Styles */
 body {
-    height: 100%; 
-    margin-top: 100px; 
-
-    overflow: auto;
+    position: relative;
+    padding: 50px 0;
     font-family: 'Secular One', sans-serif;
+    color: #333;
+    margin-top: 60px;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../images/cover-img.jpg') no-repeat center center;
+    background-size: cover;
+    opacity: 0.4; /* Adjust this value for the desired opacity */
+    z-index: -1; /* Keeps the image behind the content */
 }
 
 /* Flexbox to center the section vertically and horizontally */
@@ -38,78 +50,162 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Styling for vehicle info */
 .vehicle-info {
-    display: flex;  /* Make the container a flex container */
-    flex-direction: column;  /* Stack the child elements vertically */
-    width: 100%;
+    background-color: #fff;
     padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: left;
-    align-items: flex-start; /* Align text to the left */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    font-family: 'Secular One', sans-serif;
+    display: flex;
+    flex-direction: column; /* This will stack the content vertically */
+}
+
+.vehicle-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    display: flex;
+    justify-content: space-between; /* Ensures space between brand/model and price */
+    align-items: center;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.vehicle-brand {
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
+.vehicle-price {
+    font-size: 20px;
+    font-weight: bold;
+    color: #2c3e50; /* Change color to make price stand out */
+    text-align: right;
+}
+
+.vehicle-rating {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.rating-stars {
+    display: flex;
+    gap: 5px;
+}
+
+.average-rating {
+    font-size: 14px;
+    color: #555;
 }
 
 .vehicle-info p {
-    font-size: 1.1rem;
+    font-size: 16px;
+    color: #444;
     margin: 10px 0;
-    color: #555;
-}
-.book-btn {
-    width: 100px;
-    margin-left: auto;  /* Pushes the button to the far right */
 }
 
+.button-container {
+    display: flex;
+    justify-content: flex-end; /* Aligns the button to the right */
+    margin-top: 20px;
+    width: 100%; /* Ensure this takes up the full width of the container */
+}
+
+.book-link {
+    text-decoration: none;
+}
+
+.book-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff; /* Blue button */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.book-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: translateY(-2px); /* Lift effect */
+}
+
+.book-btn:active {
+    transform: translateY(0); /* Reset when clicked */
+}
+
+
 /* Review and Rating Styles */
-/* Overall Review Section */
+
 .reviews-section {
-    margin-top: 10px;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    padding: 30px;
+    background-color: #f3f4f6; /* Slightly lighter background for a modern look */
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     width: 100%;
 }
 
 .reviews-section h4 {
-    font-size: 24px;
+    font-size: 26px;
     font-weight: bold;
-    color: #333;
-    margin-bottom: 15px;
+    color: #2c3e50; /* Darker text for better readability */
+    margin-bottom: 20px;
+    text-align: center; /* Center align the heading */
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
 }
 
-/* Reviews List: Make the reviews scrollable */
+/* Reviews List: Scrollable with custom scrollbar styling */
 .reviews-list {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    max-height: 400px; /* Set the height for the scrollable area */
-    overflow-y: auto;  /* Enable vertical scrolling */
-    padding-right: 15px; /* Add some padding to avoid the scrollbar overlapping the content */
+    gap: 15px;
+    max-height: 500px; /* Increased height for better visibility */
+    overflow-y: auto;
+    padding-right: 10px;
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #ccc #f3f4f6; /* Custom colors for the scrollbar */
+}
+
+.reviews-list::-webkit-scrollbar {
+    width: 8px; /* Scrollbar width */
+}
+
+.reviews-list::-webkit-scrollbar-track {
+    background: #f3f4f6; /* Scrollbar track color */
+}
+
+.reviews-list::-webkit-scrollbar-thumb {
+    background-color: #ccc; /* Scrollbar thumb color */
+    border-radius: 8px;
 }
 
 /* Individual Review Card */
 .review-card {
     display: flex;
     flex-direction: column;
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff; /* White for a clean card look */
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
 }
 
 .review-card:hover {
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    transform: translateY(-2px);
-    transition: all 0.3s ease-in-out;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    transform: translateY(-3px);
 }
 
 .review-card .user-rating {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
+    justify-content: space-between; /* Align rating stars to the right */
+    gap: 15px;
+    margin-bottom: 15px;
 }
 
 .review-card .user-rating .rating-stars {
@@ -118,47 +214,97 @@ body {
 }
 
 .review-card .user-rating .rating-value {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
-    color: #333;
+    color: #34495e; /* Slightly darker text for contrast */
 }
 
 .review-card .review-text {
     font-size: 16px;
-    color: #555;
-    line-height: 1.6;
-    margin-bottom: 10px;
+    color: #4a4a4a;
+    line-height: 1.8; /* Increased line height for better readability */
+    margin-bottom: 20px;
 }
 
-.review-card .review-author {
+.review-card .review-author, .review-date {
     font-size: 14px;
-    color: #777;
+    color: #888;
     font-style: italic;
     text-align: right;
+    margin-top: auto; /* Push the author to the bottom of the card */
 }
+
+/* Add subtle animations for a polished look */
+.review-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Add subtle dividers between reviews for better separation */
+.reviews-list > .review-card:not(:last-child) {
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 20px;
+}
+
+/* Add a little padding for mobile screens */
+@media (max-width: 768px) {
+    .review-card {
+        padding: 15px;
+    }
+
+    .reviews-section h4 {
+        font-size: 22px;
+    }
+}
+
 
 /* Stars Styling */
 .star {
-    font-size: 20px;
-    color: #ccc;
+    font-size: 24px; /* Slightly larger for better visibility */
+    color: #e0e0e0; /* Neutral color for unselected stars */
+    transition: transform 0.2s ease, color 0.2s ease; /* Add hover and transition effects */
 }
 
 .star.full {
-    color: gold;
+    color: #ffd700; /* Bright gold for full stars */
 }
 
 .star.half {
-    color: orange;
+    color: #ffb84d; /* Soft gold/orange for half stars */
+    position: relative;
+}
+
+.star.half::before {
+    content: '★'; /* Add a filled star overlay for half-star effect */
+    color: #ffd700; /* Gold overlay */
+    position: absolute;
+    left: 0;
+    width: 50%; /* Covers half of the star */
+    overflow: hidden;
+    display: inline-block;
 }
 
 .star.empty {
-    color: #ccc;
+    color: #e0e0e0; /* Lighter gray for unfilled stars */
+}
+
+/* Add hover effect for a dynamic feel */
+.star:hover {
+    transform: scale(1.1); /* Slightly larger on hover */
+    color: #ffc107; /* Brighter gold on hover for all states */
+}
+
+/* Stars in reviews-list for consistent alignment */
+.rating-stars {
+    display: flex;
+    gap: 5px; /* Equal spacing between stars */
 }
 
 /* No Ratings Section */
 .no-ratings {
-    font-size: 16px;
-    color: #888;
+    font-size: 18px; /* Slightly larger text for visibility */
+    color: #999; /* Subtle color */
     text-align: center;
     margin-top: 20px;
+    font-style: italic; /* Add a lighter, friendlier style */
 }

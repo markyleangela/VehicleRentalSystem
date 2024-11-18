@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}{{ vehicle.model }} - Vehicle Details{% endblock %}
+{% block title %}{{vehicle.vehicle_brand  }}  {{ vehicle.vehicle_model }} - Vehicle Details{% endblock %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/vehicle_detail.css' %}?v={{ STATIC_VERSION }}">
@@ -14,8 +14,12 @@
         </div>
 
         <div class="vehicle-info">
-            <h2>{{ vehicle.vehicle_brand }} {{ vehicle.vehicle_model }} ₱{{ vehicle.vehicle_price }} / per day</h2>
-
+            <div class="vehicle-title">
+                <span class="vehicle-brand">{{ vehicle.vehicle_brand }} {{ vehicle.vehicle_model }}</span>
+                
+                <span class="vehicle-price">₱{{ vehicle.vehicle_price }} / per day</span>
+            </div>
+        
             <div class="vehicle-rating">
                 <!-- Display Average Rating -->
                 <div class="rating-stars">
@@ -23,21 +27,27 @@
                         <span class="star {% if star == 'full' %}full{% elif star == 'half' %}half{% else %}empty{% endif %}">★</span>
                     {% endfor %}
                 </div>
-                <p>Average Rating: {{ avg_rating }} ({{ count_ratings }} reviews)</p>
+                <p class="average-rating">
+                    Average Rating: {{ avg_rating }} ({{ count_ratings }} reviews)
+                </p>
             </div>
-
+        
             <p><strong>Vehicle Type:</strong> {{ vehicle.vehicle_type }}</p>
             <p><strong>Description:</strong> {{ vehicle.vehicle_description }}</p>
             <p><strong>Transmission:</strong> {{ vehicle.vehicle_transmission }}</p>
             <p><strong>Cargo Capacity:</strong> {{ vehicle.vehicle_cargo }}</p>
-            <a><button class='book-btn'>BOOK</button></a> 
+            
+            <div class="button-container">
+                <a href="#" class="book-link">
+                    <button class="book-btn">BOOK</button>
+                </a>
+            </div>
         </div>
+        
 
         <!-- Review Display Section -->
         <div class="reviews-section">
             <h4>Customer Reviews</h4>
-
-            <h3>Reviews</h3>
             <div class="reviews-list">
                 {% for rating_data in star_ratings %}
                     <div class="review-card">
@@ -51,7 +61,9 @@
                             <span class="rating-value">{{ rating_data.rating.rating }} / 5</span>
                         </div>
                         <p class="review-text">{{ rating_data.rating.review }}</p>
+                        
                         <p class="review-author">- <strong>{{ rating_data.rating.user.username }}</strong></p>
+                        <p class="review-date">{{ rating_data.rating.created_at|date:"F j, Y g:i a" }}</p>
                         <hr>
                     </div>
                 {% empty %}
