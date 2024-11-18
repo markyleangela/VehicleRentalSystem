@@ -38,7 +38,7 @@
             <p><strong>Cargo Capacity:</strong> {{ vehicle.vehicle_cargo }}</p>
             
             <div class="button-container">
-                <a href="#" class="book-link">
+                <a href="{% url 'booking_process' vehicle_id=vehicle.vehicle_id %}" class="book-link">
                     <button class="book-btn">BOOK</button>
                 </a>
             </div>
