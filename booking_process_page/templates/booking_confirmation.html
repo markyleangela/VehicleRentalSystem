@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Booking Confirmation</title>
+    <style>
+        body {
+            background-color: #f0f8ff;
+            font-family: Arial, sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .confirmation-container {
+            background-color: #1E2A5E;
+            border: 1px solid #007BFF;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: auto;
+        }
+
+        h1 {
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .details {
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .details p {
+            margin: 5px 0;
+        }
+
+        .btn {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            display: block;
+            margin: 20px auto;
+            width: 150px;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="confirmation-container">
+    <h1>Booking Confirmation</h1>
+    <div class="details">
+        <p><strong>Vehicle Model:</strong> {{ rental_record.vehicle.vehicle_model }}</p>
+        <p><strong>Vehicle Brand:</strong> {{ rental_record.vehicle.vehicle_brand }}</p>
+        <p><strong>Pickup Date:</strong> {{ rental_record.start_date }}</p>
+        <p><strong>Return Date:</strong> {{ rental_record.return_date }}</p>
+        <p><strong>Total Amount:</strong> Php {{ rental_record.total_amount }}</p>
+        <p><strong>Payment Status:</strong> {% if rental_record.payment_status %} Paid {% else %} Pending {% endif %}</p>
+    </div>
+
+    <a href="{% url 'home' %}" class="btn">Go to Home</a>
+</div>
+
+</body>
+</html>
