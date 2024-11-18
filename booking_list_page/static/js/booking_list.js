@@ -14,7 +14,6 @@ function filterBookings(status) {
     document.querySelector(`.tab[onclick="filterBookings('${status}')"]`).classList.add('active');
 }
 
-
 document.addEventListener('DOMContentLoaded', function () {
     const modal = document.getElementById('vehicle-modal');
     const closeModalButton = document.getElementById('close-modal');
@@ -44,15 +43,15 @@ document.addEventListener('DOMContentLoaded', function () {
             let returnStatus = rentalReturnStatus === "True" ? "Returned" : "Pending Return";
     
             // Set the image in the modal
-            document.getElementById('modal-vehicle-img').innerHTML = `
+            document.getElementById('modal-vehicle-img').innerHTML = ` 
                 <img src="data:image/png;base64,${vehicleImg}" alt="${vehicleModel}" style="width: 400px; height: auto;" />
             `;
     
             // Populate modal with vehicle details
             document.getElementById('modal-vehicle-info').innerHTML = `
-                <h2>${vehicle}</h2>
+                <h2>${vehicle} Per Day</h2>
                 <div class='rental-vehicle-id'>
-                    <h3>Rental ID: ${rentalId} | Vehicle ID: ${rentalVehicleId}</h3>
+                    <h3>Transaction ID: ${rentalId} | Vehicle ID: ${rentalVehicleId}</h3>
                 </div>
                 <div class='rental-dates'>
                     <p>Vehicle Brand:</p>
@@ -66,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <p><i class="far fa-calendar"></i> Payment Date:</p>
                     <p><strong>${rentalPaymentDate}</strong></p>
                 </div>
-                <div class='rental-date'>
+                <div class='rental-info'>
                     <p>Payment Status: <strong>${paymentStatus}</strong></p>
                     <p>Return Status: <strong>${returnStatus}</strong></p>
                     <p><i class="far fa-user"></i> <strong>${rentalCustomer}</strong></p>
