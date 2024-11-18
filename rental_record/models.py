@@ -13,6 +13,7 @@ class RentalRecord(models.Model):
     payment_status = models.BooleanField(default=False)  
     return_status = models.BooleanField(default=False)  
     days_rented = models.IntegerField(default= 0)
+    is_rated =  models.BooleanField(default=False) 
 
     def __str__(self):
         return f"{self.customer.username} - {self.vehicle}"

@@ -1,56 +1,17 @@
+{% extends "base.html" %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account Information</title>
+{% block title %}Profile{% endblock %}
+
+{% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/account_info.css' %}?v={{ STATIC_VERSION }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
-</head>
+{% endblock %}
 <body>
-    <div class='temp'>
+    {% block content %}
 
-        <section class="upper-section">
-            <div class="nav-container">
-                <nav class="nav-bar">
-                    <div class="logo">
-                        <img src="{% static 'images/Logo-Clear.png' %}" alt="Logo">
-                    </div>
-                    <ul id="nav-links">
-                        <li><a href="{% url 'home' %}">Home</a></li>
-                        <li><a href="">About Us</a></li>
-                        <li><a href="#Contact Us">Contact Us</a></li>
-                    </ul>
-                    <div class="burger-menu" id="burger-menu">
-                        <div class="line"></div>
-                        <div class="line"></div>
-                        <div class="line"></div>
-                    </div>
-                    <nav class="dropdown" id="dropdownMenu">
-                        <ul>
-                            <li>
-                                <a href="{% url 'profile_page' %}">
-                                    <i class="fas fa-user"></i> Profile
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{% url 'booking_list' %}">
-                                    <i class="fas fa-book"></i> Bookings
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{% url 'logout' %}">
-                                    <i class="fas fa-sign-out-alt"></i> Logout
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </nav>
-            </div>
-        </section>
+        
         <div class="tabs">
             <a href="{% url 'profile_page' %}">
                 <button class="tab">Profile</button>
@@ -105,3 +66,4 @@
     <script src="{% static 'js/profile.js' %}"></script>
 </body>
 </html>
+{% endblock %}

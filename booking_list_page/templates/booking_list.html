@@ -1,54 +1,16 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/booking_list.css' %}?v={{ STATIC_VERSION }}">
-    <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class='temp'>
-        <section class="upper-section">
-            <div class="nav-container">
-                <nav class="nav-bar">
-                    <div class="logo">
-                        <img src="{% static 'images/Logo-Clear.png' %}" alt="Logo">
-                    </div>
-                    <ul id="nav-links">
-                        <li><a href="{% url 'home' %}">Home</a></li>
-                        <li><a href="">About Us</a></li>
-                        <li><a href="#Contact Us">Contact Us</a></li>
-                    </ul>
-                    <div class="burger-menu" id="burger-menu">
-                        <div class="line"></div>
-                        <div class="line"></div>
-                        <div class="line"></div>
-                    </div>
-                    <nav class="dropdown" id="dropdownMenu">
-                        <ul>
-                            <li>
-                                <a href="{% url 'profile_page' %}">
-                                    <i class="fas fa-user"></i> Profile
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{% url 'booking_list' %}">
-                                    <i class="fas fa-book"></i> Bookings
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{% url 'logout' %}">
-                                    <i class="fas fa-sign-out-alt"></i> Logout
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </nav>
-            </div>
-        </section>
 
+{% block title %}Booking List{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/booking_list.css' %}?v={{ STATIC_VERSION }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class='temp'>
+        
         <div class="bookings-container">
             <h2>Your Bookings</h2>
             <div class="tabs">
@@ -60,14 +22,15 @@
                 <table class="bookings-table">
                     <thead>
                         <tr>
-                            <th>Rental ID</th>
+                            <th>Transaction ID</th>
                             <th>Vehicle ID</th>
                             <th>Start Date</th>
                             <th>Return Date</th>
                             <th>Total Amount</th>
                             <th>Return Status</th>
                             <th>Payment Status</th>
-                            <th>Action</th>
+                            <th>View</th>
+                            <th>Rate</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -111,6 +74,25 @@
                                             <i class="fa fa-eye"></i>
                                         </button>
                                     </td>
+
+                                    <td>
+                                        {% if record.vehicle and record.is_rated and record.return_status  and record.payment_status%}
+                                            <a class="rated">
+                                                <i class="fas fa-check-circle"></i>
+                                            </a>
+                                        {% elif record.vehicle and not record.is_rated and record.return_status  and record.payment_status %}
+                                            
+                                            <a class="not-rated" href="{% url 'vehicle_rate' vehicle_id=record.vehicle.vehicle_id %}">
+                                                <i class="far fa-star"></i>
+                                            </a>
+                                        {% else %}
+
+                                        
+                                        {% endif %}
+                                    </td>
+                                    
+                                    
+                                
                                 </tr>
                             {% endfor %}
                         {% else %}
@@ -123,16 +105,19 @@
             </div>
         </div>
 
-        <!-- Modal Structure -->
         <div id="vehicle-modal" class="modal">
             <div class="modal-content">
-                <span id="close-modal" class="close-button">&times;</span>
+                <!-- Vehicle Image and Info will be populated dynamically -->
                 <div id="modal-vehicle-img"></div>
                 <div id="modal-vehicle-info"></div>
+                <!-- Close button for the modal -->
+                <span id="close-modal" class="close-button">&times;</span>
             </div>
         </div>
+        
+        
 
-        <script src="{% static 'js/booking_list.js' %}?v={{ STATIC_VERSION }}"></script>
+        
+        {% block extra_js %}<script src="{% static 'js/booking_list.js' %}?v={{ STATIC_VERSION }}"></script>{% endblock %}
     </div>
-</body>
-</html>
+{% endblock %}
