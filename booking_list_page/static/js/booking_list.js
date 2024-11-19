@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const vehicleModel = this.getAttribute('data-vehicle-model');
             const vehicle = this.getAttribute('data-rental-vehicle');
             const vehicleImg = this.getAttribute('data-vehicle-img');
+            const paymentUrl = `/payment/${rentalId}/`;
             
             // Determine payment and return statuses
             let paymentStatus = rentalPaymentStatus === "True" ? "Paid" : "Unpaid";
@@ -73,8 +74,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 </div>
                 ${rentalPaymentStatus === "False" ? `
                     <div class='payment-action'>
-                        <button class="payment-button" onclick="makePayment(${rentalId})">Make Payment</button>
-                    </div>
+                    <a href="{% url ${paymentUrl} %}" class="book-link">
+                        <button class="payment-button">BOOK</button>
+                    </a>
+                </div>
                 ` : ''}
             `;
     
