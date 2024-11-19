@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Profile{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}?v={{ STATIC_VERSION }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+        
+        <form action="{% url 'license_verification' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="input-group">
+                
+                {{ form.as_p }}  
+            </div>
+            <div class="button-group">
+                <button type="submit" class="submit-btn">Submit</button>
+                <button type="button" class="cancel-btn" onclick="window.location.href='{% url 'profile_page' %}';">Cancel</button>
+            </div>
+        </form>
+
+    
+    {% block extra_js %}{% endblock %}
+{% endblock %}

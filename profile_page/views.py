@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .forms import ProfileForm, PersonalDetailsForm
+from .forms import PersonalDetailsForm
 from user_profile.models import ProfileInfo
 import base64
 from io import BytesIO
@@ -58,58 +58,6 @@ def process_profile_image(profile):
             return None
 
 
-@login_required
-def update_profile(request):
-    # Get or create the profile for the logged-in user
-    profile, created = ProfileInfo.objects.get_or_create(user=request.user)
-
-    if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES, instance=profile, user=request.user)
-        if form.is_valid():
-            # Save form data (first name, last name, etc.)
-            form.save()
-
-            # Validate the license number if it exists in the form
-            license_number = form.cleaned_data.get('license_no')
-            print(license_number)
-
-            if license_number:
-                # Check if the license is valid
-                if not is_valid_license(license_number, request.user):
-                    form.add_error('license_no', 'Invalid license number.')
-                    profile.user_status = False
-                elif not is_valid_license_format(license_number):
-                    form.add_error('license_no', 'Invalid format ex. G00-000-000000')
-                    profile.user_status = False
-                else:
-                    # Set verified status if valid
-                    profile.user_status = True  
-            else:
-                # Set unverified status if no license number
-                profile.user_status = False  
-
-            profile.save()  # Save the updated status to the profile
-
-            # Check for the image upload
-            if 'profile_image' in request.FILES and request.FILES['profile_image']:
-                # Read and save the uploaded image as a binary blob
-                profile.profile_image = request.FILES['profile_image'].read()
-                profile.save()
-
-            # If there are any errors in the form, return to the form with errors
-            if form.errors:
-                return render(request, 'update_profile.html', {'form': form, 'profile': profile})
-
-            return redirect('profile_page')  # Redirect after successful update
-
-    else:
-        form = ProfileForm(instance=profile, user=request.user)
-
-    # Process the image for rendering
-    profile.image_base64 = process_profile_image(profile)
-
-    return render(request, 'update_profile.html', {'form': form, 'profile': profile})
-
 
 @login_required
 def update_details(request):
@@ -121,6 +69,10 @@ def update_details(request):
         if form.is_valid():
             # Save form data (like first name, last name, etc.)
             form.save()
+            if 'profile_image' in request.FILES and request.FILES['profile_image']:
+                # Read and save the uploaded image as a binary blob
+                profile.profile_image = request.FILES['profile_image'].read()
+                profile.save()
             return redirect('profile_page')
     else:
         form = PersonalDetailsForm(instance=profile, user=request.user)  # Load form with existing profile details
@@ -186,3 +138,28 @@ def change_password(request):
     })
 
 
+
+from .forms import LicenseVerificationForm
+
+@login_required
+def license_verification_view(request):
+
+    if request.method == 'POST':
+        form = LicenseVerificationForm(request.POST, user=request.user)  # Pass the logged-in user to the form
+        profile, created = ProfileInfo.objects.get_or_create(user=request.user)
+        if form.is_valid():
+            profile, created = ProfileInfo.objects.get_or_create(user=request.user)
+            # Process the valid form data
+            license_number = form.cleaned_data.get('license_no')
+            form.save()
+            
+            profile.user_status = True 
+            profile.save()
+            return redirect('account_info')
+        else:
+            # If the form is not valid, re-render the form with error messages
+            profile.user_status = False 
+            return render(request, 'verify_profile.html', {'form': form})
+    else:
+        form = LicenseVerificationForm(user=request.user)  # Pass the logged-in user to the form
+    return render(request, 'verify_profile.html', {'form': form})
