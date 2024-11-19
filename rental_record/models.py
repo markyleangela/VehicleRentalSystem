@@ -17,6 +17,7 @@ class RentalRecord(models.Model):
     days_rented = models.IntegerField(default=0)
     payment_due_date = models.DateTimeField(null=True, blank=True)
     payment_in_progress = models.BooleanField(default=True)
+    is_rated =  models.BooleanField(default=False) 
 
     def __str__(self):
         return f"{self.customer.username} - {self.vehicle}"

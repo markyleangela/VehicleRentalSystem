@@ -1,9 +1,10 @@
 body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
     position: relative;
-    
+    padding: 50px 0;
+    font-family: 'Secular One', sans-serif;
+    color: #333;
+    margin-top: 60px;
+   
 }
 
 body::before {
@@ -13,14 +14,12 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('cover-img.jpg');
+    background: url('../images/cover-img.jpg') no-repeat center center;
     background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    opacity: 0.3; /* Adjust this value for the desired level of transparency */
-    z-index: -1; /* Ensures the background stays behind the content */
+    opacity: 0.4; /* Adjust this value for the desired opacity */
+    z-index: -1; /* Keeps the image behind the content */
 }
+
 
 
 button.view-action-button {
@@ -85,6 +84,9 @@ h2 {
     width: 100%;
     border-collapse: collapse;
     text-align: left;
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #ccc #f3f4f6; /* Custom colors for the scrollbar */
+  
 }
 
 .bookings-table th, .bookings-table td {
@@ -136,58 +138,168 @@ h2 {
     }
 }
 
-
+/* Modal Container Styles */
 .modal {
     display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    position: fixed;
+    z-index: 1;
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7); /* Darker background for better contrast */
+    transition: background-color 0.3s ease-in-out;
 }
 
+/* Modal Content Styles */
 .modal-content {
     display: flex;
-   
+    flex-direction: column;
     gap: 20px;
     justify-content: center;
     align-items: center;
-    background-color: #fefefe;
-
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 30px;
-    border-radius: 10px;
-    border: 1px solid #888;
-    width:fit-content; /* Could be more or less, depending on screen size */
-  
+    background-color: #ffffff;
+    margin: 10% auto;
+    padding: 40px;
+    border-radius: 12px;
+    border: none;
+    width: 90%;
+    max-width: 600px; /* Adjusted for better layout */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    position: relative; /* Ensures that the close button is positioned relative to the modal */
+    transition: transform 0.3s ease-in-out;
 }
 
-.modal-content.div{
-    margin: 10px;
-}
-
-
-
+/* Close Button Styling */
 .close-button {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 36px;
+    color: #333;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    z-index: 1000; /* Ensure the button is above other content */
+    transition: color 0.3s ease;
 }
 
 .close-button:hover,
 .close-button:focus {
-    color: black;
-    text-decoration: none;
+    color: #ff6f61; /* Soft red for contrast */
+}
+
+/* Back Button Styling */
+.back-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 25px;
+    background-color: #1E2A5E;
+    color: white;
+    font-size: 16px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.back-btn:hover {
+    background-color: #142164;
+}
+
+/* Rental Dates Grid Styling */
+.rental-dates {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+    width: 100%;
+  
+}
+.rental-dates p{
+    padding: 0;
+    margin: 10px;
+  
+}
+/* Modal Vehicle Info */
+#modal-vehicle-info {
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Modal Vehicle Image Styling */
+#modal-vehicle-img img {
+    border-radius: 8px;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* Title and Content Styling */
+#modal-vehicle-info h2 {
+    font-size: 26px;
+    color: #333;
+    margin-bottom: 15px;
+    font-family: 'Secular One', sans-serif;
+}
+
+.rental-vehicle-id h3 {
+    font-size: 20px;
+    color: #555;
+    margin-bottom: 10px;
+   
+}
+
+/* Rental Date Styling */
+.rental-info {
+    background-color: #f0f0f0d9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.rental-info p {
+    margin: 5px 0;
+    color: #666;
+}
+.rental-info  strong {
+    color: #000;
+}
+
+.rental-info  i {
+    color: #007bff;
+    margin-right: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .modal-content {
+        padding: 20px;
+    }
+
+    #modal-vehicle-info {
+        padding: 20px;
+    }
+
+    .rental-dates {
+        grid-template-columns: 1fr; /* Stacking on smaller screens */
+    }
+
+    .back-btn {
+        padding: 10px 18px;
+        font-size: 14px;
+    }
 }
 
 
-.back-btn {
+/* UPPER SECTION BLOCK OF CSS */
 
+.payment-action button{
+    margin-top: 20px;
     padding: 10px 20px;
     border: none;
     border-radius: 20px;
@@ -195,236 +307,7 @@ h2 {
     color: white; 
     cursor: pointer;
     transition: background-color 0.3s; 
-}
-
-.profile-actions{
-    width: 90%;
-    display: flex;
-    justify-content: end;
-
-}
-
-a {
-    text-decoration: none;
+    
 }
 
 
-.rental-dates {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-}
-
-
-#modal-vehicle-info{
-    font-family: 'Roboto', sans-serif;
-}
-
-
-/* Modal container styles */
-#modal-vehicle-info {
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Image styling */
-#modal-vehicle-img img {
-    border-radius: 10px;
-    margin-bottom: 20px;
-}
-
-/* Title styles */
-#modal-vehicle-info h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    color: #333;
-}
-
-/* Rental ID styles */
-.rental-vehicle-id h3 {
-    font-size: 18px;
-    color: #555;
-}
-
-/* Rental dates section styles */
-.rental-dates {
-    margin: 15px 0;
-}
-
-.rental-dates p {
-    margin: 5px 0;
-    color: #666;
-}
-
-/* Strong text styles for important details */
-.rental-dates strong,
-.rental-date strong {
-    color: #000;
-}
-
-/* Rental date section styles */
-.rental-date {
-    background-color: #e9ecef;
-    padding: 15px;
-    border-radius: 8px;
-    margin-top: 15px;
-}
-
-/* Icons styles */
-.rental-date i,
-.rental-dates i {
-    color: #007bff;
-    margin-right: 5px;
-}
-
-/* Customer and amount styles */
-.rental-date p {
-    margin: 5px 0;
-}
-
-/* Add some responsiveness */
-@media (max-width: 768px) {
-    .modal-content {
-        flex-direction: column;
-    }
-    #modal-vehicle-img img {
-        width: 100%;
-        height: auto;
-    }
-
-    #modal-vehicle-info {
-        padding: 15px;
-    }
-}
-
-
-
-/* UPPER SECTION BLOCK OF CSS */
-section {
-    margin-bottom: 0; /* Remove bottom margin */
-}
-
-.upper-section {
-    position: relative;
-    z-index: 2; /* Set a higher z-index for the upper section */
-}
-
-.nav-container {
-    position: relative; /* Change to relative for normal stacking context */
-    display: flex;
-    justify-content: center;
-    z-index: 3; /* Ensure it is above the background */
-}
-
-.nav-bar {
-    display: flex;
-    width: 90%;
-    justify-content: space-between;
-    align-items: center;
-    height: 15vh;
-}
-
-.logo img {
-    height: 20vh;
-}
-
-.nav-bar ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    font-size: 1.2rem;
-    align-items: center;
-}
-
-.nav-bar ul li {
-    display: inline;
-}
-
-.nav-bar ul li a {
-    color: black;
-    padding: 20px;
-    display: block;
-    text-decoration: none;
-    font-size: 1.1rem; /* Adjust this value to your preferred size */
-    font-family: 'Secular One', sans-serif;
-}
-
-.burger-menu {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 30px; /* Adjust width as needed */
-    height: 25px; /* Adjust height as needed */
-    cursor: pointer; /* Change cursor on hover */
-}
-
-.line {
-    height: 4px; /* Height of the lines */
-    width: 100%; /* Full width of the burger menu */
-    background-color: #333; /* Color of the lines */
-    transition: all 0.3s ease; /* Smooth transition for animation */
-}
-
-.burger-menu.active .line:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px); /* Rotate top line */
-}
-
-.burger-menu.active .line:nth-child(2) {
-    opacity: 0; /* Hide middle line */
-}
-
-.burger-menu.active .line:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px); /* Rotate bottom line */
-}
-
-#dropdownMenu {
-    display: none; /* Initially hidden */
-    position: absolute;
-    font-family: 'Secular One', sans-serif;
-    top: 80px;
-    right: 10px;
-    background-color: #f9f9f9;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 180px;
-    border-radius: 5px;
-    padding: 5px;
-    z-index: 1000; /* Ensure dropdown is above other elements */
-}
-
-#dropdownMenu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-}
-
-#dropdownMenu ul li {
-    width: 100%;
-}
-
-#dropdownMenu ul li a {
-    text-decoration: none;
-    color: #333;
-}
-
-#dropdownMenu ul li a:hover {
-    color:  #1E2A5E;
-}
-
-/* Active class to show the dropdown */
-#dropdownMenu.active {
-    display: block;
-}
-
-.head-nav {
-    display: flex;
-    justify-content: space-between;
-    margin-left: 5vw;
-    margin-right: 5vw;
-}
-
-/* UPPER SECTION BLOCK OF CSS */

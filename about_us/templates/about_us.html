@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}About Us{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/about_us.css' %}?v={{ STATIC_VERSION }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <section class="about-us-page">
+        <div class="about-us-container">
+            <header class="about-us-header">
+                <h1>Welcome to Our Company</h1>
+                <img class='logo-img' src='{% static "images/Logo-Clear.png" %}'>
+                <p>Your trusted partner in vehicle rentals, offering seamless service and great experiences.</p>
+            </header>
+
+            <section class="team-section">
+                <h2>Meet Our Team</h2>
+                <div class="team-members">
+                    <div class="team-member">
+                        <img src="{% static 'images/Person1.jpg' %}" alt="Jane Smith" class="team-photo">
+                        <h3>Jane Smith</h3>
+                        <p>CEO & Founder</p>
+                        <p><i class="fas fa-envelope"></i> johndoe@email.com</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="{% static 'images/Person2.jpg' %}" alt="John Doe" class="team-photo">
+                        <h3>John Doe</h3>
+                        <p>Chief Technology Officer</p>
+                        <p><i class="fas fa-envelope"></i> janesmith@email.com</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="{% static 'images/Person3.jpg' %}" alt="Michael Johnson" class="team-photo">
+                        <h3>Michael Johnson</h3>
+                        <p>Head of Customer Service</p>
+                        <p><i class="fas fa-envelope"></i> michaelj@email.com</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mission-section">
+                <h2>Our Mission</h2>
+                <p>We aim to provide reliable, affordable, and high-quality vehicle rental services to our customers, ensuring convenience and a seamless experience every time. Our goal is to be the number one choice for transportation needs across the region.</p>
+            </section>
+
+            <section class="contact-us-section">
+                <h2>Contact Us</h2>
+                <p>We would love to hear from you. Whether you have a question, feedback, or need support, reach out to us!</p>
+                <a href="mailto:contact@company.com" class="contact-btn">Get in Touch</a>
+            </section>
+        </div>
+    </section>
+{% endblock %}

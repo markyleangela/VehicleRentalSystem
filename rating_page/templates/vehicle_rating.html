@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Vehicle Rating - {{ vehicle.model }}{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/vehicle_rating.css' %}?v={{ STATIC_VERSION }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="vehicle-rating-page">
+        <div class="vehicle-header">
+            <p class="average-rating">Average Rating: <strong>{{ avg_rating }}</strong> ({{ count_ratings }} reviews)</p>
+        </div>
+        
+        <img src="data:image/png;base64,{{ vehicle.image_base64 }}" alt="{{ vehicle.vehicle_model }}">
+
+        <h3 class="section-title">Submit Your Rating</h3>
+        
+        {% if user.is_authenticated %}
+            <div class="submit-rating-form">
+                <form method="post" class="rating-form">
+                    {% csrf_token %}
+                    
+                    <div class="star-rating">
+                        <input type="radio" id="star5" name="rating" value="5"><label for="star5" class="star">&#9733;</label>
+                        <input type="radio" id="star4" name="rating" value="4"><label for="star4" class="star">&#9733;</label>
+                        <input type="radio" id="star3" name="rating" value="3"><label for="star3" class="star">&#9733;</label>
+                        <input type="radio" id="star2" name="rating" value="2"><label for="star2" class="star">&#9733;</label>
+                        <input type="radio" id="star1" name="rating" value="1"><label for="star1" class="star">&#9733;</label>
+                    </div>
+
+                    <textarea name="review" placeholder="Leave a review (optional)"></textarea>
+
+                    <button type="submit" class="submit-btn">Submit Rating</button>
+                </form>
+            </div>
+        {% else %}
+            <p><a href="{% url 'login' %}" class="login-link">Log in</a> to submit a rating.</p>
+        {% endif %}
+    </div>
+
+    <script src="{% static 'js/vehicle_rating.js' %}"></script>
+{% endblock %}

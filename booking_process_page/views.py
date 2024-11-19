@@ -65,4 +65,5 @@ def payment(request, rental_id):
         return JsonResponse({"status": "success", "message": "Payment successful!"})
 
     return render(request, "payment.html", {"rental_record": rental_record})
+    
 
