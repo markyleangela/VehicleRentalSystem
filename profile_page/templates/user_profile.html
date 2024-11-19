@@ -79,5 +79,6 @@
         </div>
     </section>
 
-    <script src="{% static 'js/profile.js' %}"></script>
+    
+    {% block extra_js %}<script src="{% static 'js/profile.js' %}"></script>{% endblock %}
 {% endblock %}
