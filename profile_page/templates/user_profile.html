@@ -32,7 +32,7 @@
                     <h2 class="profile-name">{{ user.first_name }} {{ user.last_name }}</h2>
                     <span class="profile-value">License No. {{ profile.license_no }}</span>
 
-                    {% if profile.user_status %}
+                    {% if profile.license_verified %}
                         <p class="verified-status">Fully Verified <i class="fas fa-check-circle"></i></p>
                     {% else %}
                         <p class="not-verified-status">Not Verified <i class="fas fa-times-circle"></i></p>
@@ -68,6 +68,31 @@
                
             </div>
         </div>
+
+                {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div 
+                        class="alert {{ message.tags }} alert-dismissible fade show" 
+                        role="alert"
+                    >
+                        {{ message|safe }}
+                        <button 
+                            type="button" 
+                            class="btn-close" 
+                            data-bs-dismiss="alert" 
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <h1>{{profile.email_verified}}</h1>
+   
+        
+
+
         
         <div class="profile-actions">
             <a href="{% url 'update_details' %}" class="edit-btn">EDIT</a>

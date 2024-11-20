@@ -3,7 +3,9 @@ from django.contrib.auth.models import User
 from user_profile.models import ProfileInfo
 from django.contrib.auth.forms import PasswordChangeForm
 from license.models import License
-
+import uuid
+from django.core.mail import send_mail
+from .models import EmailConfirmation
 
 class PersonalDetailsForm(forms.ModelForm):
     first_name = forms.CharField(max_length=30, required=False, label='First Name')
@@ -94,13 +96,13 @@ class LicenseVerificationForm(forms.ModelForm):
             
        
             if ProfileInfo.objects.exclude(user=self.user).filter(license_no=license_no).exists():
-                profile.user_status = False
+                profile.license_verified = False
                 return False  # The license number is already taken by another user
-            profile.user_status = True
+            profile.license_verified = True
             return True  # All details match and license number is not taken by another user
         
         except License.DoesNotExist:
-            profile.user_status = False
+            profile.license_verified = False
             return False  # No matching license record found
 
     def save(self, commit=True):
@@ -116,6 +118,59 @@ class LicenseVerificationForm(forms.ModelForm):
         return profile_info
 
 
+
+class EmailVerificationForm(forms.ModelForm):
+    email = forms.EmailField(required=True)
+
+    class Meta:
+        model = ProfileInfo
+        fields = ['email']  # Only the email field for verification
+
+    def __init__(self, *args, **kwargs):
+        # Extract `user` from kwargs and pass it to the form instance
+        self.user = kwargs.pop('user', None)
+        super(EmailVerificationForm, self).__init__(*args, **kwargs)
+
+        if self.user:
+            # Initialize `email` with current value from ProfileInfo if it exists
+            profile_info = ProfileInfo.objects.filter(user=self.user).first()
+            if profile_info:
+                self.fields['email'].initial = profile_info.user.email
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+
+        # Ensure that the email matches the user's registered email
+        if email != self.user.email:
+            raise forms.ValidationError("The email does not match your registered email.")
+        
+        # Optionally, check if the email is already verified (in case it's not the first time submitting)
+        profile = ProfileInfo.objects.filter(user=self.user).first()
+        if profile and profile.email_verified:
+            raise forms.ValidationError("Your email is already verified.")
+
+        return email
+
+    def save(self, commit=True):
+        # Check if the ProfileInfo already exists for the current user
+        profile_info, created = ProfileInfo.objects.get_or_create(user=self.user)
+        
+        # Assign email (although it should already be set)
+        profile_info.email = self.cleaned_data.get('email')
+
+        if commit:
+            profile_info.save()
+
+        return profile_info
+
+    def send_confirmation_email(user_email, confirmation_code):
+        subject = 'Email Confirmation'
+        message = f'Click the link to confirm your email: http://localhost:8000/profile/confirm/ your confirmation code is {confirmation_code}'
+
+        from_email = 'markyleangela@gmail.com'
+        recipient_list = [user_email]
+        
+        send_mail(subject, message, from_email, recipient_list)
 
 
 

@@ -70,7 +70,7 @@
 
                     <!-- Display the form fields -->
                     <div class="form-group">
-                        {{ form.as_p }}  
+                        {{ form.as_p }} 
                     </div>
 
                     <!-- Submit and Cancel Buttons -->
@@ -85,14 +85,18 @@
             </div>
             <div class='verification-container'>
                 
-                {% if not profile.user_status %}
+                {% if not profile.license_verified or not profile.email_verified %}
                 <h2>Warning! Your account is not yet verified. </h2>
                 <p>Please complete profile information to verify</p>
                 <div class="verify-license">
-                    <button type="button" class="verify-btn" onclick="window.location.href='{% url 'license_verification' %}';">Verify License</button>
+                    <button type="button" class="verify-btn" onclick="window.location.href='{% url 'license_verification' %}';">Verify Account</button>
                 </div>
                 {% endif %}
+          
+               
             </div>
+
+            
 
  
     </main>

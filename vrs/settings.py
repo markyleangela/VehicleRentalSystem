@@ -86,6 +86,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                
             ],
         },
     },
@@ -93,6 +94,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'vrs.wsgi.application'
 
+MESSAGE_STORAGE = 'django.contrib.messages.storage.fallback.FallbackStorage'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -146,6 +148,20 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",  # This points to your static directory
     
 ]
+
+#SMTP Configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Replace with your SMTP server (e.g., smtp.gmail.com for Gmail)
+EMAIL_PORT = 587                 # Typically 587 for TLS or 465 for SSL
+EMAIL_USE_TLS = True             # Use True for TLS (Secure)
+EMAIL_USE_SSL = False            # Use False for SSL if TLS is True
+EMAIL_HOST_USER = 'markyleangela@gmail.com'  # Your email address
+EMAIL_HOST_PASSWORD = 'pisb uenf bser eepa'      # Your email password (use App Password for services like Gmail)
+
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'  # Enforce email verification
+ACCOUNT_AUTHENTICATION_METHOD = 'email'   # Use email for login
+ACCOUNT_EMAIL_REQUIRED = True             # Require an email address
+
 
 
 # Default primary key field type
