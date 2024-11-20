@@ -9,7 +9,7 @@ def booking_list(request):
 
     for record in records:
         if record.return_date:
-            record.days_rented = max((record.return_date - record.start_date).days, 0)
+            record.days_rented = max((record.return_date - record.start_date).days, 1)
             record.total_amount = record.days_rented * record.vehicle.vehicle_price
         else:
             record.days_rented = "Not Returned"
