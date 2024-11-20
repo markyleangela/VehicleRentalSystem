@@ -20,10 +20,18 @@ class Vehicle(models.Model):
        
     ]
 
+
+
     CARGO_CHOICES = [
-         ('Standard Cargo Capacity', '12.6 cu ft'),
-        ('Expanded Cargo Capacity', ' 38.5 cu ft'),
-        ('Max Cargo Capacity', '75.5 cu ft '),
+         ('12.6 cu ft', 'Standard Cargo Capacity'),
+        ('38.5 cu ft', 'Expanded Cargo Capacity'),
+        ('75.5 cu ft', 'Max Cargo Capacity'),
+    ]
+
+    FUEL_CHOICES = [
+         ('Gasoline Petrol', 'Gasoline Petrol'),
+        ('Diesel', 'Diesel'),
+        ('Electric', 'Electric'),
     ]
        
     vehicle_id = models.AutoField(primary_key=True)
@@ -38,6 +46,7 @@ class Vehicle(models.Model):
     vehicle_transmission = models.CharField(max_length=50, choices=TRANSMISSION_CHOICES, null=True)
     vehicle_cargo =  models.CharField(max_length=50, choices=CARGO_CHOICES,null=True)
     vehicle_rating = models.FloatField(default=0)
+    vehicle_fuel =  models.CharField(max_length=50, choices=FUEL_CHOICES,null=True)
     
     def __str__(self):
         return f"{self.vehicle_model} {self.vehicle_brand} {self.vehicle_type} {self.vehicle_price}"
