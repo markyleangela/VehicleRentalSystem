@@ -1,0 +1,91 @@
+/* General Body Styling */
+body {
+    font-family: 'Secular One', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Container Styling */
+form {
+    background: #ffffff;
+    padding: 25px 20px; /* Adjusted padding to ensure inner content aligns */
+    border-radius: 10px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box; /* Ensures padding is included in width calculation */
+}
+
+/* Page Title */
+h1 {
+    text-align: center;
+    color: #333333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Input Field Styling */
+form input[type="text"] {
+    width: 100%; /* Adjusted to account for padding */
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+    background-color: #f7f7f7;
+    box-sizing: border-box; /* Prevents overflow */
+}
+
+form input[type="text"]:focus {
+    border-color: #1E2A5E;
+    background-color: #ffffff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+    outline: none;
+}
+
+/* Label Styling */
+form label {
+    font-size: 16px;
+    color: #555555;
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* Button Styling */
+form button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #1E2A5E;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    form {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+}
