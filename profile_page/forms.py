@@ -127,15 +127,13 @@ class EmailVerificationForm(forms.ModelForm):
         fields = ['email']  # Only the email field for verification
 
     def __init__(self, *args, **kwargs):
-        # Extract `user` from kwargs and pass it to the form instance
-        self.user = kwargs.pop('user', None)
+        self.user = kwargs.pop('user', None)  # Extract the user from kwargs
         super(EmailVerificationForm, self).__init__(*args, **kwargs)
 
-        if self.user:
-            # Initialize `email` with current value from ProfileInfo if it exists
-            profile_info = ProfileInfo.objects.filter(user=self.user).first()
-            if profile_info:
-                self.fields['email'].initial = profile_info.user.email
+        # Pre-fill email field with user's email if user is passed
+        if self.user and self.user.email:
+            self.fields['email'].initial = self.user.email
+
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
