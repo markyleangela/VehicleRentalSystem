@@ -32,7 +32,7 @@
                     <h2 class="profile-name">{{ user.first_name }} {{ user.last_name }}</h2>
                     <span class="profile-value">License No. {{ profile.license_no }}</span>
 
-                    {% if profile.license_verified %}
+                    {% if profile.license_verified and profile.email_verified %}
                         <p class="verified-status">Fully Verified <i class="fas fa-check-circle"></i></p>
                     {% else %}
                         <p class="not-verified-status">Not Verified <i class="fas fa-times-circle"></i></p>
@@ -62,6 +62,17 @@
                     </div>
                     <div class="info-value">
                         <p>{{ user.email }}</p>
+                        {% if profile.email_verified %}
+                            <div class="email-verified">
+                                <i class="fas fa-check-circle"></i>
+                                
+                            </div>
+                        {% else %}
+                            <div class="email-not-verified">
+                                <i class="fas fa-times-circle"></i>
+                               
+                            </div>
+                        {% endif %}
                         <p>{{ profile.phone_number }}</p>
                     </div>
                 </div>
