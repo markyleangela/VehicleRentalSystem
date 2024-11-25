@@ -43,7 +43,7 @@
                                     <td>{{ record.vehicle.vehicle_id }}</td>
                                     <td>{{ record.start_date }}</td>
                                     <td>{{ record.return_date|default:"Not Returned" }}</td>
-                                    <td>{{ record.total_amount }}</td>
+                                    <td>{{ record.total_amount|floatformat:2 }}</td>
                                     <td>
                                         {% if record.return_status %}
                                             <span class="returned">Returned</span>
