@@ -50,13 +50,19 @@
             </div>
         </form> {% endcomment %}
 
-        <form method="POST" action="{% url 'verify_email' %}">
-            {% csrf_token %}
-            <div class="form-group">
-                {{ form.as_p }}  
-            </div>
-            <button type="submit" class="btn btn-primary">Send Confirmation Code</button>
-        </form>
+        <h2>Email Verification</h2>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Verify Email</button>
+    </form>
         
 
 

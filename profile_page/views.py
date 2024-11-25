@@ -92,6 +92,7 @@ def confirm_email(request):
 
     return render(request, 'activate_user.html')
 
+@login_required
 def process_profile_image(profile):
 
  
@@ -142,22 +143,10 @@ def update_details(request):
 
     if request.method == 'POST':
         form = PersonalDetailsForm(request.POST, instance=profile, user=request.user)
-        email = request.POST['email']
+        
         if form.is_valid():
             # Save form data (like first name, last name, etc.)
-            user = form.save(commit=False)
-            user.is_active = False
-            user.email = email
-            user.save()
-         
-
-            if not profile.email_verified:
-                confirmation_code = generate_confirmation_code()
-                EmailConfirmation.objects.create(user=user, code=confirmation_code)
-                send_confirmation_email(email, confirmation_code)
-                activate_email(request,request.user, email)
-
-                return redirect('confirm_email')
+            form.save(commit=True)
 
             
             if 'profile_image' in request.FILES and request.FILES['profile_image']:
@@ -258,24 +247,79 @@ def license_verification_view(request):
 def email_verification_view(request):
     profile, created = ProfileInfo.objects.get_or_create(user=request.user)
     user = request.user
+    email = request.user.email
     if request.method == 'POST':
         form = EmailVerificationForm(request.POST, user=request.user)  # Pass the logged-in user to the form
         
         if form.is_valid():
             # Save the email and send the confirmation email
-            confirmation_code = generate_confirmation_code()
-                
-            form.save()
-            form.send_confirmation_email(user.email, confirmation_code) # Send the confirmation email
+            user = form.save(commit=False)
+            user.is_active = False
+            user.email = email
+            user.save()
+         
+
+            if not profile.email_verified:
+                confirmation_code = generate_confirmation_code()
+                EmailConfirmation.objects.create(user=user, code=confirmation_code)
+                send_confirmation_email(email, confirmation_code)
+                activate_email(request,request.user, email)
+                print('YES IT PASSED')
+                return render(request, 'verify_email.html')
             
             # Add success message
-            messages.success(request, 'Please check your email to confirm your address.')
-            return redirect('confirm_email')  # Redirect to the profile page or another page
+            return redirect('profile_page')
         else:
             # If the form is not valid, re-render the form with error messages
+            print('ELSE')
             return render(request, 'verify_email.html', {'form': form, 'profile': profile})
     else:
         form = EmailVerificationForm(user=request.user)  # Initialize form with user info
     
     return render(request, 'verify_email.html', {'email_form': form, 'profile': profile})
+
+
+
+@login_required
+def email_verification_form(request):
+    """Handles email verification."""
+    profile, created = ProfileInfo.objects.get_or_create(user=request.user)
+
+    if request.method == 'POST':
+        form = EmailVerificationForm(request.POST, user=request.user)
+        if form.is_valid():
+            # Save the email to the user's profile
+            profile_info = form.save()
+
+            # Generate a confirmation code
+            confirmation_code = generate_confirmation_code()
+
+            # Update or create an email confirmation entry
+            email_confirmation, created = EmailConfirmation.objects.update_or_create(
+                user=profile,
+                defaults={'code': confirmation_code}
+            )
+
+            # Send the confirmation email
+            send_confirmation_email(profile_info.email, confirmation_code)
+            print("YES IT PASSED")
+            messages.success(
+                request, 
+                'A confirmation email has been sent to your registered email address. Please check your inbox.'
+            )
+
+            return redirect('confirm_email')  # Adjust the redirect to your confirmation page
+        else:
+            print("NO IT DID NOT PASS")
+            # Handle form errors
+            messages.error(request, 'There was an error with your submission.')
+    else:
+        # Pre-fill the form with the current user's email
+        form = EmailVerificationForm(user=request.user)
+
+    context = {
+        'form': form,
+        'profile': profile
+    }
+    return render(request, 'verify_email.html', context)
 
