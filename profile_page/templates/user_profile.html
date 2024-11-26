@@ -58,14 +58,13 @@
                     <h3>Contact Information</h3>
                     <div class="info-label">
                         <p>Email Address</p>
-                        <p>Contact Number</p>
+                        
                     </div>
                     <div class="info-value">
                         <p>{{ user.email }}</p>
                         {% if profile.email_verified %}
                             <div class="email-verified">
                                 <i class="fas fa-check-circle"></i>
-                                
                             </div>
                         {% else %}
                             <div class="email-not-verified">
@@ -73,8 +72,14 @@
                                
                             </div>
                         {% endif %}
-                        <p>{{ profile.phone_number }}</p>
+                        
                     </div>
+
+                    <div class="info-label">
+                        
+                        <p>Contact Number</p>
+                    </div>
+                    <p>{{ profile.phone_number }}</p>
                 </div>
                
             </div>
@@ -99,7 +104,7 @@
             </div>
         {% endif %}
 
-        <h1>{{profile.email_verified}}</h1>
+   
    
         
 

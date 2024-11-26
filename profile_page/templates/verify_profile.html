@@ -50,12 +50,12 @@
             </div>
         </form> {% endcomment %}
 
-        <form method="POST" action="{% url 'verify_email' %}">
+        <form method="POST" action="{% url 'license_verification' %}">
             {% csrf_token %}
             <div class="form-group">
                 {{ form.as_p }}  
             </div>
-            <button type="submit" class="btn btn-primary">Send Confirmation Code</button>
+            <button type="submit" class="btn btn-primary">Verify License</button>
         </form>
         
 
