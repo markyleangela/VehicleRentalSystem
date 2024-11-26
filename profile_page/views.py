@@ -233,6 +233,7 @@ def license_verification_view(request):
             form.save()
             
             profile.license_verified = True 
+            profile.license_no = license_number
             profile.save()
             return redirect('account_info')
         else:

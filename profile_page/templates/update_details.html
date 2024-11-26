@@ -85,11 +85,18 @@
             </div>
             <div class='verification-container'>
                 
-                {% if not profile.license_verified or not profile.email_verified %}
-                <h2>Warning! Your account is not yet verified. </h2>
-                <p>Please complete profile information to verify</p>
+                {% if not profile.email_verified %}
+                <h2>Warning! Your email is not yet verified. </h2>
                 <div class="verify-license">
-                    <button type="button" class="verify-btn" onclick="window.location.href='{% url 'verify_email' %}';">Verify Account</button>
+                    <button type="button" class="verify-btn" onclick="window.location.href='{% url 'verify_email' %}';">Verify Email</button>
+                </div>
+                {% endif %}
+
+                {% if not profile.license_verified and profile.email_verified%}
+                <h2>Warning! Your license is not yet verified. </h2>
+                <p>Verify email to proceed</p>
+                <div class="verify-license">
+                    <button type="button" class="verify-btn" onclick="window.location.href='{% url 'license_verification' %}';">Verify License</button>
                 </div>
                 {% endif %}
           
