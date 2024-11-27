@@ -1,13 +1,28 @@
 body {
-    height: 100%; 
-    margin: 0; 
-    padding-top: 20vh; /* Adds padding to the top of the body */
-    overflow: auto;
-    font-family: 'Secular One', sans-serif; 
+    position: relative;
+    padding: 50px 0;
+    font-family: 'Secular One', sans-serif;
+    color: #333;
+    margin-top: 100px;
+   
 }
 
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../images/cover-img.jpg') no-repeat center center;
+    background-size: cover;
+    opacity: 0.4; /* Adjust this value for the desired opacity */
+    z-index: -1; /* Keeps the image behind the content */
+}
+
+
 .all-info-container {
-    max-width: 600px;
+    max-width: 1200px;
     margin: 0 auto;
     background: white;
     padding: 20px;
@@ -21,30 +36,44 @@ h1 {
     margin-bottom: 20px;
 }
 
-.tabs {
-    display: flex; 
-    justify-content: center;
-    margin-bottom: 10px;
+/* Tabs */
+.tabs-container {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #f0f0f0;
 }
 
 .tab {
-    background-color: #f5f5f5; 
-    border: none; 
-    padding: 15px 25px;
-    cursor: pointer; 
-    border-radius: 5px 5px 0 0; 
-    margin-right: 5px; 
-    color: #555; 
-    transition: background-color 0.3s, color 0.3s;
+    padding: 12px 25px;
+    background-color: transparent;
+    color: #5f6368;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    border-radius: 10px 10px 0 0;
+    margin-right: 15px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.tab:hover {
+    background-color: #f1f1f1;
 }
 
 .tab.active {
-    background-color: #ffffff; 
-    border-bottom: 2px solid #1E2A5E; /* Ensure it's this value */
-    color: #1E2A5E; /* Ensure the text color is applied */
-    position: relative; /* Ensure positioning is relative */
-    z-index: 1; /* Bring it in front */
+    background-color: #1E2A5E;
+    color: white;
+    border-color: #1E2A5E;
 }
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
 
 .change-password-container {
     background: #f9f9f9;
@@ -69,11 +98,12 @@ label {
 }
 
 input[type="password"] {
-    width: 100%;
+    
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
     transition: border 0.3s;
+    width: 100%;
 }
 
 input[type="password"]:focus {
@@ -115,12 +145,13 @@ input[type="password"]:focus {
     position: fixed;   
     top: 0;             
     left: 0;             
-    width: 100%;        
+    width: 100%;         
     z-index: 1000;      
     background-color: #f5f5f5;
     color: white; 
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     height: 15vh; /* Set a fixed height for the nav */
+    padding: 0 20px; /* Added padding for better spacing */
 }
 
 /* Add margin to the first section following the nav container */
@@ -129,22 +160,17 @@ section {
     margin: 0; /* Remove bottom margin if needed */
 }
 
-
-
 .nav-bar {
     display: flex;
     width: 100%;
     justify-content: space-between; 
     align-items: center;
-    height: 15vh;
-    padding: 0 40px;
+    height: 100%;
     box-sizing: border-box; 
 }
 
-
-.logo img{
-    height: 20vh;
-    
+.logo img {
+    height: 12vh; /* Adjusted logo size */
 }
 
 .nav-bar ul {
@@ -153,7 +179,7 @@ section {
     padding: 0;
     display: flex;
     justify-content: center;
-    font-size: 1.2rem;
+    font-size: 1rem; /* Adjusted font size */
     align-items: center;
 }
 
@@ -163,10 +189,14 @@ section {
 
 .nav-bar ul li a {
     color: #1E2A5E;
-    padding: 30px;
+    padding: 15px;
     display: block;
     text-decoration: none;
     font-family: 'Secular One', sans-serif;
+}
+
+.nav-bar ul li a:hover {
+    color: #0056b3;
 }
 
 .burger-menu {
@@ -229,7 +259,7 @@ section {
 }
 
 #dropdownMenu ul li a:hover {
-    color:  #1E2A5E;
+    color: #1E2A5E;
 }
 
 /* Active class to show the dropdown */
@@ -243,5 +273,3 @@ section {
     margin-left: 5vw;
     margin-right: 5vw;
 }
-
-/* UPPER SECTION BLOCK OF CSS */

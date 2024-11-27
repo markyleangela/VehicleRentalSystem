@@ -6,6 +6,7 @@
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/booking_list.css' %}?v={{ STATIC_VERSION }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <title>Your Bookings</title>
 {% endblock %}
 
 {% block content %}
@@ -29,6 +30,7 @@
                             <th>Total Amount</th>
                             <th>Return Status</th>
                             <th>Payment Status</th>
+                            <th>Due Date</th>
                             <th>View</th>
                             <th>Rate</th>
                         </tr>
@@ -41,7 +43,7 @@
                                     <td>{{ record.vehicle.vehicle_id }}</td>
                                     <td>{{ record.start_date }}</td>
                                     <td>{{ record.return_date|default:"Not Returned" }}</td>
-                                    <td>{{ record.total_amount }}</td>
+                                    <td>{{ record.total_amount|floatformat:2 }}</td>
                                     <td>
                                         {% if record.return_status %}
                                             <span class="returned">Returned</span>
@@ -57,20 +59,27 @@
                                         {% endif %}
                                     </td>
                                     <td>
+                                        {% if record.payment_status %}
+                                            <span class="paid">Payment Completed</span>
+                                        {% else %}
+                                            <span class="due-date">{{ record.payment_due_date|default:"N/A" }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
                                         <button class="view-action-button" 
                                             data-rental-id="{{ record.rental_id }}" 
                                             data-vehicle-id="{{ record.vehicle.vehicle_id }}" 
                                             data-rental-start-date="{{ record.start_date }}" 
                                             data-rental-return-date="{{ record.return_date|default:'Not Returned' }}" 
                                             data-rental-amount="{{ record.total_amount }}" 
-                                            data-vehicle-model="{{ record.vehicle.vehicle_model }}"
-                                            data-vehicle-brand="{{ record.vehicle.vehicle_brand }}"
-                                            data-rental-payment-date="{{ record.payment_date }}"
-                                            data-rental-payment-status="{{ record.payment_status }}"
-                                            data-rental-return-status="{{ record.return_status }}"
-                                            data-rental-customer="{{ record.customer }}"
-                                            data-rental-vehicle="{{ record.vehicle }}"
-                                            data-vehicle-img="{{ record.vehicle.image_base64 }}">
+                                            data-vehicle-model="{{ record.vehicle.vehicle_model }} "
+                                            data-vehicle-brand="{{ record.vehicle.vehicle_brand }} "
+                                            data-rental-payment-date="{{ record.payment_date }} "
+                                            data-rental-payment-status="{{ record.payment_status }} "
+                                            data-rental-return-status="{{ record.return_status }} "
+                                            data-rental-customer="{{ record.customer }} "
+                                            data-rental-vehicle="{{ record.vehicle }} "
+                                            data-vehicle-img="{{ record.vehicle.image_base64 }} ">
                                             <i class="fa fa-eye"></i>
                                         </button>
                                     </td>
@@ -97,7 +106,7 @@
                             {% endfor %}
                         {% else %}
                             <tr>
-                                <td colspan="8">No bookings found.</td>
+                                <td colspan="9">No bookings found.</td>
                             </tr>
                         {% endif %}
                     </tbody>

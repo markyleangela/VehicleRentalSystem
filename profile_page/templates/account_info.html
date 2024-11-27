@@ -12,13 +12,17 @@
     {% block content %}
 
         
-        <div class="tabs">
+     
+
+        <div class='all-info-container'>
+            
+        <div class="tabs-container">
+           
             <a href="{% url 'profile_page' %}">
                 <button class="tab">Profile</button>
             </a>
             <button class="tab active" onclick="changeTab('account-info')">Account Information</button>
         </div>
-        <div class='all-info-container'>
             <h1>Account Information</h1>
             
            

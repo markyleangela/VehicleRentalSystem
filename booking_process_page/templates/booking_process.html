@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Booking Process</title>
     <style>
         body {
-            background-color: #f0f8ff;
+            background-color: #b4d4f0;
             font-family: Arial, sans-serif;
             color: #333;
             margin: 0;
@@ -106,4 +104,34 @@
         </form>
     </div>
 </body>
+
+<script>
+    document.querySelector("form").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const form = event.target;
+        const formData = new FormData(form);
+
+        fetch("{% url 'booking_process' vehicle.vehicle_id %}", {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": form.elements["csrfmiddlewaretoken"].value,
+            },
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                window.location.href = data.redirect_url;
+            } else if (data.status === "error") {
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("An unexpected error occurred. Please try again.");
+        });
+    });
+</script>
+
 </html>

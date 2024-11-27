@@ -10,75 +10,113 @@
 {% endblock %}
 
 {% block content %}
-    <section class='lower-section'>
-        <div class='all-info-container'>
-            <div class="tabs">
-                <button class="tab active" onclick="changeTab('profile')">Profile</button>
-                <a href="{% url 'account_info' %}">
-                    <button class="tab">Account Information</button>
-                </a>
-            </div>
-            
-            <div id="profile" class="tab-content active">
-                <div class='profile-section'>
-                    <div class="profile-pic-container">
-                        {% if profile.image_base64 %}
-                            <img class="profile-pic" src="{{ profile.image_base64 }}" alt="Profile Image">
-                        {% else %}
-                            <img src="" alt="Default Profile Image">
-                        {% endif %}
-                    </div>
-                    <div class='name-license-container'>
-                        <h2 class="profile-name">{{ user.first_name }} {{ user.last_name }}</h2>
-                        <span class="profile-value">License No. {{ profile.license_no }}</span>
-                     
-                        {% if profile.user_status %}
-                            <p>Fully Verified <i class="fas fa-check-circle"></i></p>
-                        {% else %}
-                            <p>Not Verified <i class="fas fa-times-circle"></i></p>
-                        {% endif %}
-                    </div>
-                    <div class='edit-button'>
-                        <a href="{% url 'update_profile' %}"><i class="fas fa-edit"></i></a>
-                    </div>
+<section class="profile-section-container">
+    <div class="profile-container">
+        <div class="tabs-container">
+            <button class="tab active" onclick="changeTab('profile')">Profile</button>
+            <a href="{% url 'account_info' %}">
+                <button class="tab">Account Information</button>
+            </a>
+        </div>
+
+        <div id="profile" class="tab-content active">
+            <div class="profile-header">
+                <div class="profile-pic-container">
+                    {% if profile.image_base64 %}
+                        <img class="profile-pic" src="{{ profile.image_base64 }}" alt="Profile Image">
+                    {% else %}
+                        <img class="profile-pic" src="{% static 'images/default-profile.png' %}" alt="Default Profile Image">
+                    {% endif %}
+                </div>
+                <div class="name-license-container">
+                    <h2 class="profile-name">{{ user.first_name }} {{ user.last_name }}</h2>
+                    <span class="profile-value">License No. {{ profile.license_no }}</span>
+
+                    {% if profile.license_verified and profile.email_verified %}
+                        <p class="verified-status">Fully Verified <i class="fas fa-check-circle"></i></p>
+                    {% else %}
+                        <p class="not-verified-status">Not Verified <i class="fas fa-times-circle"></i></p>
+                    {% endif %}
                 </div>
                 
-                <div class='personal-info-section'>
-                    <div class='info-edit'>
-                        <h3>Personal Information</h3>
-                        <div class='personal-info-label'>
-                            <p>First Name</p>
-                            <p>Last Name</p>
-                            <p>Birth Date</p>
-                        </div>
-                        <div class='personal-info-value'>
-                            <p>{{ user.first_name }}</p>
-                            <p>{{ user.last_name }}</p>
-                            <p>{{ profile.birth_date }}</p>
-                        </div>
-    
-                        <h3>Contact Information</h3>
-                        <div class='personal-info-label'>
-                            <p>Email Address</p>
-                            <p>Contact Number</p>
-                        </div>
-                        <div class='personal-info-value'>
-                            <p>{{ user.email }}</p>
-                            <p>{{ profile.phone_number }}</p>
-                        </div>
-                    </div>
-                    <div class='edit-button'>
-                        <a href="{% url 'update_details' %}"><i class="fas fa-edit"></i></a>
-                    </div>
-                </div>
             </div>
-    
-            <div class="profile-actions">
-                <a href="{% url 'home' %}" class="back-btn">BACK</a>
+
+            <div class="personal-info-section">
+                <div class="info-edit">
+                    <h3>Personal Information</h3>
+                    <div class="info-label">
+                        <p>First Name</p>
+                        <p>Last Name</p>
+                        <p>Birth Date</p>
+                    </div>
+                    <div class="info-value">
+                        <p>{{ user.first_name }}</p>
+                        <p>{{ user.last_name }}</p>
+                        <p>{{ profile.birth_date }}</p>
+                    </div>
+
+                    <h3>Contact Information</h3>
+                    <div class="info-label">
+                        <p>Email Address</p>
+                        
+                    </div>
+                    <div class="info-value">
+                        <p>{{ user.email }}</p>
+                        {% if profile.email_verified %}
+                            <div class="email-verified">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                        {% else %}
+                            <div class="email-not-verified">
+                                <i class="fas fa-times-circle"></i>
+                               
+                            </div>
+                        {% endif %}
+                        
+                    </div>
+
+                    <div class="info-label">
+                        
+                        <p>Contact Number</p>
+                    </div>
+                    <p>{{ profile.phone_number }}</p>
+                </div>
+               
             </div>
         </div>
-    </section>
 
-    
-    {% block extra_js %}<script src="{% static 'js/profile.js' %}"></script>{% endblock %}
+                {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div 
+                        class="alert {{ message.tags }} alert-dismissible fade show" 
+                        role="alert"
+                    >
+                        {{ message|safe }}
+                        <button 
+                            type="button" 
+                            class="btn-close" 
+                            data-bs-dismiss="alert" 
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+   
+   
+        
+
+
+        
+        <div class="profile-actions">
+            <a href="{% url 'update_details' %}" class="edit-btn">EDIT</a>
+            <a href="{% url 'home' %}" class="back-btn">BACK</a>
+        </div>
+    </div>
+</section>
+{% block extra_js %}
+<script src="{% static 'js/profile.js' %}"></script>
+{% endblock %}
 {% endblock %}

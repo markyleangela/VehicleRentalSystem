@@ -14,6 +14,12 @@ class UserRegistrationForm(UserCreationForm):
         self.fields['password1'].help_text = None
         self.fields['password2'].help_text = None
 
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if User.objects.filter(username=username).exists():
+            raise forms.ValidationError("The username you have entered is already taken. Please choose a different one.")
+        return username
+
     def save(self, commit=True):
         user = super().save(commit=False)
 

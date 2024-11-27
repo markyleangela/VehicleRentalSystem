@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Profile{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/verify_email.css' %}?v={{ STATIC_VERSION }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+        
+        <h2>Email Verification</h2>
+        </br>
+        <form method="POST" class="email-verification-form">
+            {% csrf_token %}
+            
+            
+        
+            <div class="form-group">
+                <label for="email">Email Address:</label>
+                <div class="input-wrapper">
+                    <i class="input-icon fas fa-envelope"></i>
+                    {{ form.email }}
+                </div>
+                {% if form.email.errors %}
+                    <div class="form-error">
+                        {{ form.email.errors|join:", " }}
+                    </div>
+                {% endif %}
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Send Code</button>
+        </form>
+        
+        
+
+
+    
+    {% block extra_js %}{% endblock %}
+{% endblock %}

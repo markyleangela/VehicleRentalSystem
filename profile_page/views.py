@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .forms import ProfileForm, PersonalDetailsForm
+from .forms import PersonalDetailsForm
 from user_profile.models import ProfileInfo
 import base64
 from io import BytesIO
@@ -11,11 +11,84 @@ from django.templatetags.static import static  # Import static for default image
 from django.contrib.auth import logout
 import re
 
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.template.loader import render_to_string
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import send_mail
+from django.conf import settings
+from django.urls import reverse
+from django.contrib.auth import get_user_model
+import six
+from django.http import Http404, HttpResponse
+from django.core.mail import send_mail
+
+from django.urls import reverse
+from django.http import HttpResponseRedirect
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+from django.contrib.auth.tokens import default_token_generator
+from django.shortcuts import get_object_or_404
+
+from django.contrib import messages
+
 from license.models import License
+from .models import User, EmailConfirmation
+from .forms import EmailVerificationForm
+
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import update_session_auth_hash
+from django.shortcuts import render, redirect
 from .forms import CustomPasswordChangeForm
+import uuid
 
+def activate_email(request, user, to_email):
+    # Add a success message
+    messages.success(
+        request,
+        f'Dear <b>{user}</b>, please check your email at <b>{to_email}</b> to activate your account.'
+    )
 
+def generate_confirmation_code():
+    return str(uuid.uuid4())
 
+def send_confirmation_email(user_email, confirmation_code):
+    subject = 'Email Confirmation'
+    message = f'Click the link to confirm your email: http://localhost:8000/profile/confirm/ your confirmation code is {confirmation_code}'
+
+    from_email = 'markyleangela@gmail.com'
+    recipient_list = [user_email]
+    
+    send_mail(subject, message, from_email, recipient_list)
+
+def confirm_email(request):
+    profile, created = ProfileInfo.objects.get_or_create(user=request.user)
+    if request.method == 'POST':
+        code = request.POST['code']
+
+        try:
+            # Find the confirmation record
+            confirmation = EmailConfirmation.objects.get(code=code)
+            
+            user = confirmation.user
+    
+            # Activate the user
+            user.is_active = True
+            user.save()
+
+            profile.email_verified = True
+            profile.save()
+
+            # Delete the confirmation record
+            confirmation.delete()
+            
+            return redirect('profile_page')
+        except EmailConfirmation.DoesNotExist:
+            return HttpResponse("Invalid or expired confirmation code.", status=400)
+
+    return render(request, 'activate_user.html')
+
+@login_required
 def process_profile_image(profile):
 
  
@@ -57,76 +130,30 @@ def process_profile_image(profile):
             print("Default profile image not found.")
             return None
 
-
-@login_required
-def update_profile(request):
-    # Get or create the profile for the logged-in user
-    profile, created = ProfileInfo.objects.get_or_create(user=request.user)
-
-    if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES, instance=profile, user=request.user)
-        if form.is_valid():
-            # Save form data (first name, last name, etc.)
-            form.save()
-
-            # Validate the license number if it exists in the form
-            license_number = form.cleaned_data.get('license_no')
-            print(license_number)
-
-            if license_number:
-                # Check if the license is valid
-                if not is_valid_license(license_number, request.user):
-                    form.add_error('license_no', 'Invalid license number.')
-                    profile.user_status = False
-                elif not is_valid_license_format(license_number):
-                    form.add_error('license_no', 'Invalid format ex. G00-000-000000')
-                    profile.user_status = False
-                else:
-                    # Set verified status if valid
-                    profile.user_status = True  
-            else:
-                # Set unverified status if no license number
-                profile.user_status = False  
-
-            profile.save()  # Save the updated status to the profile
-
-            # Check for the image upload
-            if 'profile_image' in request.FILES and request.FILES['profile_image']:
-                # Read and save the uploaded image as a binary blob
-                profile.profile_image = request.FILES['profile_image'].read()
-                profile.save()
-
-            # If there are any errors in the form, return to the form with errors
-            if form.errors:
-                return render(request, 'update_profile.html', {'form': form, 'profile': profile})
-
-            return redirect('profile_page')  # Redirect after successful update
-
-    else:
-        form = ProfileForm(instance=profile, user=request.user)
-
-    # Process the image for rendering
-    profile.image_base64 = process_profile_image(profile)
-
-    return render(request, 'update_profile.html', {'form': form, 'profile': profile})
-
-
 @login_required
 def update_details(request):
-    # Get or create the profile for the logged-in user
     profile, created = ProfileInfo.objects.get_or_create(user=request.user)
 
     if request.method == 'POST':
         form = PersonalDetailsForm(request.POST, instance=profile, user=request.user)
+        
         if form.is_valid():
             # Save form data (like first name, last name, etc.)
-            form.save()
+            form.save(commit=True)
+
+            
+            if 'profile_image' in request.FILES and request.FILES['profile_image']:
+                # Save the profile image
+                profile.profile_image = request.FILES['profile_image'].read()
+                profile.save()
+
+            # Redirect to the profile page
             return redirect('profile_page')
+
     else:
-        form = PersonalDetailsForm(instance=profile, user=request.user)  # Load form with existing profile details
+        form = PersonalDetailsForm(instance=profile, user=request.user)
 
     return render(request, 'update_details.html', {'form': form, 'profile': profile})
-
 
 @login_required
 def view_profile(request):
@@ -135,7 +162,7 @@ def view_profile(request):
 
         # Check the license number validation and set user status
     
-        profile.verification_status = "Verified" if profile.user_status else "Unverified"
+        profile.verification_status = "Verified" if profile.license_verified else "Unverified"
         profile.image_base64 = process_profile_image(profile)
     except ProfileInfo.DoesNotExist:
         profile = None
@@ -144,7 +171,6 @@ def view_profile(request):
     
 
     return render(request, 'user_profile.html', {'profile': profile, 'user': request.user})
-
 
 def is_valid_license(license_number, user):
     # Check if the license exists in the License table (dummy data)
@@ -160,12 +186,6 @@ def is_valid_license_format(license_number):
  
     return bool(re.match(pattern, license_number))
 
-
-
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import update_session_auth_hash
-from django.shortcuts import render, redirect
-from .forms import CustomPasswordChangeForm
 
 @login_required
 def change_password(request):
@@ -185,4 +205,73 @@ def change_password(request):
         'profile': profile,  # Pass the profile to the template if needed
     })
 
+from .forms import LicenseVerificationForm
+
+@login_required
+def license_verification_view(request):
+    profile, created = ProfileInfo.objects.get_or_create(user=request.user)
+    if request.method == 'POST':
+        form = LicenseVerificationForm(request.POST, user=request.user)  # Pass the logged-in user to the form
+        
+        if form.is_valid():
+            profile, created = ProfileInfo.objects.get_or_create(user=request.user)
+            
+            license_number = form.cleaned_data.get('license_no')
+            form.save()
+            
+            profile.license_verified = True 
+            profile.license_no = license_number
+            profile.save()
+            return redirect('account_info')
+        else:
+            # If the form is not valid, re-render the form with error messages
+            profile.license_verified = False 
+            return render(request, 'verify_profile.html', {'form': form, 'profile': profile})
+    else:
+        form = LicenseVerificationForm(user=request.user)  # Pass the logged-in user to the form
+    return render(request, 'verify_profile.html', {'form': form, 'profile': profile})
+
+
+@login_required
+def email_verification_form(request):
+    """Handles email verification."""
+    profile, created = ProfileInfo.objects.get_or_create(user=request.user)
+
+    if request.method == 'POST':
+        form = EmailVerificationForm(request.POST, user=request.user)
+        if form.is_valid():
+            # Save the email to the user's profile
+            profile_info = form.save()
+
+            # Generate a confirmation code
+            confirmation_code = generate_confirmation_code()
+
+            # Update or create an email confirmation entry
+            email_confirmation, created = EmailConfirmation.objects.update_or_create(
+                user=profile,
+                defaults={'code': confirmation_code}
+            )
+
+            # Send the confirmation email
+            send_confirmation_email(profile_info.email, confirmation_code)
+            print("YES IT PASSED")
+            messages.success(
+                request, 
+                'A confirmation email has been sent to your registered email address. Please check your inbox.'
+            )
+
+            return redirect('confirm_email')  # Adjust the redirect to your confirmation page
+        else:
+            print("NO IT DID NOT PASS")
+            # Handle form errors
+            messages.error(request, 'There was an error with your submission.')
+    else:
+        # Pre-fill the form with the current user's email
+        form = EmailVerificationForm(user=request.user)
+
+    context = {
+        'form': form,
+        'profile': profile
+    }
+    return render(request, 'verify_email.html', context)
 
