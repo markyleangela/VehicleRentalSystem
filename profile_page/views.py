@@ -49,12 +49,8 @@ def activate_email(request, user, to_email):
         f'Dear <b>{user}</b>, please check your email at <b>{to_email}</b> to activate your account.'
     )
 
-
-
 def generate_confirmation_code():
     return str(uuid.uuid4())
-
-from django.core.mail import send_mail
 
 def send_confirmation_email(user_email, confirmation_code):
     subject = 'Email Confirmation'
@@ -134,9 +130,6 @@ def process_profile_image(profile):
             print("Default profile image not found.")
             return None
 
-
-
-
 @login_required
 def update_details(request):
     profile, created = ProfileInfo.objects.get_or_create(user=request.user)
@@ -162,7 +155,6 @@ def update_details(request):
 
     return render(request, 'update_details.html', {'form': form, 'profile': profile})
 
-
 @login_required
 def view_profile(request):
     try:
@@ -180,7 +172,6 @@ def view_profile(request):
 
     return render(request, 'user_profile.html', {'profile': profile, 'user': request.user})
 
-
 def is_valid_license(license_number, user):
     # Check if the license exists in the License table (dummy data)
     if not License.objects.filter(license_number=license_number).exists():
@@ -194,8 +185,6 @@ def is_valid_license_format(license_number):
     pattern = r"^[A-Z]\d{2}-\d{2}-\d{6}$"
  
     return bool(re.match(pattern, license_number))
-
-
 
 
 @login_required
@@ -215,8 +204,6 @@ def change_password(request):
         'form': form,  # Pass the form to the template
         'profile': profile,  # Pass the profile to the template if needed
     })
-
-
 
 from .forms import LicenseVerificationForm
 
@@ -243,42 +230,6 @@ def license_verification_view(request):
     else:
         form = LicenseVerificationForm(user=request.user)  # Pass the logged-in user to the form
     return render(request, 'verify_profile.html', {'form': form, 'profile': profile})
-
-@login_required
-def email_verification_view(request):
-    profile, created = ProfileInfo.objects.get_or_create(user=request.user)
-    user = request.user
-    email = request.user.email
-    if request.method == 'POST':
-        form = EmailVerificationForm(request.POST, user=request.user)  # Pass the logged-in user to the form
-        
-        if form.is_valid():
-            # Save the email and send the confirmation email
-            user = form.save(commit=False)
-            user.is_active = False
-            user.email = email
-            user.save()
-         
-
-            if not profile.email_verified:
-                confirmation_code = generate_confirmation_code()
-                EmailConfirmation.objects.create(user=user, code=confirmation_code)
-                send_confirmation_email(email, confirmation_code)
-                activate_email(request,request.user, email)
-                print('YES IT PASSED')
-                return render(request, 'verify_email.html')
-            
-            # Add success message
-            return redirect('profile_page')
-        else:
-            # If the form is not valid, re-render the form with error messages
-            print('ELSE')
-            return render(request, 'verify_email.html', {'form': form, 'profile': profile})
-    else:
-        form = EmailVerificationForm(user=request.user)  # Initialize form with user info
-    
-    return render(request, 'verify_email.html', {'email_form': form, 'profile': profile})
-
 
 
 @login_required
