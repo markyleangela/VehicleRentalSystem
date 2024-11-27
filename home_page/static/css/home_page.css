@@ -312,16 +312,57 @@ section {
     margin-right: 5vw;
 }
 
+/* General Container Styling */
 .filter-container {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    padding: 1.5rem;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    width: 100%;
+    font-family: 'Secular One', sans-serif;
+}
+
+/* Form Styling */
+.filter-form {
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
+    gap: 1rem;
 }
 
-.filter-container label {
+/* Group Styling */
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
     margin-right: 10px;
-    font-size: 1.75vh;
+    margin-left: 10px;
 }
 
+/* Label Styling */
+.filter-group label {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Input and Select Styling */
+.filter-dropdown,
+input[type="date"] {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #333;
+    width: 100%;
+    max-width: 200px;
+    background-color: #fff;
+}
+
+/* Button Styling */
 .filter-button {
     padding: 10px 20px;
     border: none;
@@ -332,31 +373,26 @@ section {
     transition: background-color 0.3s; 
 }
 
-.filter-dropdown {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 20px; 
-    appearance: none; 
-    background-color: white; 
-    cursor: pointer;
-    width: auto; /* Use auto width to fit content */
-    text-align: center;
+.filter-button:hover {
+    background-color: #0056b3;
 }
 
-.filter-dropdown::after {
-    content: '▼'; 
-    position: absolute;
-    right: 20px; 
-    pointer-events: none; 
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .filter-container {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .filter-form {
+        justify-content: center;
+    }
+
+    .filter-button {
+        width: 100%;
+    }
 }
 
-.filter-dropdown option {
-    padding: 10px; 
-}
-
-.filter-container button {
-    padding: 10px 20px;
-}
 
 .book-button {
     display: flex;
@@ -393,3 +429,5 @@ section {
   
 
 }
+
+

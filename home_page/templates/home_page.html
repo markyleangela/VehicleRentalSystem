@@ -22,6 +22,7 @@
             <img src="{% static 'images/cover-img.jpg' %}" alt="blue car"> <!-- Link to your image -->
             <h1 class="cover-statement">Make the Right Choice. <b>Book</b> your Dream vehicle</h1>
         </div>
+        
     </section>
 
     <section class="mid-section">
@@ -30,16 +31,35 @@
     </section>
     <section class="head-nav">
         <div class="filter-container">
-            <form method="GET" action="">
-                <select id="filter" name="vehicle_type" class="filter-dropdown">
-                    <option value="all" {% if type_filter == 'all' %}selected{% endif %}>VIEW ALL</option>
-                    <option value="4 seater" {% if type_filter == '4 seater' %}selected{% endif %}>4 seater</option>
-                    <option value="6 seater" {% if type_filter == '6 seater' %}selected{% endif %}>6 seater</option>
-                    <option value="2 seater" {% if type_filter == 'Motorcycle' %}selected{% endif %}>Motorcycle</option>
-                </select>
-                <button class="filter-button" type="submit">Filter By</button>
+            <form method="GET" action="" class="filter-form">
+                <div class="filter-group">
+                    <label for="vehicle_type">Vehicle Type:</label>
+                    <select id="vehicle_type" name="vehicle_type" class="filter-dropdown">
+                        <option value="all" {% if type_filter == 'all' %}selected{% endif %}>VIEW ALL</option>
+                        <option value="4 seater" {% if type_filter == '4 seater' %}selected{% endif %}>4 seater</option>
+                        <option value="6 seater" {% if type_filter == '6 seater' %}selected{% endif %}>6 seater</option>
+                        <option value="2 seater" {% if type_filter == 'Motorcycle' %}selected{% endif %}>Motorcycle</option>
+                    </select>
+                </div>
+            
+                <div class="filter-group">
+                    <label for="start_date">Start Date:</label>
+                    <input type="date" id="start_date" name="start_date" value="{{ request.GET.start_date|default_if_none:'' }}">
+                </div>
+            
+                <div class="filter-group">
+                    <label for="return_date">End Date:</label>
+                    <input type="date" id="return_date" name="return_date" value="{{ request.GET.return_date|default_if_none:'' }}">
+                </div>
+            
+                <div class="filter-group">
+                    <button class="filter-button" type="submit">Apply Filter</button>
+                </div>
             </form>
+            
+        
         </div>
+        
 
         
     </section>
