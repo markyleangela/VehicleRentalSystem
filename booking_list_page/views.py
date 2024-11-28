@@ -7,10 +7,11 @@ from django.utils import timezone
 def booking_list(request):
     now = timezone.now()
     now_local = timezone.localtime(now)
-    overdue_rentals = RentalRecord.objects.filter(payment_status = False, payment_due_date__lte = now_local)
+    overdue_rentals = RentalRecord.objects.filter(customer = request.user, payment_status = False, payment_due_date__lte = now_local)
 
     for rental in overdue_rentals:
         # Edit in the future to change the rental_status to Cancelled
+        # rental.rental_status = "Cancelled"
         # Test purposes only
         rental.delete()
 
