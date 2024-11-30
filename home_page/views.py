@@ -104,7 +104,8 @@ def vehicle_list(request, vehicle_id=None):
             # Exclude vehicles that have rentals overlapping the selected date range
             vehicles = vehicles.exclude(
                 rentalrecord__start_date__lt=return_date,
-                rentalrecord__return_date__gt=start_date
+                rentalrecord__return_date__gt=start_date,
+               
             )
 
         except ValueError:

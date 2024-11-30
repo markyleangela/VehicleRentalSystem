@@ -37,6 +37,12 @@ button.view-action-button {
     color: inherit; /* Use this if you want the icon to inherit the text color */
 }
 
+
+.view-action-button a {
+    text-decoration: none;
+    color: inherit; /* or specify a color, e.g., color: #000; */
+}
+
 .bookings-container {
     width: 80%;
     margin: 50px auto;
@@ -112,9 +118,22 @@ h2 {
     color: red;
 }
 
-.paid {
+.paid, .completed {
     color: green;
 }
+
+.not-paid, .cancelled {
+    color: red;
+}
+
+.pending {
+    color:#FFAE42 ;
+}
+
+.status-other {
+    color: #333;
+}
+
 
 .fa-eye {
     color: #333;

@@ -21,7 +21,6 @@ from django.urls import reverse
 from django.contrib.auth import get_user_model
 import six
 from django.http import Http404, HttpResponse
-from django.core.mail import send_mail
 
 from django.urls import reverse
 from django.http import HttpResponseRedirect
