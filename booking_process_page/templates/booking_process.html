@@ -46,22 +46,62 @@
             background-color: #007BFF;
             color: white;
             border: none;
-            padding: 8px 12px;
+            padding: 10px 20px;
             border-radius: 4px;
             cursor: pointer;
-            width: 150px;
-            margin: 0 auto;
-            display: block;
+            margin: 10px;
         }
 
         button:hover {
             background-color: #0056b3;
         }
 
-        .error-message {
-            color: red;
-            font-size: 14px;
-            margin-bottom: 10px;
+        /* Popup Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: #1E2A5E;
+            margin: 10% auto;
+            padding: 30px;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 8px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-content h2 {
+            margin-bottom: 20px;
+        }
+
+        .modal-content .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover, .close:focus {
+            color: #fff;
+            text-decoration: none;
         }
     </style>
 </head>
@@ -74,7 +114,7 @@
             <div class="error-message">{{ error }}</div>
         {% endif %}
 
-        <form method="post">
+        <form method="post" id="booking-form">
             {% csrf_token %}
             <div>
                 <label>Vehicle Model:</label>
@@ -103,35 +143,67 @@
             <button type="submit">Book</button>
         </form>
     </div>
-</body>
 
-<script>
-    document.querySelector("form").addEventListener("submit", function(event) {
-        event.preventDefault();
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Booking Successful!</h2>
+            <p>Do you want to pay now or later?</p>
+            <div class="button-group">
+                <button id="payNowButton" class="btn">Pay Now</button>
+                <button id="payLaterButton" class="btn">Pay Later</button>
+            </div>
+        </div>
+    </div>
 
-        const form = event.target;
-        const formData = new FormData(form);
+    <script>
+        document.getElementById("booking-form").addEventListener("submit", function(event) {
+            event.preventDefault();
 
-        fetch("{% url 'booking_process' vehicle.vehicle_id %}", {
-            method: "POST",
-            headers: {
-                "X-CSRFToken": form.elements["csrfmiddlewaretoken"].value,
-            },
-            body: formData,
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === "success") {
-                window.location.href = data.redirect_url;
-            } else if (data.status === "error") {
-                alert(data.message);
-            }
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            alert("An unexpected error occurred. Please try again.");
+            const form = event.target;
+            const formData = new FormData(form);
+
+            fetch("{% url 'booking_process' vehicle.vehicle_id %}", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": form.elements["csrfmiddlewaretoken"].value,
+                },
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    showModal(data.rental_id);
+                } else if (data.status === "error") {
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("An unexpected error occurred. Please try again.");
+            });
         });
-    });
-</script>
 
+        function showModal(rentalId) {
+            const modal = document.getElementById("paymentModal");
+            modal.style.display = "block";
+
+            const payNowButton = document.getElementById("payNowButton");
+            const payLaterButton = document.getElementById("payLaterButton");
+
+            payNowButton.onclick = function () {
+                window.location.href = `/booking/payment/${rentalId}/`;
+            };
+
+            payLaterButton.onclick = function () {
+                window.location.href = "/booking_list/";
+            };
+        }
+
+        function closeModal() {
+            const modal = document.getElementById("paymentModal");
+            modal.style.display = "none";
+        }
+    </script>
+</body>
 </html>
