@@ -18,7 +18,10 @@
                 <button class="tab active" onclick="filterBookings('all')">All</button>
                 <button class="tab" onclick="filterBookings('in-progress')">In-Progress</button>
                 <button class="tab" onclick="filterBookings('completed')">Completed</button>
+                <button class="tab" onclick="filterBookings('overdue')">Overdue</button>
+                <button class="tab" onclick="filterBookings('cancelled')">Cancelled</button>
             </div>
+            
             <div class="table-container">
                 <table class="bookings-table">
                     <thead>
@@ -28,7 +31,8 @@
                             <th>Start Date</th>
                             <th>Return Date</th>
                             <th>Total Amount</th>
-                            <th>Return Status</th>
+                            <th>Rental Status</th>
+                         
                             <th>Payment Status</th>
                             <th>Due Date</th>
                             <th>View</th>
@@ -38,24 +42,34 @@
                     <tbody>
                         {% if records %}
                             {% for record in records %}
-                                <tr class="{% if not record.return_status %}in-progress{% else %}completed{% endif %}">
-                                    <td>#{{ record.rental_id }}</td>
+                            <tr class="{% if record.rental_status == 'completed' %}completed{% elif record.rental_status == 'overdue_pending' or record.rental_status == 'overdue_returned' %}overdue{% elif record.rental_status == 'cancelled' %}cancelled{% else %}in-progress{% endif %}">
+
+
+                
+                                    <td>#{{ record.transaction_id }}</td>
                                     <td>{{ record.vehicle.vehicle_id }}</td>
                                     <td>{{ record.start_date }}</td>
                                     <td>{{ record.return_date|default:"Not Returned" }}</td>
                                     <td>{{ record.total_amount|floatformat:2 }}</td>
                                     <td>
-                                        {% if record.return_status %}
-                                            <span class="returned">Returned</span>
+                                        {% if record.rental_status == 'completed'%}
+                                            <span class="completed">{{record.rental_status}}</span>
+                                        {% elif record.rental_status == 'pending'%}
+                                            <span class="pending">{{record.rental_status}}</span>
+                                        {% elif record.rental_status == 'cancelled'%}
+                                            <span class="cancelled">{{record.rental_status}}</span>
                                         {% else %}
-                                            <span class="pending-return">Pending Return</span>
+                                            <span class="status-other">{{record.rental_status}}</span>
                                         {% endif %}
+                                            
+            
                                     </td>
+                                    
                                     <td>
                                         {% if record.payment_status %}
                                             <span class="paid">Paid</span>
                                         {% else %}
-                                            <span class="not-paid">Not Paid</span>
+                                            <span class="not-paid">Unpaid</span>
                                         {% endif %}
                                     </td>
                                     <td>
@@ -66,30 +80,20 @@
                                         {% endif %}
                                     </td>
                                     <td>
-                                        <button class="view-action-button" 
-                                            data-rental-id="{{ record.rental_id }}" 
-                                            data-vehicle-id="{{ record.vehicle.vehicle_id }}" 
-                                            data-rental-start-date="{{ record.start_date }}" 
-                                            data-rental-return-date="{{ record.return_date|default:'Not Returned' }}" 
-                                            data-rental-amount="{{ record.total_amount }}" 
-                                            data-vehicle-model="{{ record.vehicle.vehicle_model }} "
-                                            data-vehicle-brand="{{ record.vehicle.vehicle_brand }} "
-                                            data-rental-payment-date="{{ record.payment_date }} "
-                                            data-rental-payment-status="{{ record.payment_status }} "
-                                            data-rental-return-status="{{ record.return_status }} "
-                                            data-rental-customer="{{ record.customer }} "
-                                            data-rental-vehicle="{{ record.vehicle }} "
-                                            data-vehicle-img="{{ record.vehicle.image_base64 }} ">
-                                            <i class="fa fa-eye"></i>
+                                        
+
+                                        <button class="view-action-button" >
+                                            <a href="{% url 'rental_detail' record.rental_id %}"><i class="fa fa-eye"></i></a>
+                                            
                                         </button>
                                     </td>
 
                                     <td>
-                                        {% if record.vehicle and record.is_rated and record.return_status  and record.payment_status%}
+                                        {% if record.vehicle and record.is_rated%}
                                             <a class="rated">
                                                 <i class="fas fa-check-circle"></i>
                                             </a>
-                                        {% elif record.vehicle and not record.is_rated and record.return_status  and record.payment_status %}
+                                        {% elif record.vehicle and not record.is_rated and record.rental_status == 'completed' %}
                                             
                                             <a class="not-rated" href="{% url 'vehicle_rate' vehicle_id=record.vehicle.vehicle_id %}">
                                                 <i class="far fa-star"></i>

@@ -28,13 +28,13 @@ section {
     width: 100%;
     justify-content: space-between; 
     align-items: center;
-    height: 15vh;
+    height: 100px;
     padding: 0 40px;
     box-sizing: border-box; 
 }
 
 .logo img {
-    height: 20vh;
+    height: 150px;
 }
 
 .nav-bar ul {
