@@ -15,7 +15,8 @@
             </div>
 
             <div class="vehicle-info">
-                <h2>{{ rental_record.vehicle }} Per Day</h2>
+                <h2>{{ rental_record.vehicle.vehicle_brand   }} {{ rental_record.vehicle.vehicle_model }} </h2>
+            
 
                 <!-- Transaction Info -->
                 <div class="transaction-info">
@@ -24,8 +25,8 @@
 
                 <!-- Vehicle Specs -->
                 <div class="vehicle-specs">
-                    <p><strong>Vehicle Brand:</strong> {{ rental_record.vehicle_brand }}</p>
-                    <p><strong>Vehicle Model:</strong> {{ rental_record.vehicle_model }}</p>
+                    <p><strong>Vehicle Brand:</strong> {{ rental_record.vehicle.vehicle_brand }}</p>
+                    <p><strong>Vehicle Model:</strong> {{ rental_record.vehicle.vehicle_model }}</p>
                     <p><i class="far fa-calendar"></i> <strong>Start Date:</strong> {{ rental_record.start_date }}</p>
                     <p><i class="far fa-calendar"></i> <strong>Return Date:</strong> {{ rental_record.return_date }}</p>
                     <p><i class="far fa-calendar"></i> <strong>Payment Date:</strong> {{ rental_record.payment_date }}</p>
@@ -38,9 +39,9 @@
                             {% if rental_record.payment_status %}Paid{% else %}Unpaid{% endif %}
                         </span>
                     </p>
-                    <p><strong>Return Status:</strong> 
-                        <span class="status {% if rental_record.return_status %}returned{% else %}pending{% endif %}">
-                            {% if rental_record.return_status %}Returned{% else %}Pending Return{% endif %}
+                    <p><strong>Rental Status:</strong> 
+                        <span class="status">
+                            {{ rental_record.rental_status }}
                         </span>
                     </p>
                 </div>
@@ -52,9 +53,9 @@
                 </div>
 
                 <!-- Payment Action -->
-                {% if not rental_record.payment_status %}
+                {% if not rental_record.payment_status and rental_record.rental_status == 'pending' %}
                     <div class="payment-action">
-                        <a href="{% url 'payment' rental_record.rental_id %}">
+                        <a href="{% url 'payment' rental_record.rental_id%}">
                             <button class="payment-button">Complete Payment</button>
                         </a>
                     </div>
