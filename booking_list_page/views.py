@@ -5,20 +5,7 @@ from django.utils import timezone
 
 @login_required
 def booking_list(request):
-
-#     # Fetch rental records for the logged-in user
-# =======
-#     now = timezone.now()
-#     now_local = timezone.localtime(now)
-#     overdue_rentals = RentalRecord.objects.filter(customer = request.user, payment_status = False, payment_due_date__lte = now_local)
-
-#     for rental in overdue_rentals:
-#         # Edit in the future to change the rental_status to Cancelled
-#         # rental.rental_status = "Cancelled"
-#         # Test purposes only
-#         rental.delete()
-
-
+    # Fetch rental records for the logged-in user
     records = RentalRecord.objects.filter(customer=request.user)
 
     # Current date for comparisons
@@ -57,4 +44,3 @@ def rental_detail_view(request, rental_id):
     # record = RentalRecord.objects.filter(customer=request.user, rental_id = rental_id)
 
     return render(request, 'rental_details.html', {'rental_record': record})
-
