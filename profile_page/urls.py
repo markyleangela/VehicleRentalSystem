@@ -7,9 +7,10 @@ urlpatterns = [
     path('update-details/', views.update_details, name='update_details'),
   
     path('account-info/', views.change_password, name='account_info'),
-    path('verify-profile/', views.license_verification_view, name='license_verification'),
+    path('verify-license/', views.license_verification_view, name='license_verification'),
     # path('confirm/<str:confirmation_code>/', views.confirm_email, name='confirm_email'),
-    path('confirm/', views.confirm_email, name='confirm_email'),
+    path('confirm-email/', views.confirm_email, name='confirm_email'),
+    path('confirm-license/', views.confirm_license, name='confirm_license'),
     path('verify-email/', views.email_verification_form, name='verify_email'),
    
     

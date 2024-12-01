@@ -15,10 +15,11 @@ class ProfileInfo(models.Model):
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     birth_date = models.DateField(null=True, blank=True)
     license_no = models.CharField(max_length=15, blank=True)
+    email = models.EmailField(blank=True, unique=True)
     profile_image = models.BinaryField(null=True, blank=True)
-    license_verified = models.BooleanField(default=False) #if the user has license no that is valid then the user is verified
+    license_verified = models.BooleanField(default=False)
     email_verified = models.BooleanField(default=False)  
-    user_verified = models.BooleanField(default=False)  #if email and license is verified
+    user_verified = models.BooleanField(default=False)  
 
     def __str__(self):
         return f'{self.user.username} Profile'

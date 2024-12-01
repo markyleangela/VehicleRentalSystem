@@ -67,7 +67,7 @@ class Vehicle(models.Model):
 
 class Rating(models.Model):
     vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name='ratings')
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     rating = models.FloatField(default=0)  # e.g., 1-5 scale
     review = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)

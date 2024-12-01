@@ -90,6 +90,11 @@
                 <div class="verify-license">
                     <button type="button" class="verify-btn" onclick="window.location.href='{% url 'verify_email' %}';">Verify Email</button>
                 </div>
+                {% else %}
+               
+                <div class="verify-license">
+                    <button type="button" class="verify-btn" onclick="window.location.href='{% url 'verify_email' %}';">Update Email</button>
+                </div>
                 {% endif %}
 
                 {% if not profile.license_verified and profile.email_verified%}
@@ -98,6 +103,12 @@
                 <div class="verify-license">
                     <button type="button" class="verify-btn" onclick="window.location.href='{% url 'license_verification' %}';">Verify License</button>
                 </div>
+                {% else %}
+               
+                <div class="verify-license">
+                    <button type="button" class="verify-btn" onclick="window.location.href='{% url 'license_verification' %}';">Update License</button>
+                </div>
+
                 {% endif %}
           
                
