@@ -156,13 +156,22 @@
         </div>
     </div>
 
+    <div id="errorModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeErrorModal()">&times;</span>
+            <h2>Error</h2>
+            <p id="errorMessage"></p>
+            <button onclick="closeErrorModal()">Close</button>
+        </div>
+    </div>
+    
     <script>
-        document.getElementById("booking-form").addEventListener("submit", function(event) {
+        document.getElementById("booking-form").addEventListener("submit", function (event) {
             event.preventDefault();
-
+    
             const form = event.target;
             const formData = new FormData(form);
-
+    
             fetch("{% url 'booking_process' vehicle.vehicle_id %}", {
                 method: "POST",
                 headers: {
@@ -170,40 +179,54 @@
                 },
                 body: formData,
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === "success") {
-                    showModal(data.rental_id);
-                } else if (data.status === "error") {
-                    alert(data.message);
-                }
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                alert("An unexpected error occurred. Please try again.");
-            });
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.status === "success") {
+                        showPaymentModal(data.rental_id);
+                    } else if (data.status === "not_verified") {
+                        showErrorModal(data.message);
+                    } else if (data.status === "error") {
+                        alert(data.message);
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                    alert("An unexpected error occurred. Please try again.");
+                });
         });
-
-        function showModal(rentalId) {
+    
+        function showPaymentModal(rentalId) {
             const modal = document.getElementById("paymentModal");
             modal.style.display = "block";
-
+    
             const payNowButton = document.getElementById("payNowButton");
             const payLaterButton = document.getElementById("payLaterButton");
-
+    
             payNowButton.onclick = function () {
                 window.location.href = `/booking/payment/${rentalId}/`;
             };
-
+    
             payLaterButton.onclick = function () {
                 window.location.href = "/booking_list/";
             };
         }
-
+    
+        function showErrorModal(message) {
+            const errorModal = document.getElementById("errorModal");
+            const errorMessage = document.getElementById("errorMessage");
+            errorMessage.textContent = message;
+            errorModal.style.display = "block";
+        }
+    
+        function closeErrorModal() {
+            const errorModal = document.getElementById("errorModal");
+            errorModal.style.display = "none";
+        }
+    
         function closeModal() {
             const modal = document.getElementById("paymentModal");
             modal.style.display = "none";
         }
-    </script>
+    </script>    
 </body>
 </html>
