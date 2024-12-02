@@ -7,6 +7,9 @@ import uuid
 from django.core.mail import send_mail
 from .models import EmailConfirmation
 
+from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User  # Or replace with your custom user model
+
 class PersonalDetailsForm(forms.ModelForm):
     first_name = forms.CharField(max_length=30, required=False, label='First Name')
     last_name = forms.CharField(max_length=30, required=False, label='Last Name')
@@ -18,14 +21,22 @@ class PersonalDetailsForm(forms.ModelForm):
         fields = ['first_name', 'last_name', 'email', 'phone_number', 'birth_date']
 
     def __init__(self, *args, **kwargs):
-        user = kwargs.pop('user', None)
+        self.user = kwargs.pop('user', None)  # Save user instance
         super(PersonalDetailsForm, self).__init__(*args, **kwargs)
         
-        if user:
+        if self.user:
             # Initialize fields with user's current information
-            self.fields['first_name'].initial = user.first_name
-            self.fields['last_name'].initial = user.last_name
-            self.fields['email'].initial = user.email  # Initialize email
+            self.fields['first_name'].initial = self.user.first_name
+            self.fields['last_name'].initial = self.user.last_name
+            self.fields['email'].initial = self.user.email  # Initialize email
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if email:
+            # Check if the email is already used by another user
+            if User.objects.filter(email=email).exclude(pk=self.user.pk).exists():
+                raise ValidationError('This email address is already in use.')
+        return email
 
     def save(self, commit=True):
         user = self.instance.user
@@ -37,6 +48,7 @@ class PersonalDetailsForm(forms.ModelForm):
             user.save()
             self.instance.save()
         return self.instance
+
 
 
 class CustomPasswordChangeForm(PasswordChangeForm):

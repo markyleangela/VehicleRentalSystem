@@ -41,6 +41,10 @@ from django.shortcuts import render, redirect
 from .forms import CustomPasswordChangeForm
 import uuid
 
+from .forms import LicenseVerificationForm
+from .models import LicenseConfirmation
+import random
+
 def activate_email(request, user, to_email):
     # Add a success message
     messages.success(
@@ -49,11 +53,11 @@ def activate_email(request, user, to_email):
     )
 
 def generate_confirmation_code():
-    return str(uuid.uuid4())
+    return str(random.randint(100000, 999999))
 
 def send_confirmation_email(user_email, confirmation_code):
     subject = 'Email Confirmation'
-    message = f'Click the link to confirm your email: http://localhost:8000/profile/confirm/ your confirmation code is {confirmation_code}'
+    message = f'Your confirmation code is {confirmation_code}'
 
     from_email = 'markyleangela@gmail.com'
     recipient_list = [user_email]
@@ -83,6 +87,33 @@ def confirm_email(request):
             
             return redirect('profile_page')
         except EmailConfirmation.DoesNotExist:
+            return HttpResponse("Invalid or expired confirmation code.", status=400)
+
+    return render(request, 'activate_user.html')
+
+def confirm_license(request):
+    profile, created = ProfileInfo.objects.get_or_create(user=request.user)
+    if request.method == 'POST':
+        code = request.POST['code']
+
+        try:
+            # Find the confirmation record
+            confirmation = LicenseConfirmation.objects.get(code=code)
+            
+            user = confirmation.user
+    
+            # Activate the user
+            user.is_active = True
+            user.save()
+
+            profile.license_verified = True
+            profile.save()
+
+            # Delete the confirmation record
+            confirmation.delete()
+            
+            return redirect('profile_page')
+        except LicenseConfirmation.DoesNotExist:
             return HttpResponse("Invalid or expired confirmation code.", status=400)
 
     return render(request, 'activate_user.html')
@@ -138,8 +169,12 @@ def update_details(request):
         
         if form.is_valid():
             # Save form data (like first name, last name, etc.)
+            email = form.cleaned_data.get('email')
+            
+            if email != profile.user.email:
+                profile.email_verified = False
+            profile.save()
             form.save(commit=True)
-
             
             if 'profile_image' in request.FILES and request.FILES['profile_image']:
                 # Save the profile image
@@ -204,7 +239,6 @@ def change_password(request):
         'profile': profile,  # Pass the profile to the template if needed
     })
 
-from .forms import LicenseVerificationForm
 
 @login_required
 def license_verification_view(request):
@@ -216,19 +250,28 @@ def license_verification_view(request):
             profile, created = ProfileInfo.objects.get_or_create(user=request.user)
             
             license_number = form.cleaned_data.get('license_no')
-            form.save()
             
-            profile.license_verified = True 
+            
+
+            confirmation_code = generate_confirmation_code()
+            
+    
+            email_confirmation, created = LicenseConfirmation.objects.update_or_create(
+                user=profile,
+                defaults={'code': confirmation_code}
+            )
+            send_confirmation_email(profile.user.email, confirmation_code)
+
             profile.license_no = license_number
             profile.save()
-            return redirect('account_info')
+            return redirect('confirm_license')
         else:
-            # If the form is not valid, re-render the form with error messages
             profile.license_verified = False 
-            return render(request, 'verify_profile.html', {'form': form, 'profile': profile})
+
+            return render(request, 'verify_license.html', {'form': form, 'profile': profile})
     else:
-        form = LicenseVerificationForm(user=request.user)  # Pass the logged-in user to the form
-    return render(request, 'verify_profile.html', {'form': form, 'profile': profile})
+        form = LicenseVerificationForm(user=request.user)  
+    return render(request, 'verify_license.html', {'form': form, 'profile': profile})
 
 
 @login_required

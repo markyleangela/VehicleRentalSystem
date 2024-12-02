@@ -1,0 +1,125 @@
+/* Add this at the top to ensure consistent box sizing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* General Body Styling */
+body {
+    font-family: 'Secular One', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Form Container */
+form.license-verification-form {
+    background: #ffffff;
+    padding: 25px 35px;
+    border-radius: 10px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+    width: 500px;
+    max-width: 600px;
+    position: relative;
+    overflow: hidden; /*    Ensures content doesn't overflow */
+}
+
+/* Input Wrapper */
+.input-wrapper {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+/* Input Field Styling */
+.input-wrapper input {
+    width: 100%; /* Ensure input stays within the container */
+    padding: 12px 15px 12px 45px; /* Added padding to account for icon */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+    background-color: #f7f7f7;
+    display: block; /* Ensures the input behaves as a block element */
+}
+
+.input-wrapper input:focus {
+    border-color: #1E2A5E;
+    background-color: #ffffff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+    outline: none;
+}
+
+/* Input Icon Styling */
+.input-icon {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: #888;
+    font-size: 18px;
+}
+
+/* Button Styling */
+form button {
+    display: block;
+    width: 100%; /* Ensure the button aligns with the input */
+    padding: 12px;
+    background-color: #1E2A5E;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+/* Error Message Styling */
+.form-error {
+    color: #e74c3c;
+    font-size: 14px;
+    margin-top: -10px;
+    margin-bottom: 15px;
+}
+
+/* Alert Styling */
+.alert {
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    form.email-verification-form {
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+}
