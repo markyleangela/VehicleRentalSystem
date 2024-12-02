@@ -15,7 +15,8 @@ def booking_process(request, vehicle_id):
     user_profile = get_object_or_404(ProfileInfo, user=request.user)
 
     if request.method == "POST":
-        if not user_profile.user_status:
+        print(user_profile.user_verified)
+        if not user_profile.user_verified:
             return JsonResponse({
                 "status": "not_verified",
                 "message": "Your account is not verified. Please update your profile and provide a valid license."

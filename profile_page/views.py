@@ -107,6 +107,8 @@ def confirm_license(request):
             user.save()
 
             profile.license_verified = True
+            if profile.email_verified:
+                profile.user_verified = True
             profile.save()
 
             # Delete the confirmation record
@@ -193,7 +195,7 @@ def update_details(request):
 def view_profile(request):
     try:
         profile = ProfileInfo.objects.get(user=request.user)
-
+        print("this is in the view_profile:" + str(profile.user_verified))
         # Check the license number validation and set user status
     
         profile.verification_status = "Verified" if profile.license_verified else "Unverified"
@@ -263,6 +265,7 @@ def license_verification_view(request):
             send_confirmation_email(profile.user.email, confirmation_code)
 
             profile.license_no = license_number
+            
             profile.save()
             return redirect('confirm_license')
         else:

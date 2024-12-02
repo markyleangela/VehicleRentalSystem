@@ -24,6 +24,7 @@ def booking_list(request):
         
 
         # Calculate days rented and total amount
+        
         if record.return_date:
             record.days_rented = max((record.return_date - record.start_date).days, 1)
             record.total_amount = record.days_rented * record.vehicle.vehicle_price
@@ -31,8 +32,9 @@ def booking_list(request):
             record.days_rented = "Not Returned"
 
         # Display payment due date or "Not Set" if null
+      
         record.payment_due_date_display = record.payment_due_date if record.payment_due_date else "Not Set"
-
+        record.save()
     # Render the template with updated records
     return render(request, 'booking_list.html', {'records': records})
 
