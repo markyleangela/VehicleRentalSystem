@@ -44,16 +44,35 @@
             <div class="personal-info-section">
                 <div class="info-edit">
                     <h3>Personal Information</h3>
-                    <div class="info-label">
-                        <p>First Name</p>
-                        <p>Last Name</p>
-                        <p>Birth Date</p>
+                    <div class="upper-info-name">
+                        <div class="info-name">
+                            <div class="info-label">
+                                <p>First Name</p>               
+                            </div>
+                            <div class="info-value">
+                                <p>{{ user.first_name }}</p>
+                            </div>
+                            <div class="info-label">                       
+                                <p>Last Name</p>        
+                            </div>
+                            <div class="info-value">
+                                <p>{{ user.last_name }}</p>
+                            </div>
+                        </div>
+                        <div class="info-dob">
+                            <div class="info-label">
+                                <p>Birth Date</p>
+                            </div>
+                            <div class="info-value">
+        
+                                <p>{{ profile.birth_date }}</p>
+                            </div>
+                        </div>
+                        
+                        
                     </div>
-                    <div class="info-value">
-                        <p>{{ user.first_name }}</p>
-                        <p>{{ user.last_name }}</p>
-                        <p>{{ profile.birth_date }}</p>
-                    </div>
+                    
+                    
 
                     <h3>Contact Information</h3>
                     <div class="info-label">
@@ -64,11 +83,11 @@
                         <p>{{ user.email }}</p>
                         {% if profile.email_verified %}
                             <div class="email-verified">
-                                <i class="fas fa-check-circle"></i>
+                                <i class="fas fa-check-circle"> </i> Email Verified
                             </div>
                         {% else %}
                             <div class="email-not-verified">
-                                <i class="fas fa-times-circle"></i>
+                                <i class="fas fa-times-circle"></i> Email not Verified
                                
                             </div>
                         {% endif %}
@@ -85,25 +104,7 @@
             </div>
         </div>
 
-                {% if messages %}
-            <div class="messages">
-                {% for message in messages %}
-                    <div 
-                        class="alert {{ message.tags }} alert-dismissible fade show" 
-                        role="alert"
-                    >
-                        {{ message|safe }}
-                        <button 
-                            type="button" 
-                            class="btn-close" 
-                            data-bs-dismiss="alert" 
-                            aria-label="Close"
-                        ></button>
-                    </div>
-                {% endfor %}
-            </div>
-        {% endif %}
-
+                
    
    
         

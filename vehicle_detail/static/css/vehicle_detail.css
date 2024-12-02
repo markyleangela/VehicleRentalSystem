@@ -4,6 +4,7 @@ body {
     font-family: 'Secular One', sans-serif;
     color: #333;
     margin-top: 60px;
+    background-color: #7C93C3;
 }
 
 body::before {
@@ -15,8 +16,9 @@ body::before {
     height: 100%;
     background: url('../images/cover-img.jpg') no-repeat center center;
     background-size: cover;
-    opacity: 0.4; /* Adjust this value for the desired opacity */
+    opacity: 0.1; /* Adjust this value for the desired opacity */
     z-index: -1; /* Keeps the image behind the content */
+    
 }
 
 /* Flexbox to center the section vertically and horizontally */

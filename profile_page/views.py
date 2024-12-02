@@ -57,7 +57,7 @@ def generate_confirmation_code():
 
 def send_confirmation_email(user_email, confirmation_code):
     subject = 'Email Confirmation'
-    message = f'Click the link to confirm your email: http://localhost:8000/profile/confirm/ your confirmation code is {confirmation_code}'
+    message = f'Your confirmation code is {confirmation_code}'
 
     from_email = 'markyleangela@gmail.com'
     recipient_list = [user_email]
@@ -169,8 +169,12 @@ def update_details(request):
         
         if form.is_valid():
             # Save form data (like first name, last name, etc.)
+            email = form.cleaned_data.get('email')
+            
+            if email != profile.user.email:
+                profile.email_verified = False
+            profile.save()
             form.save(commit=True)
-
             
             if 'profile_image' in request.FILES and request.FILES['profile_image']:
                 # Save the profile image
