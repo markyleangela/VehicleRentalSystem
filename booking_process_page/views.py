@@ -6,13 +6,21 @@ from datetime import datetime, timedelta
 from django.db.models import Q
 from django.http import JsonResponse
 from django.utils import timezone
+from user_profile.models import ProfileInfo
 
 
 @login_required
 def booking_process(request, vehicle_id):
     vehicle = get_object_or_404(Vehicle, vehicle_id=vehicle_id)
+    user_profile = get_object_or_404(ProfileInfo, user=request.user)
 
     if request.method == "POST":
+        if not user_profile.user_status:
+            return JsonResponse({
+                "status": "not_verified",
+                "message": "Your account is not verified. Please update your profile and provide a valid license."
+            })
+
         start_date = request.POST.get("start_date")
         return_date = request.POST.get("return_date")
 
