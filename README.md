@@ -31,23 +31,12 @@
 <br />
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/Logo.png" alt="Logo" width="80" height="80">
+    <img src="images/Logo.png" alt="Logo" width="200" height="200">
   </a>
 
   <h3 align="center">VRS - Vehicle Rental System</h3>
 
-  <p align="center">
-    An awesome README template to jumpstart your projects!
-    <br />
-    <a href="https://github.com/markyleangela/VehicleRe"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
-    ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
-    ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
-  </p>
+  
 </div>
 
 
@@ -56,12 +45,23 @@
 <details>
   <summary>Table of Contents</summary>
   <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
+    <li><a href="#about-the-project">About The Project</a></li>
+    <li><a href="#project-resources">Project Resources</a>
+          <ul>
+            <li>
+              <a href="#erd">ERD</a>
+            </li>
+            <li>
+              <a href="#ui-ux">UI / UX</a>
+            </li>
+            <li>
+              <a href="#gantt-chart">Gantt Chart</a>
+            </li>
+          </ul>
     </li>
+    <li><a href="#functional-requirements">Functional Requirements</a></li>
+    <li><a href="#additional-features">Additional Features</a></li>
+    <li><a href="#built-with">Built With</a></li>
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
@@ -69,19 +69,15 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
+    <li><a href="#contributing">Contributors</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
 
 
 <!-- ABOUT THE PROJECT -->
-## About The Project
+## ABOUT THE PROJECT
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
@@ -92,69 +88,121 @@ Vehicle Rental System designed to streamline the rental process for both custome
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## FUNCTIONAL REQUIREMENTS
+1. **User Registration**  
+
+    The customer will input required data in the fields provided. If the information is verified, the system will create an account for the customer.
+
+2. **User Log-In**  
+
+    The customer will input their username and password. If the information is verified, the system will
+
+3. **Vehicle Search/Availability**  
+
+    The customer can search for specific vehicle or view all the listing of vehicles based on the date that they want to rent
+
+4. **Booking Process**  
+
+    The customer has chosen vehicles to rent, the system will summarize the rental dues/fees, the list of vehicles rented, the duration of the rental. A cancel button and pay button will display. When the user proceeds to pay then the booking is successful, otherwise, the booking is unsuccessful.
+
+5. **Admin Dashboard/CRUD Operations for Vehicle**  
+
+    The admin can Create, Read, Update, and Delete records of vehicles in the system
+
+6. **Log Out**  
+
+    When the user clicks the log out button, the log-session will be deleted in the system.
 
 
-### Built With
+## ADDITIONAL FEATURES
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+7. **Vehicle Rating Functionality**  
 
-* [![Django][Django]][Django-url]
-* [![SQLite][SQLite]][SQLite-url]
+    The user can leave a rating of the vehicle and add comment after the transaction has been completed
+
+6. **User Profile / Email and License Verification**  
+
+    The user can update their information and verify their email and license to make their account verify.
+
+
+## Built With
+
+
+[![Python][Python]][Python-url]
+[![Django][Django]][Django-url]
+[![SQLite][SQLite]][SQLite-url]
+[![HTML][HTML]][HTML-url]
+[![CSS][CSS]][CSS-url]
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
 <!-- GETTING STARTED -->
-## Getting Started
+##  **Getting Started**  
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+###  **Prerequisites**  
 
-### Prerequisites
+Before you start, ensure you have the following installed:
 
-This is an example of how to list things you need to use the software and how to install them.
-* pip
-  ```sh
-  pip install -r requirements.txt
-  ```
+ [![Python][Python]][Python-url]
 
-### Installation
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+### **Installation**  
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/markyleangela/VehicleRentalSystem.git
+1. **Clone the repository**  
+   Open your terminal and run the following command:
+   ```bash
+   git clone git@github.com:markyleangela/VehicleRentalSystem.git
+   cd vrs
    ```
-3. Install PIP packages
-   ```sh
+
+2. **Create a virtual environment**  
+   It’s recommended to create a virtual environment to manage dependencies:
+   ```bash
+   python -m venv venv
+   ```
+   or
+
+   ```bash
+   py -m venv venv
+   ```
+
+   Activate the virtual environment:
+   - On **macOS/Linux**:
+     ```bash
+     source venv/bin/activate
+     ```
+   - On **Windows**:
+     ```bash
+     venv\Scripts\activate
+     ```
+
+3. **Install dependencies**  
+   Install all the required packages from `requirements.txt`:
+   ```bash
    pip install -r requirements.txt
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
-5. Change git remote url to avoid accidental pushes to base project
-   ```sh
-   git remote set-url origin github_username/repo_name
-   git remote -v # confirm the changes
+
+4. **Apply database migrations**  
+   Run the database migrations to set up the database schema:
+   ```bash
+   python manage.py make migrations
+   python manage.py migrate
    ```
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+5. **Start the development server**  
+   Now, you can start the development server and view the project locally:
+   ```bash
+   python manage.py runserver
+   ```
 
-
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
+6. **Access the application**  
+   Open your browser and go to `http://127.0.0.1:8000/` or `http://localhost:8000/` to see the application running locally.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- ROADMAP -->
@@ -177,17 +225,6 @@ See the [open issues](https://github.com/othneildrew/Best-README-Template/issues
 <!-- CONTRIBUTING -->
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
 ### Top contributors:
 
 <a href="https://github.com/markyleangela/VehicleRentalSystem/graphs/contributors">
@@ -195,16 +232,6 @@ Don't forget to give the project a star! Thanks again!
 </a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- LICENSE -->
-## License
-
-Distributed under the MIT License. See `LICENSE.txt` for more information.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- CONTACT -->
@@ -222,23 +249,6 @@ Project Link: [https://github.com/markyleangela/VehicleRentalSystem](https://git
 
 
 
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
-
-* [Choose an Open Source License](https://choosealicense.com)
-* [Font Awesome](https://fontawesome.com/)
-* [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
-* [Malven's Grid Cheatsheet](https://grid.malven.co/)
-* [Img Shields](https://shields.io)
-* [GitHub Pages](https://pages.github.com)
-* [Font Awesome](https://fontawesome.com)
-* [React Icons](https://react-icons.github.io/react-icons/search)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
@@ -254,11 +264,22 @@ Use this space to list resources you find helpful and would like to give credit 
 [license-url]: https://github.com/markyleangela/VehicleRentalSystem/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/kyle-angela-mar-405aa3159/
-[product-screenshot]: images/product-screenshot.png
-[product-screenshot-1]: images/product-screenshot-1.png
+[product-screenshot]: images/product-screenshot-2.png
+[product-screenshot-1]: images/product-screenshot-3.png
 [Django]: https://img.shields.io/badge/django-092E20?style=for-the-badge&logo=django&logoColor=white
 [Django-url]: https://www.djangoproject.com/
 
 [SQLite]: https://img.shields.io/badge/sqlite-003B57?style=for-the-badge&logo=sqlite&logoColor=white
 [SQLite-url]: https://www.sqlite.org/
+
+[HTML]: https://img.shields.io/badge/html-E34F26?style=for-the-badge&logo=html5&logoColor=white
+[HTML-url]: https://developer.mozilla.org/en-US/docs/Web/HTML
+
+
+[CSS]: https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white
+[CSS-url]: https://developer.mozilla.org/en-US/docs/Web/CSS
+
+[Python]: https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white
+[Python-url]: https://www.python.org/
+
 
