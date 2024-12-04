@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Profile{% endblock %}
+{% block title %}Profile - Account Settings{% endblock %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/account_info.css' %}?v={{ STATIC_VERSION }}">
@@ -21,9 +21,9 @@
             <a href="{% url 'profile_page' %}">
                 <button class="tab">Profile</button>
             </a>
-            <button class="tab active" onclick="changeTab('account-info')">Account Information</button>
+            <button class="tab active" onclick="changeTab('account-info')">Account Settings</button>
         </div>
-            <h1>Account Information</h1>
+            <h1>Account Settings</h1>
             
            
     
@@ -63,9 +63,19 @@
                         </ul>
                     </div>
                 {% endif %}
+
+                
             </div>
+           
         </div>
     </div>
+    <form method="post" action="{% url 'confirm_delete_account' %}">
+        {% csrf_token %}
+        <div class="delete-account-container">
+            <button type="submit" class="delete-button">Delete Account</button>
+
+        </div>
+    </form>
     
     
     {% block extra_js %}<script src="{% static 'js/profile.js' %}"></script>{% endblock %}

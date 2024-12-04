@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Profile{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/confirm_delete.css' %}?v={{ STATIC_VERSION }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
+
+{% endblock %}
+
+{% block content %}
+        
+
+
+    <body>
+        <div class="confirmation-container">
+            <h2>Are you sure you want to delete your account?</h2>
+            
+            <p>This action cannot be undone. To confirm, please enter your password:</p>
+
+            {% if error_message %}
+                <p style="color: red;">{{ error_message }}</p>
+            {% endif %}
+            
+            <form method="post">
+                {% csrf_token %}
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" required>
+                <button type="submit" class="delete-button">Delete Account</button>
+            </form>
+            
+            <a href="{% url 'profile_page' %}">Cancel</a>  <!-- Optional: A link to cancel the deletion and go back to profile page -->
+        </div>
+    </body>            
+
+
+    
+    {% block extra_js %}{% endblock %}
+{% endblock %}

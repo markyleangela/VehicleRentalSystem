@@ -194,7 +194,11 @@ def update_details(request):
 @login_required
 def view_profile(request):
     try:
+        
+
         profile = ProfileInfo.objects.get(user=request.user)
+        if request.user.email == '':
+            profile.email_verified = False
         print("this is in the view_profile:" + str(profile.user_verified))
         # Check the license number validation and set user status
     
@@ -320,3 +324,28 @@ def email_verification_form(request):
     }
     return render(request, 'verify_email.html', context)
 
+
+@login_required
+def delete_account(request):
+    return render(request, 'confirm_delete.html')
+
+
+def confirm_delete_account(request):
+    if request.method == 'POST':
+        password = request.POST.get('password')  # Get the entered password
+        user = request.user
+        
+        # Check if the password matches the logged-in user's password
+        if user.check_password(password):
+            # Deactivate the user (soft delete)
+            user.is_active = False
+            user.email = ''
+            user.save()
+            logout(request)
+            return redirect('login_page')  # Redirect to a page confirming the deletion
+        else:
+            # Incorrect password
+            error_message = "Incorrect password. Please try again."
+            return render(request, 'confirm_delete.html', {'error_message': error_message})
+    
+    return render(request, 'confirm_delete.html')
