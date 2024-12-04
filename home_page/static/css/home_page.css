@@ -273,7 +273,7 @@ section {
     right: 10px;
     background-color: #f9f9f9;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 180px;
+    width: 200px;
     border-radius: 5px;
     padding: 5px;
     z-index: 1000;
@@ -317,7 +317,7 @@ section {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 2rem;
+    gap: 1.5rem;
     padding: 1.5rem;
     background-color: #f9f9f9;
     border: 1px solid #e0e0e0;
@@ -332,12 +332,13 @@ section {
     flex-wrap: wrap;
     align-items: center;
     gap: 1rem;
+ 
 }
 
 /* Group Styling */
 .filter-group {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 1.5rem;
     margin-right: 10px;
     margin-left: 10px;
@@ -354,7 +355,7 @@ section {
 input[type="date"] {
     padding: 0.5rem;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 10px;
     font-size: 1rem;
     color: #333;
     width: 100%;
@@ -371,6 +372,7 @@ input[type="date"] {
     color: white; 
     cursor: pointer;
     transition: background-color 0.3s; 
+    
 }
 
 .filter-button:hover {
@@ -428,6 +430,24 @@ input[type="date"] {
     width: 40%;
   
 
+}
+
+@media (max-width: 768px) {
+    .nav-bar {
+        flex-direction: column; /* Stack items vertically */
+        height: auto;          /* Adjust height for smaller screens */
+        padding: 10px 20px;
+    }
+
+    .nav-bar ul {
+        flex-direction: column; /* Stack menu items vertically */
+        align-items: flex-start;
+    }
+
+    .nav-bar ul li a {
+        padding: 10px 20px; /* Adjust padding for smaller screens */
+        text-align: left;
+    }
 }
 
 
