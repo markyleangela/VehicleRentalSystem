@@ -21,14 +21,26 @@ body::before {
 }
 
 
-.all-info-container {
-    max-width: 1200px;
+.all-info-container, .delete-account-container{
+
+    max-width: 1000px;
     margin: 0 auto;
     background: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 }
+
+.delete-account-container button {
+    background-color: red;
+}
+
+.delete-account-container button:hover {
+    background-color: darkred;
+}
+
+
 
 h1 {
     text-align: center;
@@ -103,7 +115,7 @@ input[type="password"] {
     border: 1px solid #ddd;
     border-radius: 5px;
     transition: border 0.3s;
-    width: 100%;
+    width: calc(100% - 16px);
 }
 
 input[type="password"]:focus {
@@ -118,7 +130,22 @@ input[type="password"]:focus {
     border-radius: 5px;
     cursor: pointer;
     transition: background 0.3s;
-    width: 100%; /* Full width button */
+    width: 40%; /* Full width button */
+    margin-left: 30%;
+    margin-right: 30%;
+    
+}
+
+.delete-button {
+
+    background:  #1E2A5E;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 100%; 
 }
 
 .submit-button:hover {

@@ -12,6 +12,7 @@ urlpatterns = [
     path('confirm-email/', views.confirm_email, name='confirm_email'),
     path('confirm-license/', views.confirm_license, name='confirm_license'),
     path('verify-email/', views.email_verification_form, name='verify_email'),
+    path('confirm_delete/', views.confirm_delete_account, name='confirm_delete_account'),
    
     
 ]
