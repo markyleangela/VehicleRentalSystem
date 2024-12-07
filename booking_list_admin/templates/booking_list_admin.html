@@ -1,0 +1,115 @@
+{% extends 'admin_dashboard.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/booking_list_admin.css' %}?v={{ STATIC_VERSION }}">
+    <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="temp">
+        <div class="bookings-container">
+            <h2>Booking Records</h2>
+            <br>
+            <div class="tabs">
+                <button class="tab active" onclick="filterBookings('all')">All</button>
+                <button class="tab" onclick="filterBookings('in-progress')">In-Progress</button>
+                <button class="tab" onclick="filterBookings('completed')">Completed</button>
+                <button class="tab" onclick="filterBookings('overdue')">Overdue</button>
+                <button class="tab" onclick="filterBookings('cancelled')">Cancelled</button>
+            </div>
+
+            <div class="table-container">
+                <table class="bookings-table">
+                    <thead>
+                        <tr>
+                            <th>Transaction ID</th>
+                            <th>Vehicle ID</th>
+                            <th>Start Date</th>
+                            <th>Return Date</th>
+                            <th>Total Amount</th>
+                            <th>Rental Status</th>
+                            <th>Payment Status</th>
+                            <th>Due Date</th>
+                            <th>View</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if rental_records %}
+                            {% for record in rental_records %}
+                                <tr class="{% if record.rental_status == 'completed' or record.rental_status == 'overdue_extended' or record.rental_status == 'overdue_returned' %}completed{% elif record.rental_status == 'overdue_pending' %}overdue{% elif record.rental_status == 'cancelled' %}cancelled{% else %}in-progress{% endif %}">
+
+                                    <td>#{{ record.rental_id }}</td>
+                                    <td>{{ record.vehicle.vehicle_id }}</td>
+                                    <td>{{ record.start_date }}</td>
+                                    <td>{{ record.return_date|default:"Not Returned" }}</td>
+                                    <td>{{ record.total_amount|floatformat:2 }}</td>
+                                    <td>
+                                        {% if record.rental_status == 'cancelled' %}
+                                            <span class="incomplete">Cancelled</span>
+                                            {% elif record.rental_status == 'pending' %}
+                                                <span class="in-progress">Pending</span>
+                                            {% elif record.rental_status == 'booked' %}
+                                                <span class="in-progress">Booked</span>
+                                            {% elif record.rental_status == 'in_use' %}
+                                                <span class="in-progress">Vehicle In Use</span>
+                                            {% elif record.rental_status == 'returned' %}
+                                                <span class="in-progress">Vehicle Returned</span>
+                                            {% elif record.rental_status == 'overdue_pending' %}
+                                                <span class="incomplete">Overdue</span>
+                                            {% elif record.rental_status == 'overdue_returned' %}
+                                                <span class="incomplete">Vehicle Returned Late</span>
+                                            {% elif record.rental_status == 'overdue_extended' %}
+                                                <span class="completed">Booking Extended</span>
+                                            {% elif record.rental_status == 'completed' %}
+                                                <span class="completed">Completed</span>
+                                            {% else %}
+                                               <span class="status-other">Status Unknown</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if record.payment_status %}
+                                            <span class="paid">Paid</span>
+                                        {% else %}
+                                            <span class="not-paid">Not Paid</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if record.payment_status %}
+                                            <span class="paid">Payment Completed</span>
+                                        {% else %}
+                                            <span class="due-date">{{ record.payment_due_date|default:"N/A" }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <button class="view-action-button" >
+                                            <a href="{% url 'rental_details_admin' record.rental_id %}"><i class="fa fa-eye"></i></a>
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>   
+                                <p>No rental records found.</p>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div id="vehicle-modal" class="modal">
+            <div class="modal-content">
+                <!-- Vehicle Image and Info will be populated dynamically -->
+                <div id="modal-vehicle-img"></div>
+                <div id="modal-vehicle-info"></div>
+                <!-- Close button for the modal -->
+                <span id="close-modal" class="close-button">&times;</span>
+            </div>
+        </div>
+      
+        {% block extra_js %}<script src="{% static 'js/booking_list_admin.js' %}?v={{ STATIC_VERSION }}"></script>{% endblock %}
+    </div>
+{% endblock %}

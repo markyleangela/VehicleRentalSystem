@@ -1,0 +1,169 @@
+{% extends "admin_dashboard.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/rental_details_admin.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="rental-record-container">
+        <!-- Header Section -->
+        <div class="header-section">
+            <h1>Rental Details</h1>
+        </div>
+
+        <!-- Rental Record Details -->
+        <div class="rental-details">
+            <div class="vehicle-image">
+                <img src="data:image/png;base64,{{ rental_record.vehicle.image_base64 }}" alt="{{ rental_record.vehicle_model }}">
+            </div>
+
+            <div class="vehicle-info">
+                <h2>{{ rental_record.vehicle.vehicle_brand   }} {{ rental_record.vehicle.vehicle_model }} </h2>
+            
+
+                <!-- Transaction Info -->
+                <div class="transaction-info">
+                    <p><strong>Transaction ID:</strong> {{ rental_record.transaction_id }} | <strong>Vehicle ID:</strong> {{ rental_record.vehicle_id }}</p>
+                </div>
+
+                <!-- Vehicle Specs -->
+                <div class="vehicle-specs">
+                    <p><strong>Vehicle Brand:</strong> {{ rental_record.vehicle.vehicle_brand }}</p>
+                    <p><strong>Vehicle Model:</strong> {{ rental_record.vehicle.vehicle_model }}</p>
+                    <p><i class="far fa-calendar"></i> <strong>Start Date:</strong> {{ rental_record.start_date }}</p>
+                    <p><i class="far fa-calendar"></i> <strong>Return Date:</strong> {{ rental_record.return_date }}</p>
+                    <p><i class="far fa-calendar"></i> <strong>Payment Date:</strong> {{ rental_record.payment_date }}</p>
+                </div>
+
+                <!-- Rental Status -->
+                <div class="rental-status">
+                    <p><strong>Payment Status:</strong> 
+                        <span class="status {% if rental_record.payment_status %}paid{% else %}unpaid{% endif %}">
+                            {% if rental_record.payment_status %}Paid{% else %}Unpaid{% endif %}
+                        </span>
+                    </p>
+                    <p><strong>Rental Status:</strong> 
+                        <span class="status">
+                            {{ rental_record.rental_status }}
+                        </span>
+                    </p>
+                </div>
+
+                <!-- Customer Info -->
+                <div class="customer-info">
+                    <p><i class="far fa-user"></i> <strong>{{ rental_record.customer }}</strong></p>
+                    <p><strong>Total Amount:</strong> {{ rental_record.total_amount }}</p>
+                </div>
+
+                <div class="action-buttons">
+                    <!-- Booking Action -->
+                    {% if rental_record.payment_status and rental_record.rental_status == 'pending' %}
+                        <div class="payment-action">
+                            <form method="post" id="booking-form">
+                                {% csrf_token %}
+                                <input type="hidden" name="action" value="book">
+                                <button type="button" class="payment-button" onclick="submitForm(event)">
+                                    Confirm Booking
+                                </button>
+                            </form>
+                        </div>
+                    {% endif %}
+
+                    <!-- Release Vehicle Action -->
+                    {% if rental_record.rental_status == 'booked' %}
+                        <div class="payment-action">
+                            <form method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="action" value="release">
+                                <button type="button" class="payment-button" onclick="submitForm(event)">
+                                    Vehicle Released
+                                </button>
+                            </form>
+                        </div>
+                    {% endif %}
+
+                    <!-- Return Vehicle Action -->
+                    {% if rental_record.rental_status == 'in_use' %}
+                        <div class="payment-action">
+                            <form method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="action" value="return">
+                                <button type="button" class="payment-button" onclick="submitForm(event)">
+                                    Vehicle Returned
+                                </button>
+                            </form>
+                        </div>
+                    {% endif %}
+
+                    <!-- Complete Booking Action -->
+                    {% if rental_record.rental_status == 'returned' or rental_record.rental_status == 'overdue_pending'%}
+                        <div class="payment-action">
+                            <form method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="action" value="complete">
+                                <button type="button" class="payment-button" onclick="submitForm(event)">
+                                    Complete Booking
+                                </button>
+                            </form>
+                        </div>
+                    {% endif %}
+
+                    <!-- Overdue Actions -->
+                    {% if rental_record.rental_status == 'overdue_pending' %}
+                        <div class="payment-action">
+                            <form method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="action" value="extend">
+                                <button type="button" class="payment-button" onclick="submitForm(event)">
+                                    Extend Booking
+                                </button>
+                            </form>
+                        </div>
+                    {% endif %}
+                    <!-- Cancel Action -->
+                    {% if rental_record.rental_status != 'completed' and rental_record.rental_status != 'overdue_returned' %}
+                    <div class="payment-action">
+                        <form method="post" id="booking-form">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="cancel">
+                            <button type="button" class="payment-button" onclick="submitForm(event)">
+                                Cancel Booking
+                            </button>
+                        </form>
+                    </div>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+function submitForm(event) {
+    event.preventDefault();
+
+    // Get the closest form element to the button clicked
+    const form = event.target.closest("form");
+    const action = form.querySelector("input[name='action']").value;  // Get the action value
+
+    fetch("{% url 'rental_details_admin' rental_record.rental_id %}", {
+        method: "POST",
+        headers: {
+            "X-CSRFToken": form.elements["csrfmiddlewaretoken"].value,  // CSRF token for the POST request
+        },
+        body: new FormData(form),  // Send the form data, including action
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        if (data.status === "success") {
+            alert(data.message);  // Show the success message returned from server
+            location.reload();  // Reload the page to reflect the changes
+        } else {
+            alert("Error: " + data.message);  // Show the error message
+        }
+    })
+    .catch((error) => console.error("Error:", error));  // Catch any errors
+}
+
+    </script>
+{% endblock %}
