@@ -48,11 +48,11 @@ def vehicle_list(request, vehicle_id=None):
             now = timezone.now()
             now_local = timezone.localtime(now).date()
 
-            if start_date < now_local:
-                return JsonResponse({"status": "error", "message": "Start date cannot be in the past."})
-            if return_date < start_date:
-                return JsonResponse({"status": "error", "message": "Return date cannot be earlier than the pickup date."})
-            # Convert date strings into datetime objects
+            # if start_date < now_local:
+            #     return JsonResponse({"status": "error", "message": "Start date cannot be in the past."})
+            # if return_date < start_date:
+            #     return JsonResponse({"status": "error", "message": "Return date cannot be earlier than the pickup date."})
+            # # Convert date strings into datetime objects
 
             # Exclude vehicles that have rentals overlapping the selected date range
             vehicles = vehicles.exclude(
