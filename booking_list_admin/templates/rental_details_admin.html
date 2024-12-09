@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block extra_css %}
+{{ block.super }}
     <link rel="stylesheet" href="{% static 'css/rental_details_admin.css' %}">
 {% endblock %}
 
@@ -45,7 +46,27 @@
                     </p>
                     <p><strong>Rental Status:</strong> 
                         <span class="status">
-                            {{ rental_record.rental_status }}
+                            {% if rental_record.rental_status == 'cancelled' %}
+                            <span class="incomplete">Cancelled</span>
+                            {% elif rental_record.rental_status == 'pending' %}
+                                <span class="in-progress">Pending</span>
+                            {% elif rental_record.rental_status == 'booked' %}
+                                <span class="in-progress">Booked</span>
+                            {% elif rental_record.rental_status == 'in_use' %}
+                                <span class="in-progress">Vehicle In Use</span>
+                            {% elif rental_record.rental_status == 'returned' %}
+                                <span class="in-progress">Vehicle Returned</span>
+                            {% elif rental_record.rental_status == 'overdue_pending' %}
+                                <span class="incomplete">Overdue</span>
+                            {% elif rental_record.rental_status == 'overdue_returned' %}
+                                <span class="incomplete">Vehicle Returned Late</span>
+                            {% elif rental_record.rental_status == 'overdue_extended' %}
+                                <span class="completed">Booking Extended</span>
+                            {% elif rental_record.rental_status == 'completed' %}
+                                <span class="completed">Completed</span>
+                            {% else %}
+                               <span class="status-other">Status Unknown</span>
+                        {% endif %}
                         </span>
                     </p>
                 </div>
@@ -59,11 +80,11 @@
                 <div class="action-buttons">
                     <!-- Booking Action -->
                     {% if rental_record.payment_status and rental_record.rental_status == 'pending' %}
-                        <div class="payment-action">
+                        <div class="action-form">
                             <form method="post" id="booking-form">
                                 {% csrf_token %}
                                 <input type="hidden" name="action" value="book">
-                                <button type="button" class="payment-button" onclick="submitForm(event)">
+                                <button type="button" class="action-button" onclick="submitForm(event)">
                                     Confirm Booking
                                 </button>
                             </form>
@@ -72,11 +93,11 @@
 
                     <!-- Release Vehicle Action -->
                     {% if rental_record.rental_status == 'booked' %}
-                        <div class="payment-action">
+                        <div class="action-form">
                             <form method="post">
                                 {% csrf_token %}
                                 <input type="hidden" name="action" value="release">
-                                <button type="button" class="payment-button" onclick="submitForm(event)">
+                                <button type="button" class="action-button" onclick="submitForm(event)">
                                     Vehicle Released
                                 </button>
                             </form>
@@ -85,11 +106,11 @@
 
                     <!-- Return Vehicle Action -->
                     {% if rental_record.rental_status == 'in_use' %}
-                        <div class="payment-action">
+                        <div class="action-form">
                             <form method="post">
                                 {% csrf_token %}
                                 <input type="hidden" name="action" value="return">
-                                <button type="button" class="payment-button" onclick="submitForm(event)">
+                                <button type="button" class="action-button" onclick="submitForm(event)">
                                     Vehicle Returned
                                 </button>
                             </form>
@@ -98,11 +119,11 @@
 
                     <!-- Complete Booking Action -->
                     {% if rental_record.rental_status == 'returned' or rental_record.rental_status == 'overdue_pending'%}
-                        <div class="payment-action">
+                        <div class="action-form">
                             <form method="post">
                                 {% csrf_token %}
                                 <input type="hidden" name="action" value="complete">
-                                <button type="button" class="payment-button" onclick="submitForm(event)">
+                                <button type="button" class="action-button" onclick="submitForm(event)">
                                     Complete Booking
                                 </button>
                             </form>
@@ -111,28 +132,28 @@
 
                     <!-- Overdue Actions -->
                     {% if rental_record.rental_status == 'overdue_pending' %}
-                        <div class="payment-action">
+                        <div class="action-form">
                             <form method="post">
                                 {% csrf_token %}
                                 <input type="hidden" name="action" value="extend">
-                                <button type="button" class="payment-button" onclick="submitForm(event)">
+                                <button type="button" class="action-button" onclick="submitForm(event)">
                                     Extend Booking
                                 </button>
                             </form>
                         </div>
                     {% endif %}
                     <!-- Cancel Action -->
-                    {% if rental_record.rental_status != 'completed' and rental_record.rental_status != 'overdue_returned' %}
-                    <div class="payment-action">
+                    {% if rental_record.rental_status != 'completed' and rental_record.rental_status != 'overdue_returned' and rental_record.rental_status != 'overdue_extended'%}
+                    <div class="action-form">
                         <form method="post" id="booking-form">
                             {% csrf_token %}
                             <input type="hidden" name="action" value="cancel">
-                            <button type="button" class="payment-button" onclick="submitForm(event)">
+                            <button type="button" class="cancel-button" onclick="submitForm(event)">
                                 Cancel Booking
                             </button>
                         </form>
                     </div>
-                {% endif %}
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -145,25 +166,54 @@ function submitForm(event) {
     // Get the closest form element to the button clicked
     const form = event.target.closest("form");
     const action = form.querySelector("input[name='action']").value;  // Get the action value
+    let confirmationMessage = "";
 
-    fetch("{% url 'rental_details_admin' rental_record.rental_id %}", {
-        method: "POST",
-        headers: {
-            "X-CSRFToken": form.elements["csrfmiddlewaretoken"].value,  // CSRF token for the POST request
-        },
-        body: new FormData(form),  // Send the form data, including action
-    })
-    .then((response) => response.json())
-    .then((data) => {
-        if (data.status === "success") {
-            alert(data.message);  // Show the success message returned from server
-            location.reload();  // Reload the page to reflect the changes
-        } else {
-            alert("Error: " + data.message);  // Show the error message
-        }
-    })
-    .catch((error) => console.error("Error:", error));  // Catch any errors
+    // Define confirmation messages based on the action
+    if (action === "book") {
+        confirmationMessage = "Are you sure you want to confirm the booking?";
+    } else if (action === "release") {
+        confirmationMessage = "Are you sure you want to mark the vehicle as released?";
+    } else if (action === "return") {
+        confirmationMessage = "Are you sure you want to mark the vehicle as returned?";
+    } else if (action === "complete") {
+        confirmationMessage = "Are you sure you want to complete the booking?";
+    } else if (action === "extend") {
+        confirmationMessage = "Are you sure you want to extend the booking?";
+    } else if (action === "cancel") {
+        confirmationMessage = "Are you sure you want to cancel the booking?";
+    }
+
+    // Show confirmation dialog
+    if (confirm(confirmationMessage)) {
+        // If the user confirms, submit the form
+        fetch("{% url 'rental_details_admin' rental_record.rental_id %}", {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": form.elements["csrfmiddlewaretoken"].value,  // CSRF token for the POST request
+            },
+            body: new FormData(form),  // Send the form data, including action
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.status === "success") {
+                alert(data.message);  // Show the success message returned from server
+
+                // If a redirect URL is provided, navigate to it
+                if (data.redirect_url) {
+                    window.location.href = data.redirect_url;  // Redirect to the new URL
+                } else {
+                    location.reload();  // Reload the page to reflect the changes
+                }
+            } else {
+                alert("Error: " + data.message);  // Show the error message
+            }
+        })
+        .catch((error) => console.error("Error:", error));  // Catch any errors
+    } else {
+        // If the user cancels, do nothing
+        return;
+    }
 }
 
-    </script>
+</script>
 {% endblock %}
