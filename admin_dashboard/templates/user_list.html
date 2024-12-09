@@ -10,6 +10,11 @@
 <div class="header-container">
     <h1>Users</h1>
 </div>
+<div class="tabs">
+    <a href="?status=all" class="tab {% if request.GET.status == 'all' %}active{% endif %}">All</a>
+    <a href="?status=active" class="tab {% if request.GET.status == 'active' %}active{% endif %}">Active</a>
+    <a href="?status=deleted" class="tab {% if request.GET.status == 'deleted' %}active{% endif %}">Deleted</a>
+</div>
 
 <div class="user-list">
     <div class="user-header">
@@ -28,7 +33,7 @@
             {% if user.image_base64 %}
                 <img class="profile-pic" src="{{ user.image_base64 }}" alt="Profile Image">
             {% else %}
-                <img class="profile-pic" src="{% static 'images/default-profile.png' %}" alt="Default Profile Image">
+                <img class="profile-pic" src="{% static 'admin_dashboard/images/user_placeholder.png' %}" alt="Default Profile Image">
             {% endif %}
         </div>
         <div class="user-username">
@@ -70,10 +75,14 @@
             {% endif %}
         </div>
         <div class="user-actions">
-            <form method="POST" action="{% url 'users' %}">
+            {% if not user.is_deleted %}
+            <form method="POST" action="{% url 'users' %}" onsubmit="return confirmDelete()">
                 {% csrf_token %}
-                <button type="submit" name="" value="{{ user.id }}" class="delete-button">Delete</button>
+                <button type="submit" name="delete_user" value="{{ user.id }}" class="delete-button">Delete</button>
             </form>
+            {% else %}
+                <span>-</span>
+            {% endif %}
         </div>
     </div>
     {% endfor %}

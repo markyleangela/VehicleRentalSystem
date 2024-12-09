@@ -8,6 +8,8 @@
     {% block extra_css %}
     <link rel="stylesheet" href="{% static 'admin_dashboard/css/reset.css' %}">
     <link rel="stylesheet" href="{% static 'admin_dashboard/css/styles.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
+
     {% endblock %}
     <script src="{% static 'admin_dashboard/js/admin_dashboard.js' %}" defer></script>
     <title>Admin Dashboard</title>
@@ -26,13 +28,15 @@
                     <li><a href="{% url 'vehicle_list' %}">Vehicles</a></li>
                     <li><a href="{% url 'bookings' %}">Bookings</a></li>
                     <li><a href="{% url 'users' %}">Users</a></li>
+                    <li><a href="{% url 'home' %}">Go To Main Page</a></li>
                 </ul>
             </nav>
+
             <!-- Logout button -->
             <div class="logout-container">
                 <a href="{% url 'logout' %}" class="logout-btn">
                     <img src="{% static 'admin_dashboard/images/logout_icon.png' %}" alt="logout_icon" width="20px" height="auto">
-                    &nbsp Logout
+                    <span>&nbsp Logout</span>
                 </a>
             </div>
         </aside>

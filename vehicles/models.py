@@ -2,6 +2,7 @@ from django.db import models
 import base64
 from django.contrib.auth.models import User
 from django.db.models import Avg
+from django.core.validators import MinValueValidator
 # Create your models here.
 class Vehicle(models.Model):
     STATUS_CHOICES = [
@@ -38,7 +39,11 @@ class Vehicle(models.Model):
     vehicle_model = models.CharField(max_length=100)
     vehicle_brand = models.CharField(max_length=100)
     vehicle_type = models.CharField(max_length=50, choices=TYPE_CHOICES)
-    vehicle_price = models.FloatField(default=0.00)
+    vehicle_price = models.DecimalField(
+    max_digits=10,
+    decimal_places=2,
+    validators=[MinValueValidator(0.0)],  # Ensure price cannot be negative
+    )
     vehicle_status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="Available")
     vehicle_blobimage = models.BinaryField(null = True, blank=True)
     vehicle_is_deleted = models.BooleanField(default=False)
