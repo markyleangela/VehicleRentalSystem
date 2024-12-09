@@ -18,25 +18,6 @@
                 
                 <span class="vehicle-price">₱{{ vehicle.vehicle_price }} / per day</span>
             </div>
-
-{% block title %}{{vehicle.vehicle_brand  }}  {{ vehicle.vehicle_model }} - Vehicle Details{% endblock %}
-
-{% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/read_vehicle.css' %}?v={{ STATIC_VERSION }}">
-{% endblock %}
-
-{% block content %}
-    <section class="vehicle-detail-page">
-        <div class="vehicle-img">
-            <img src="data:image/png;base64,{{ vehicle.image_base64 }}" alt="{{ vehicle.model }}">
-        </div>
-
-        <div class="vehicle-info">
-            <div class="vehicle-title">
-                <span class="vehicle-brand">{{ vehicle.vehicle_brand }} {{ vehicle.vehicle_model }}</span>
-                
-                <span class="vehicle-price">₱{{ vehicle.vehicle_price }} / per day</span>
-            </div>
         
             <div class="vehicle-rating">
                 <!-- Display Average Rating -->
