@@ -238,7 +238,7 @@ Kyle Angela Mar - [Linked IN](https://www.linkedin.com/in/kyle-angela-mar-405aa3
 
 Chaz Zyl Llaguno - [@username](https://facebook.com/username) - example@gmail.com
 
-Raphael Espelita - [@username](https://facebook.com/username) - example@gmail.com
+Raphael Espelita - [@Facebook](https://www.facebook.com/raphael.espelita00) - raphael.espelita25@gmail.com
 
 Project Link: [https://github.com/markyleangela/VehicleRentalSystem](https://github.com/markyleangela/VehicleRentalSystem)
 
