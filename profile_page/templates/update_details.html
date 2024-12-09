@@ -57,7 +57,7 @@
                 <form action="{% url 'update_details' %}" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     
-                    <div class="form-group">
+                    {% comment %} <div class="form-group">
                         <!-- Profile image preview -->
                         <div class="image-preview-container">
                             <img id="imagePreview" 
@@ -66,7 +66,19 @@
                         </div>
                         <label for="file-input">Change Profile Image:</label>
                         <input type="file" id="file-input" name="profile_image" accept="image/*" onchange="previewImage(event)" />
+                    </div> {% endcomment %}
+
+                    <div class="form-group">
+                        <!-- Profile image preview -->
+                        <div class="image-preview-container" style="cursor: pointer;" onclick="document.getElementById('file-input').click();">
+                            <img id="imagePreview" 
+                                src="{% if profile.image_base64 %}{{ profile.image_base64 }}{% else %}https://via.placeholder.com/200{% endif %}" 
+                                alt="Profile Image Preview" 
+                                style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;" />
+                        </div>
+                        <input type="file" id="file-input" name="profile_image" accept="image/*" onchange="previewImage(event)" style="display: none;" />
                     </div>
+                    
 
                     <!-- Display the form fields -->
                     <div class="form-group">
