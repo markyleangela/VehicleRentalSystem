@@ -31,46 +31,52 @@
         <span></span>
         <span>Actions</span>
     </div>
-    {% for vehicle in vehicles %}
-    <div class="vehicle-row">
-        <div class="vehicle-image">
-            {% if vehicle.image_base64 %}
-                <img src="{{ vehicle.image_base64 }}" alt="{{ vehicle.vehicle_model }}">
+    {% if vehicles %}
+        {% for vehicle in vehicles %}
+        <div class="vehicle-row">
+            <div class="vehicle-image">
+                {% if vehicle.image_base64 %}
+                    <img src="{{ vehicle.image_base64 }}" alt="{{ vehicle.vehicle_model }}">
+                {% else %}
+                    <img class="profile-pic" src="{% static 'admin_dashboard/images/car_placeholder.png' %}" alt="Default Profile Image">
+                {% endif %}
+            </div>
+            <div class="vehicle-info">
+                <p><strong>{{ vehicle.vehicle_brand }} </strong>{{ vehicle.vehicle_model }}</p>
+            </div>
+            <div class="vehicle-status">
+                <span class="{{ vehicle.vehicle_status|lower }}">{{ vehicle.vehicle_status }}</span>
+            </div>
+            <div class="vehicle-fuel">
+                <span>{{ vehicle.vehicle_fuel }}</span>
+            </div>
+            <div class="vehicle-capacity">
+                <span>{{ vehicle.vehicle_cargo }}</span>
+            </div>
+            <div class="vehicle-price">
+                <span>₱{{ vehicle.vehicle_price }}/day</span>
+            </div>
+
+            <!-- Action Buttons -->
+            <a href="{% url 'read_vehicle' vehicle.vehicle_id %}" class="select-button">Select</a>
+            {% if not vehicle.vehicle_is_deleted %}
+                <a href="{% url 'update_vehicle_page' vehicle.vehicle_id %}" class="edit-button">Edit</a>
+                <form method="POST" action="{% url 'vehicle_list' %}" onsubmit="return confirmDelete()">
+                    {% csrf_token %}
+                    <button type="submit" name="delete_vehicle" value="{{ vehicle.vehicle_id }}" class="delete-button">Delete</button>
+                </form>
             {% else %}
-                <img class="profile-pic" src="{% static 'admin_dashboard/images/car_placeholder.png' %}" alt="Default Profile Image">
+                <span> - </span>
+                <span> - </span>
             {% endif %}
-        </div>
-        <div class="vehicle-info">
-            <p><strong>{{ vehicle.vehicle_brand }} </strong>{{ vehicle.vehicle_model }}</p>
-        </div>
-        <div class="vehicle-status">
-            <span class="{{ vehicle.vehicle_status|lower }}">{{ vehicle.vehicle_status }}</span>
-        </div>
-        <div class="vehicle-fuel">
-            <span>{{ vehicle.vehicle_fuel }}</span>
-        </div>
-        <div class="vehicle-capacity">
-            <span>{{ vehicle.vehicle_cargo }}</span>
-        </div>
-        <div class="vehicle-price">
-            <span>₱{{ vehicle.vehicle_price }}/day</span>
-        </div>
             
-        <!-- Action Buttons -->
-        <a href="{% url 'read_vehicle' vehicle.vehicle_id %}" class="select-button">Select</a>
-        {% if not vehicle.vehicle_is_deleted %}
-            <a href="{% url 'update_vehicle_page' vehicle.vehicle_id %}" class="edit-button">Edit</a>
-            <form method="POST" action="{% url 'vehicle_list' %}" onsubmit="return confirmDelete()">
-                {% csrf_token %}
-                <button type="submit" name="delete_vehicle" value="{{ vehicle.vehicle_id }}" class="delete-button">Delete</button>
-            </form>
-        {% else %}
-            <span> - </span>
-            <span> - </span>
-        {% endif %}
-        
-    </div>
-    {% endfor %}
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="vehicle-row">
+            <span>No vehicles found</span>
+        </div>
+    {% endif %}
 </div>
 
 <script>

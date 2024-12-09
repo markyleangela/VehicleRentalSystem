@@ -98,6 +98,8 @@ button.delete-button:hover {
     gap: 20px;
     padding: 10px;
     background-color: #f5f5f5;
+    border-top-left-radius: 20px; /* Round only top-left corner */
+    border-top-right-radius: 20px; /* Round only top-right corner */
 }
 
 /* Style for each individual tab */

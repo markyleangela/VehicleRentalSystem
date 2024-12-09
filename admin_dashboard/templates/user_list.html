@@ -13,7 +13,7 @@
 <div class="tabs">
     <a href="?status=all" class="tab {% if request.GET.status == 'all' %}active{% endif %}">All</a>
     <a href="?status=active" class="tab {% if request.GET.status == 'active' %}active{% endif %}">Active</a>
-    <a href="?status=deleted" class="tab {% if request.GET.status == 'deleted' %}active{% endif %}">Deleted</a>
+    <a href="?status=inactive" class="tab {% if request.GET.status == 'inactive' %}active{% endif %}">Inactive</a>
 </div>
 
 <div class="user-list">
@@ -27,65 +27,55 @@
         <span>License</span>
         <span>Actions</span>
     </div>
-    {% for user in users %}
-    <div class="user-row">
-        <div class="profile-pic-container">
-            {% if user.image_base64 %}
-                <img class="profile-pic" src="{{ user.image_base64 }}" alt="Profile Image">
-            {% else %}
-                <img class="profile-pic" src="{% static 'admin_dashboard/images/user_placeholder.png' %}" alt="Default Profile Image">
-            {% endif %}
+    {% if users %}
+    {% for profile in users %}
+        <div class="user-row">
+            <div class="profile-pic-container">
+                {% if profile.image_base64 %}
+                    <img class="profile-pic" src="{{ profile.image_base64 }}" alt="Profile Image">
+                {% else %}
+                    <img class="profile-pic" src="{% static 'admin_dashboard/images/user_placeholder.png' %}" alt="Default Profile Image">
+                {% endif %}
+            </div>
+            <div class="user-username">
+                <p>{{ profile.user.username }}</p>
+            </div>
+            <div class="user-fname">
+                <span>{{ profile.first_name|default:"—" }}</span>
+            </div>
+            <div class="user-lname">
+                <span>{{ profile.last_name|default:"—" }}</span>
+            </div>
+            <div class="user-email">
+                <span>{{ profile.email|default:"—" }}</span>
+            </div>
+            <div class="user-verification">
+                {% if profile.license_verified %}
+                    <span class="verified">Verified</span>
+                {% else %}
+                    <span class="unverified">Unverified</span>
+                {% endif %}
+            </div>
+            <div class="user-license">
+                <span>{{ profile.license_no|default:"—" }}</span>
+            </div>
+            <div class="user-actions">
+                {% if profile.user.is_active %}
+                <form method="POST" action="{% url 'users' %}" onsubmit="return confirmDelete()">
+                    {% csrf_token %}
+                    <button type="submit" name="delete_user" value="{{ profile.id }}" class="delete-button">Delete</button>
+                </form>
+                {% else %}
+                    <span>-</span>
+                {% endif %}
+            </div>
         </div>
-        <div class="user-username">
-            <p>{{ user.user }}</p>
+        {% endfor %}
+    {% else %}
+        <div class="user-row">
+            <span> No users found</span>
         </div>
-        <div class="user-fname">
-            {% if user.first_name %}
-                <span>{{ user.first_name }}</span>
-            {% else %}
-                <span>—</span>
-            {% endif %}
-        </div>
-        <div class="user-lname">
-            {% if user.last_name %}
-                <span>{{ user.last_name }}</span>
-            {% else %}
-                <span>—</span>
-            {% endif %}
-        </div>
-        <div class="user-email">
-            {% if user.email %}
-                <span>{{ user.email }}</span>
-            {% else %}
-                <span>—</span>
-            {% endif %}
-        </div>
-        <div class="user-verification">
-            {% if user.license_verified %}
-                <span class="verified">Verified</span>
-            {% else %}
-                <span class="unverified">Unverified</span>
-            {% endif %}
-        </div>
-        <div class="user-license">
-            {% if user.license_no %}
-                <span>{{ user.license_no }}</span>
-            {% else %}
-                <span>—</span>
-            {% endif %}
-        </div>
-        <div class="user-actions">
-            {% if not user.is_deleted %}
-            <form method="POST" action="{% url 'users' %}" onsubmit="return confirmDelete()">
-                {% csrf_token %}
-                <button type="submit" name="delete_user" value="{{ user.id }}" class="delete-button">Delete</button>
-            </form>
-            {% else %}
-                <span>-</span>
-            {% endif %}
-        </div>
-    </div>
-    {% endfor %}
+    {% endif %}
 </div>
 {% endblock %}
 
@@ -93,7 +83,7 @@
 {% block extra_js %}
 <script>
     function confirmDelete() {
-        return confirm("Are you sure you want to delete this user?");
+        return confirm("Are you sure you want to deactivate this account?");
     }
 </script>
 {% endblock %}
