@@ -59,16 +59,16 @@
             </li>
           </ul>
     </li>
-    <li><a href="#functional-requirements">Functional Requirements</a></li>
-    <li><a href="#additional-features">Additional Features</a></li>
-    <li><a href="#built-with">Built With</a></li>
-    <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
+    <li><a href="#functional-requirements">Functional Requirements</a></li>
+    <li><a href="#additional-features">Additional Features</a></li>
+    <li><a href="#built-with">Built With</a></li>
+    <li>
     <li><a href="#contributing">Contributors</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
@@ -105,58 +105,6 @@ View more of the pages and designs in depth here
 ">CLICK TO VIEW GANTT CHART</a></p>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-## FUNCTIONAL REQUIREMENTS
-1. **User Registration**  
-
-    The customer will input required data in the fields provided. If the information is verified, the system will create an account for the customer.
-
-2. **User Log-In**  
-
-    The customer will input their username and password. If the information is verified, the system will
-
-3. **Vehicle Search/Availability**  
-
-    The customer can search for specific vehicle or view all the listing of vehicles based on the date that they want to rent
-
-4. **Booking Process**  
-
-    The customer has chosen vehicles to rent, the system will summarize the rental dues/fees, the list of vehicles rented, the duration of the rental. A cancel button and pay button will display. When the user proceeds to pay then the booking is successful, otherwise, the booking is unsuccessful.
-
-5. **Admin Dashboard/CRUD Operations for Vehicle**  
-
-    The admin can Create, Read, Update, and Delete records of vehicles in the system
-
-6. **Log Out**  
-
-    When the user clicks the log out button, the log-session will be deleted in the system.
-
-
-## ADDITIONAL FEATURES
-
-7. **Vehicle Rating Functionality**  
-
-    The user can leave a rating of the vehicle and add comment after the transaction has been completed
-
-6. **User Profile / Email and License Verification**  
-
-    The user can update their information and verify their email and license to make their account verify.
-
-
-## Built With
-
-
-[![Python][Python]][Python-url]
-[![Django][Django]][Django-url]
-[![SQLite][SQLite]][SQLite-url]
-[![HTML][HTML]][HTML-url]
-[![CSS][CSS]][CSS-url]
-[![JavaScript][JavaScript]][JavaScript-url]
-
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- GETTING STARTED -->
@@ -223,6 +171,61 @@ Before you start, ensure you have the following installed:
    Open your browser and go to `http://127.0.0.1:8000/` or `http://localhost:8000/` to see the application running locally.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+## FUNCTIONAL REQUIREMENTS
+1. **User Registration**  
+
+    The customer will input required data in the fields provided. If the information is verified, the system will create an account for the customer.
+
+2. **User Log-In**  
+
+    The customer will input their username and password. If the information is verified, the system will
+
+3. **Vehicle Search/Availability**  
+
+    The customer can search for specific vehicle or view all the listing of vehicles based on the date that they want to rent
+
+4. **Booking Process**  
+
+    The customer has chosen vehicles to rent, the system will summarize the rental dues/fees, the list of vehicles rented, the duration of the rental. A cancel button and pay button will display. When the user proceeds to pay then the booking is successful, otherwise, the booking is unsuccessful.
+
+5. **Admin Dashboard/CRUD Operations for Vehicle**  
+
+    The admin can Create, Read, Update, and Delete records of vehicles in the system
+
+6. **Log Out**  
+
+    When the user clicks the log out button, the log-session will be deleted in the system.
+
+
+## ADDITIONAL FEATURES
+
+7. **Vehicle Rating Functionality**  
+
+    The user can leave a rating of the vehicle and add comment after the transaction has been completed
+
+6. **User Profile / Email and License Verification**  
+
+    The user can update their information and verify their email and license to make their account verify.
+
+
+## Built With
+
+
+[![Python][Python]][Python-url]
+[![Django][Django]][Django-url]
+[![SQLite][SQLite]][SQLite-url]
+[![HTML][HTML]][HTML-url]
+[![CSS][CSS]][CSS-url]
+[![JavaScript][JavaScript]][JavaScript-url]
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
 
 
 
