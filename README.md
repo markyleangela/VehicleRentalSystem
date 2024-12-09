@@ -88,6 +88,19 @@ Vehicle Rental System designed to streamline the rental process for both custome
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+
+## PROJECT RESOURCES
+
+#### ERD 
+[![ERD][ERD-image]](https://example.com)
+
+#### GANTT CHART
+<p align="left"><a href="https://cebuinstituteoftechnology-my.sharepoint.com/:x:/g/personal/chazzyl_llaguno_cit_edu/EbFOCkfGbFVPjZW9NROg7NsB-P1yJPByS1ZbQRmfYYu8vw?e=AfcBUN
+">CLICK TO VIEW GANTT CHART</a></p>
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
 ## FUNCTIONAL REQUIREMENTS
 1. **User Registration**  
 
@@ -133,6 +146,7 @@ Vehicle Rental System designed to streamline the rental process for both custome
 [![SQLite][SQLite]][SQLite-url]
 [![HTML][HTML]][HTML-url]
 [![CSS][CSS]][CSS-url]
+[![JavaScript][JavaScript]][JavaScript-url]
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -205,24 +219,7 @@ Before you start, ensure you have the following installed:
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-<!-- ROADMAP -->
-## Roadmap
 
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
-
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- CONTRIBUTING -->
 ## Contributing
 
 ### Top contributors:
@@ -237,7 +234,7 @@ See the [open issues](https://github.com/othneildrew/Best-README-Template/issues
 <!-- CONTACT -->
 ## Contact
 
-Kyle Angela Mar - [@kyleangelamar](https://facebook.com/kyleangelamar) - markyleangela@gmail.com
+Kyle Angela Mar - [Linked IN](https://www.linkedin.com/in/kyle-angela-mar-405aa3159) - markyleangela@gmail.com
 
 Chaz Zyl Llaguno - [@username](https://facebook.com/username) - example@gmail.com
 
@@ -266,6 +263,10 @@ Project Link: [https://github.com/markyleangela/VehicleRentalSystem](https://git
 [linkedin-url]: https://www.linkedin.com/in/kyle-angela-mar-405aa3159/
 [product-screenshot]: images/product-screenshot-2.png
 [product-screenshot-1]: images/product-screenshot-3.png
+
+[ERD-image]: images/ERD.png
+
+
 [Django]: https://img.shields.io/badge/django-092E20?style=for-the-badge&logo=django&logoColor=white
 [Django-url]: https://www.djangoproject.com/
 
@@ -274,6 +275,9 @@ Project Link: [https://github.com/markyleangela/VehicleRentalSystem](https://git
 
 [HTML]: https://img.shields.io/badge/html-E34F26?style=for-the-badge&logo=html5&logoColor=white
 [HTML-url]: https://developer.mozilla.org/en-US/docs/Web/HTML
+
+[JavaScript]: https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black
+[JavaScript-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript
 
 
 [CSS]: https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white
