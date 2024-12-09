@@ -1,56 +1,79 @@
+{% extends 'admin_dashboard.html' %}
 {% load static %}
-<html lang='en'>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Vehicle Rental System</title>
-        <link rel="stylesheet" type="text/css" href="{% static 'css/create_vehicle.css' %}">
-        <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
-    </head>
-    <body>
-        <h1>ADD VEHICLE</h1>
-        <div class="container">
-            <div class="image-preview-container">
-                <img id="imagePreview" src="" alt="Image Preview" style="display: none;" />
-            </div>
-    
-            <div class="form-container">
-                <form method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <div class="form-fields">
-                        {{ form.as_p }}  <!-- Renders all fields -->
+
+{% block extra_css %}
+{{block.super}}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/create_vehicle.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+        
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+           
+            <div class="container">
+                <!-- Image Preview and Upload Section -->
+                <div class="image-preview-container">
+                    <div class="vehicle-image">
+                        <!-- Image preview -->
+                        <img id="vehicleImage" 
+                             src="{% if vehicle.image_base64 %}{{ vehicle.image_base64 }}{% else %}{% static 'images/car_placeholder.png' %}{% endif %}" 
+                             alt="Image Preview" 
+                             class="vehicle-image">
+                        <!-- Upload icon -->
+                        <label for="imageUpload" class="upload-icon">
+                            <img src="{% static 'images/upload_icon.png' %}" alt="Upload Icon" />
+                        </label>
+
+                        <!-- File input -->
+                        <input type="file" id="imageUpload" name="vehicle_image" />
                     </div>
-                    
+                </div>
+                <!-- Form Section -->
+                <div class="form-container">
+                    <h1>ADD VEHICLE</h1>
+                    <div class="form-fields">
+                        {{ form.as_p }}
+                    </div>
                     {% if form.non_field_errors %}
-                        <div class="error" style="color: red;">{{ form.non_field_errors }}</div>
+                        <div class="error">{{ form.non_field_errors }}</div>
                     {% endif %}
-                    
+                
                     <div class="button-container">
                         <button type="submit" class="submit-btn">Save</button>
-                        <a href="{% url 'read_vehicle_page' %}" class="cancel-btn">Cancel</a>
+                        <a href="{% url 'vehicle_list' %}" class="cancel-btn">Cancel</a>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
-    
-        <!-- Image preview -->
-        <script>
-            document.querySelector('input[type="file"]').addEventListener('change', function(event) {
-                const [file] = event.target.files;
-                const preview = document.getElementById('imagePreview');
-    
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        preview.src = e.target.result;
-                        preview.style.display = 'block';
-                    };
-                    reader.readAsDataURL(file);
-                } else {
-                    preview.style.display = 'none';
-                    preview.src = '';
-                }
-            });
-        </script>
-    </body>
-</html>
+            
+        </form>
+    </div>
+</div>
+
+<script>
+document.getElementById('imageUpload').addEventListener('change', function(event) {
+    const file = event.target.files[0];  // Get the selected file
+    if (file) {
+        const reader = new FileReader();
+        
+        // Set up a function to run once the file is read
+        reader.onload = function(e) {
+            const imgElement = document.getElementById('vehicleImage');
+            if (imgElement) {
+                imgElement.src = e.target.result;  // Set the src to the uploaded image (preview)
+            }
+        };
+        
+        // Read the file as a data URL (base64)
+        reader.readAsDataURL(file);
+        
+        // Manually set the file input to include the selected file
+        const fileInput = document.getElementById('imageUpload');
+        fileInput.files = event.target.files;  // This ensures that the selected file is passed to the form
+    }
+});
+</script>
+{% endblock %}
+

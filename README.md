@@ -59,16 +59,16 @@
             </li>
           </ul>
     </li>
-    <li><a href="#functional-requirements">Functional Requirements</a></li>
-    <li><a href="#additional-features">Additional Features</a></li>
-    <li><a href="#built-with">Built With</a></li>
-    <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
+    <li><a href="#functional-requirements">Functional Requirements</a></li>
+    <li><a href="#additional-features">Additional Features</a></li>
+    <li><a href="#built-with">Built With</a></li>
+    <li>
     <li><a href="#contributing">Contributors</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
@@ -79,64 +79,32 @@
 <!-- ABOUT THE PROJECT -->
 ## ABOUT THE PROJECT
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-[![Product Name Screen Shot][product-screenshot-1]](https://example.com)
 
 Vehicle Rental System designed to streamline the rental process for both customers and administrators. Built with Django, this system allows users to browse available vehicles, book rentals, and manage profiles, while giving administrators control over vehicle inventory and rental records. 
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## FUNCTIONAL REQUIREMENTS
-1. **User Registration**  
 
-    The customer will input required data in the fields provided. If the information is verified, the system will create an account for the customer.
+## PROJECT RESOURCES
 
-2. **User Log-In**  
+#### ERD 
+[![ERD][ERD-image]](https://lucid.app/lucidchart/fef73f5a-8091-4b43-a9e2-e871cb94bfef/edit?viewport_loc=-994%2C-410%2C5120%2C2228%2C0_0&invitationId=inv_63ef96ed-f390-4e4e-86a6-98b34744cc24)
 
-    The customer will input their username and password. If the information is verified, the system will
-
-3. **Vehicle Search/Availability**  
-
-    The customer can search for specific vehicle or view all the listing of vehicles based on the date that they want to rent
-
-4. **Booking Process**  
-
-    The customer has chosen vehicles to rent, the system will summarize the rental dues/fees, the list of vehicles rented, the duration of the rental. A cancel button and pay button will display. When the user proceeds to pay then the booking is successful, otherwise, the booking is unsuccessful.
-
-5. **Admin Dashboard/CRUD Operations for Vehicle**  
-
-    The admin can Create, Read, Update, and Delete records of vehicles in the system
-
-6. **Log Out**  
-
-    When the user clicks the log out button, the log-session will be deleted in the system.
+### UI-UX
+View more of the pages and designs in depth here
+[UI/UX](./assets//ui-ux.pdf)
 
 
-## ADDITIONAL FEATURES
-
-7. **Vehicle Rating Functionality**  
-
-    The user can leave a rating of the vehicle and add comment after the transaction has been completed
-
-6. **User Profile / Email and License Verification**  
-
-    The user can update their information and verify their email and license to make their account verify.
+[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][product-screenshot-1]](https://example.com)
 
 
-## Built With
-
-
-[![Python][Python]][Python-url]
-[![Django][Django]][Django-url]
-[![SQLite][SQLite]][SQLite-url]
-[![HTML][HTML]][HTML-url]
-[![CSS][CSS]][CSS-url]
-
+#### GANTT CHART
+<p align="left"><a href="https://cebuinstituteoftechnology-my.sharepoint.com/:x:/g/personal/chazzyl_llaguno_cit_edu/EbFOCkfGbFVPjZW9NROg7NsB-P1yJPByS1ZbQRmfYYu8vw?e=AfcBUN
+">CLICK TO VIEW GANTT CHART</a></p>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- GETTING STARTED -->
@@ -205,24 +173,62 @@ Before you start, ensure you have the following installed:
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-<!-- ROADMAP -->
-## Roadmap
 
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
+## FUNCTIONAL REQUIREMENTS
+1. **User Registration**  
 
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
+    The customer will input required data in the fields provided. If the information is verified, the system will create an account for the customer.
+
+2. **User Log-In**  
+
+    The customer will input their username and password. If the information is verified, the system will
+
+3. **Vehicle Search/Availability**  
+
+    The customer can search for specific vehicle or view all the listing of vehicles based on the date that they want to rent
+
+4. **Booking Process**  
+
+    The customer has chosen vehicles to rent, the system will summarize the rental dues/fees, the list of vehicles rented, the duration of the rental. A cancel button and pay button will display. When the user proceeds to pay then the booking is successful, otherwise, the booking is unsuccessful.
+
+5. **Admin Dashboard/CRUD Operations for Vehicle**  
+
+    The admin can Create, Read, Update, and Delete records of vehicles in the system
+
+6. **Log Out**  
+
+    When the user clicks the log out button, the log-session will be deleted in the system.
+
+
+## ADDITIONAL FEATURES
+
+7. **Vehicle Rating Functionality**  
+
+    The user can leave a rating of the vehicle and add comment after the transaction has been completed
+
+6. **User Profile / Email and License Verification**  
+
+    The user can update their information and verify their email and license to make their account verify.
+
+
+## Built With
+
+
+[![Python][Python]][Python-url]
+[![Django][Django]][Django-url]
+[![SQLite][SQLite]][SQLite-url]
+[![HTML][HTML]][HTML-url]
+[![CSS][CSS]][CSS-url]
+[![JavaScript][JavaScript]][JavaScript-url]
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
-<!-- CONTRIBUTING -->
+
+
+
 ## Contributing
 
 ### Top contributors:
@@ -237,11 +243,13 @@ See the [open issues](https://github.com/othneildrew/Best-README-Template/issues
 <!-- CONTACT -->
 ## Contact
 
-Kyle Angela Mar - [@kyleangelamar](https://facebook.com/kyleangelamar) - markyleangela@gmail.com
+Kyle Angela Mar - [Linked IN](https://www.linkedin.com/in/kyle-angela-mar-405aa3159) - markyleangela@gmail.com
 
-Chaz Zyl Llaguno - [@username](https://facebook.com/username) - example@gmail.com
+Chaz Zyl Llaguno - [Facebook](https://www.facebook.com/Chazzyl.llagun) - chazzyl.llaguno@gmail.com
 
-Raphael Espelita - [@username](https://facebook.com/username) - example@gmail.com
+
+Raphael Espelita - [Facebook](https://www.facebook.com/raphael.espelita00) - raphael.espelit25@gmail.com
+
 
 Project Link: [https://github.com/markyleangela/VehicleRentalSystem](https://github.com/markyleangela/VehicleRentalSystem)
 
@@ -266,6 +274,10 @@ Project Link: [https://github.com/markyleangela/VehicleRentalSystem](https://git
 [linkedin-url]: https://www.linkedin.com/in/kyle-angela-mar-405aa3159/
 [product-screenshot]: images/product-screenshot-2.png
 [product-screenshot-1]: images/product-screenshot-3.png
+
+[ERD-image]: images/ERD.png
+
+
 [Django]: https://img.shields.io/badge/django-092E20?style=for-the-badge&logo=django&logoColor=white
 [Django-url]: https://www.djangoproject.com/
 
@@ -274,6 +286,9 @@ Project Link: [https://github.com/markyleangela/VehicleRentalSystem](https://git
 
 [HTML]: https://img.shields.io/badge/html-E34F26?style=for-the-badge&logo=html5&logoColor=white
 [HTML-url]: https://developer.mozilla.org/en-US/docs/Web/HTML
+
+[JavaScript]: https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black
+[JavaScript-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript
 
 
 [CSS]: https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white

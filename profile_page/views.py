@@ -172,10 +172,29 @@ def update_details(request):
         if form.is_valid():
             # Save form data (like first name, last name, etc.)
             email = form.cleaned_data.get('email')
-            
+            first_name = form.cleaned_data.get('first_name')
+            last_name = form.cleaned_data.get('last_name')
+            birth_date = form.cleaned_data.get('birth_date')
+            print("THIS IS THE BIRTHDATE INPUT"+ str(birth_date))
+            print("THIS IS THE BIRTHDATE Profile"+str(profile.birth_date))
             if email != profile.user.email:
                 profile.email_verified = False
+
+            if first_name != profile.user.first_name:
+                profile.license_verified = False
+                profile.user.first_name = first_name
+
+            if last_name != profile.user.last_name:
+                profile.license_verified = False
+                profile.user.last_name = last_name 
+
+            if birth_date != profile.birth_date:
+                profile.license_verified = False
+                profile.birth_date = birth_date
+
+            profile.user.save()
             profile.save()
+    
             form.save(commit=True)
             
             if 'profile_image' in request.FILES and request.FILES['profile_image']:
@@ -333,6 +352,7 @@ def delete_account(request):
 def confirm_delete_account(request):
     if request.method == 'POST':
         password = request.POST.get('password')  # Get the entered password
+        profile, created = ProfileInfo.objects.get_or_create(user=request.user)
         user = request.user
         
         # Check if the password matches the logged-in user's password
@@ -340,7 +360,10 @@ def confirm_delete_account(request):
             # Deactivate the user (soft delete)
             user.is_active = False
             user.email = ''
+            profile.license_no = ''
+            
             user.save()
+            profile.save()
             logout(request)
             return redirect('login_page')  # Redirect to a page confirming the deletion
         else:

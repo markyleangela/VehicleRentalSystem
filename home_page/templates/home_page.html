@@ -54,6 +54,8 @@
             
                 <div class="filter-group">
                     <button class="filter-button" type="submit">Apply Filter</button>
+
+                    
                 </div>
             </form>
             
@@ -71,7 +73,12 @@
             <div class="vehicle-list-container"> <!-- Changed to div for better structure -->
                 <li id="vehicle_{{ vehicle.vehicle_id }}" class="{% if vehicle_detail and vehicle.vehicle_id == vehicle_detail.vehicle_id %}highlight{% endif %}">
                     <div class="vehicle-item">
-                        <img src="{{ vehicle.image_base64 }}" alt="{{ vehicle.vehicle_model }}">
+                        {% comment %} <img src="{{ vehicle.image_base64 }}" alt="{{ vehicle.vehicle_model }}"> {% endcomment %}
+                         {% if vehicle.image_base64 %}
+                            <img src="{{ vehicle.image_base64 }}" alt="{{ vehicle.vehicle_model }}">
+                        {% else %}
+                            <img class="profile-pic" src="{% static 'admin_dashboard/images/car_placeholder.png' %}" alt="Default Profile Image">
+                        {% endif %}
                         <div class="vehicle-info">
                             <br>
                             <h3>{{ vehicle.vehicle_brand }}</h3>

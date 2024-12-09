@@ -1,5 +1,5 @@
 body {
-    font-family: 'Anton', sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f8f9fa;
@@ -8,47 +8,95 @@ body {
 h1 {
     font-size: 36px;
     margin-bottom: 20px;
-    margin-left: 30%;
-    margin-top: 50px;
+    text-align: center;
+    color: #333;
 }
 
-
-
+/* Container for the image and form */
 .container {
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 50px;
+    margin: 50px auto;
     display: flex;
-    align-items: flex-start;
     justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    height: calc(100vh - 100px);
 }
 
-/* Image preview section */
 .image-preview-container {
-    flex: 1;
-    text-align: center;
-    margin-right: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Ensures the image container adjusts properly */
 }
 
-.image-preview-container img {
+.vehicle-image {
+    width: 50vh;   /* Adjust width as needed */
+    height: 50vh;  /* Adjust height as needed */
+    position: relative;
+    background-color: #f0f0f0;  /* Placeholder background */
+    border-radius: 10px;  /* Optional: rounded corners */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.vehicle-image {
+    width: 50vh;  /* Container width */
+    height: 50vh; /* Container height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;  /* Placeholder background */
+    border-radius: 10px;  /* Optional: rounded corners */
+    position: relative;
+}
+
+.vehicle-image img {
     max-width: 100%;
-    height: auto;
-    border: 2px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    max-height: 100%;
+    object-fit: contain;  /* Ensure the entire image fits */
+    object-position: center;  /* Center the image */
 }
 
-/* Form section */
+
+/* Upload icon styles */
+.upload-icon {
+    position: absolute;
+    bottom: 10px;    /* Adjust the position of the icon */
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.7);  /* Semi-transparent background */
+    border-radius: 50%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.upload-icon img {
+    width: 20px;  /* Adjust size of the upload icon */
+    height: 20px;  /* Adjust size of the upload icon */
+}
+
+/* Hide the file input (as you only want to show the upload icon) */
+input[type="file"] {
+    display: none;
+}
+
+
+/* Form container */
 .form-container {
-    flex: 1;
-    background-color: #fff;
+    flex: 2;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .form-container h1 {
-    font-size: 36px;
+    font-size: 32px;
+    color: #333;
     margin-bottom: 20px;
     text-align: center;
 }
@@ -56,19 +104,23 @@ h1 {
 .form-fields input,
 .form-fields select,
 .form-fields textarea {
-    width: 90%;  /* Makes fields take up the full container width */
-    padding: 10px;
-    margin-bottom: 15px;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 5px;
     border: 1px solid #ced4da;
     border-radius: 5px;
     font-size: 16px;
-    box-sizing: border-box;  /* Ensures padding is included in the total width */
+    box-sizing: border-box;
+    background-color: #fff;
 }
-
+textarea {
+    resize: none;
+    height: 50px; /* Set a height to make it look aligned */
+}
 .form-fields label {
-    text-align: left;
-    margin-bottom: 5px;
     font-weight: bold;
+    margin-bottom: 4px;
+    display: inline-block;
 }
 
 .button-container {
@@ -76,31 +128,41 @@ h1 {
     text-align: center;
 }
 
-.submit-btn {
-    padding: 10px 20px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
+.submit-btn,
+.cancel-btn {
+    padding: 12px 30px;
     font-size: 18px;
+    border-radius: 5px;
     cursor: pointer;
-    font-family: 'Anton', sans-serif;
+    transition: background-color 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+    border: none;
+}
+
+.submit-btn {
+    background-color: #28a745;  /* Green color for save */
+    color: white;
 }
 
 .submit-btn:hover {
-    background-color: #218838;
+    background-color: #218838;  /* Darker green on hover */
 }
 
 .cancel-btn {
-    padding: 10px 20px;
-    background-color: #dc3545;  /* Red color for cancel */
+    background-color: #007bff;  /* Blue color for cancel */
     color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 18px;
-    margin-left: 10px;
+    margin-left: 15px;
 }
 
 .cancel-btn:hover {
-    background-color: #c82333; /* Darker red on hover */
+    background-color: #0056b3;  /* Darker blue on hover */
+}
+
+/* Remove default 'Choose File' text and hide input */
+input[type="file"] {
+    display: none;
+}
+.error {
+    color: red;
+    font-weight: bold;
 }
