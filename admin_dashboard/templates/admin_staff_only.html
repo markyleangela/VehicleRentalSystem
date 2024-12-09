@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Only</title>
+        <link rel="stylesheet" href="{% static 'admin_dashboard/css/admin_staff_only.css' %}">
+    </head>
+</head>
+<body>
+    <div class="admin-container">
+        <h1>Access Restricted</h1>
+        <p>This page is accessible to administrators only. If you believe you should have access, please contact support.</p>
+        <a href="{% url 'home' %}">Go to Homepage</a>
+    </div>
+</body>
+</html>

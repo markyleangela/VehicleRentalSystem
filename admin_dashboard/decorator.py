@@ -9,10 +9,5 @@ def admin_or_staff_required(view_func):
         if request.user.is_staff or request.user.is_superuser:
             return view_func(request, *args, **kwargs)
         else:
-            return HttpResponseForbidden("You do not have permission to access this page.")
+             return render(request, 'admin_staff_only.html')
     return wrapper
-
-# View that uses the custom decorator
-@admin_or_staff_required
-def admin_and_staff_page(request):
-    return render(request, 'admin_staff_only.html')

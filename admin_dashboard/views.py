@@ -3,31 +3,39 @@ from vehicles.models import Vehicle
 from rental_record.models import RentalRecord
 import base64
 from io import BytesIO
-from PIL import Image, UnidentifiedImageError  # Import UnidentifiedImageError for handling invalid images
+from PIL import Image
 import logging
+from django.contrib.auth.models import User
+from user_profile.models import ProfileInfo
+from .decorator import admin_or_staff_required
 
-logger = logging.getLogger(__name__)  # Replace `venv.logger` with a standard logger
 
 # Create your views here.
+@admin_or_staff_required
 def dashboard_view(request):
     return render(request, 'admin_dashboard.html')
 
+@admin_or_staff_required
 def booking_list_view(request):
     rental_records = RentalRecord.objects.all()  # Get all rental records
     return render(request, 'booking_list_admin.html', {'rental_records': rental_records})
 
+@admin_or_staff_required
 def vehicle_list_view(request):
-    status_filter = request.GET.get('status', 'all')  # Get the filter status from the GET request
+    status_filter = request.GET.get('status', 'operational')  # Get the filter status from the GET request
 
     # Define the filters based on status
-    if status_filter == 'available':
+    if status_filter == 'all':
+        vehicles = Vehicle.objects.all()
+    elif status_filter == 'available':
         vehicles = Vehicle.objects.filter(vehicle_status='Available', vehicle_is_deleted=False)
     elif status_filter == 'in_use':
         vehicles = Vehicle.objects.filter(vehicle_status='In Use', vehicle_is_deleted=False)
     elif status_filter == 'deleted':
         vehicles = Vehicle.objects.filter(vehicle_is_deleted=True)
-    else:  # Default case for all vehicles that are not deleted
+    else:
         vehicles = Vehicle.objects.filter(vehicle_is_deleted=False)
+
 
     for vehicle in vehicles:
         if vehicle.vehicle_blobimage:
@@ -68,13 +76,22 @@ def vehicle_list_view(request):
 
     return render(request, 'vehicle_list.html', {'vehicles': vehicles})
 
-from django.contrib.auth.models import User
-from user_profile.models import ProfileInfo
 
+@admin_or_staff_required
 def users_view(request):
     non_admin_users = User.objects.filter(is_staff=False, is_superuser=False)
     profiles = ProfileInfo.objects.filter(user__in=non_admin_users)
+    
+    status_filter = request.GET.get('status', 'active')  # Get the filter status from the GET request
 
+    # Define the filters based on status
+    if status_filter == 'all':
+        profiles = profiles
+    elif status_filter == 'deleted':
+        profiles = ProfileInfo.objects.filter(is_deleted=True, user__in=non_admin_users)
+    else:
+        profiles = ProfileInfo.objects.filter(is_deleted=False, user__in=non_admin_users)
+    
     for profile in profiles:
         user = profile.user  # Access the related User object
         
@@ -105,16 +122,18 @@ def users_view(request):
         else:
             profile.image_base64 = None
 
-    if request.method == 'POST':
-        if 'delete_user' in request.POST:
-            user_id = request.POST.get('delete_user')
-            print(f"Attempting to delete user with ID: {user_id}")
-            if user_id and user_id.isdigit():
-                user_to_delete = get_object_or_404(User, pk=user_id)
-                user_to_delete.delete()
-                print(f"Deleted user ID: {user_id}")
-                return redirect('users')
-            else:
-                print(f"Invalid user ID: {user_id}")
+        if request.method == 'POST':
+            if 'delete_user' in request.POST:
+                profile_id = request.POST.get('delete_user')
+                print(f"Attempting to mark user profile as deleted with ID: {profile_id}")
 
+                if profile_id and profile_id.isdigit():
+                    # Fetch the ProfileInfo object by its primary key
+                    profile_to_delete = get_object_or_404(ProfileInfo, pk=profile_id)
+                    profile_to_delete.is_deleted = True  # Mark the profile as deleted
+                    profile_to_delete.save()
+                    print(f"Marked user profile as deleted: {profile_id}")
+                    return redirect('users')
+                else:
+                    print(f"Invalid profile ID: {profile_id}")
     return render(request, 'user_list.html', {'users': profiles})
