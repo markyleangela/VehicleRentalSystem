@@ -79,9 +79,6 @@
 <!-- ABOUT THE PROJECT -->
 ## ABOUT THE PROJECT
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-[![Product Name Screen Shot][product-screenshot-1]](https://example.com)
 
 Vehicle Rental System designed to streamline the rental process for both customers and administrators. Built with Django, this system allows users to browse available vehicles, book rentals, and manage profiles, while giving administrators control over vehicle inventory and rental records. 
 
@@ -93,6 +90,15 @@ Vehicle Rental System designed to streamline the rental process for both custome
 
 #### ERD 
 [![ERD][ERD-image]](https://example.com)
+
+### UI-UX
+View more of the pages and designs in depth here:
+[UI/UX](./assets//ui-ux.pdf)
+
+
+[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][product-screenshot-1]](https://example.com)
+
 
 #### GANTT CHART
 <p align="left"><a href="https://cebuinstituteoftechnology-my.sharepoint.com/:x:/g/personal/chazzyl_llaguno_cit_edu/EbFOCkfGbFVPjZW9NROg7NsB-P1yJPByS1ZbQRmfYYu8vw?e=AfcBUN
