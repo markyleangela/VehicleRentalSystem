@@ -3,16 +3,15 @@
 
 {% block extra_css %}
 {{ block.super }}
-    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
     <link rel="stylesheet" href="{% static 'css/booking_list_admin.css' %}?v={{ STATIC_VERSION }}">
     <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
-    <div class="temp">
+<h1>Booking Records</h1>
+<div class="temp">
         <div class="bookings-container">
-            <h2>Booking Records</h2>
             <br>
             <div class="tabs">
                 <button class="tab active" onclick="filterBookings('all')">All</button>
@@ -92,9 +91,9 @@
                                 </tr>
                             {% endfor %}
                         {% else %}
-                            <tr>   
+                            <td>   
                                 <p>No rental records found.</p>
-                            </tr>
+                            </td>
                         {% endif %}
                     </tbody>
                 </table>

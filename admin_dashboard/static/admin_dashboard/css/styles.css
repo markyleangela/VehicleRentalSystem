@@ -9,6 +9,7 @@ body, html {
 }
 h1{
     font-size: 4vh;
+    color: black;
 }
 .dashboard-container {
     display: flex;
