@@ -7,7 +7,7 @@ from PIL import Image
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 
-
+from django.contrib import messages
 from vehicles.models import Vehicle
 from datetime import datetime, timezone
 from django.db.models import Q
@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 @login_required
 def vehicle_list(request, vehicle_id=None):
     # Start with all vehicles
-    vehicles = Vehicle.objects.all()
+    vehicles = Vehicle.objects.filter(vehicle_is_deleted = False)
     vehicle_type = request.GET.get('vehicle_type', 'all')
 
     # Retrieve the start date and end date from the request
@@ -50,7 +50,6 @@ def vehicle_list(request, vehicle_id=None):
 
             if start_date < now_local:
                 return JsonResponse({"status": "error", "message": "Start date cannot be in the past."})
-
             if return_date < start_date:
                 return JsonResponse({"status": "error", "message": "Return date cannot be earlier than the pickup date."})
             # Convert date strings into datetime objects
