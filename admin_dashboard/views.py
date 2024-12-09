@@ -4,7 +4,6 @@ from rental_record.models import RentalRecord
 import base64
 from io import BytesIO
 from PIL import Image
-import logging
 from django.contrib.auth.models import User
 from user_profile.models import ProfileInfo
 from .decorator import admin_or_staff_required
@@ -59,15 +58,15 @@ def vehicle_list_view(request):
     if request.method == 'POST':
         if 'delete_vehicle' in request.POST:
             vehicle_id = request.POST.get('delete_vehicle')
-            logger.debug(f"Attempting to delete vehicle with ID: {vehicle_id}")
+            print(f"Attempting to delete vehicle with ID: {vehicle_id}")
             if vehicle_id and vehicle_id.isdigit():
                 vehicle_to_delete = get_object_or_404(Vehicle, pk=vehicle_id)
                 vehicle_to_delete.vehicle_is_deleted = True
                 vehicle_to_delete.save()
-                logger.info(f"Deleted vehicle ID: {vehicle_id}")
+                print(f"Deleted vehicle ID: {vehicle_id}")
                 return redirect('vehicle_list')
             else:
-                logger.warning(f"Invalid vehicle ID: {vehicle_id}")
+               print(f"Invalid vehicle ID: {vehicle_id}")
 
         elif 'vehicle_id' in request.POST:
             vehicle_id = request.POST.get('vehicle_id')
@@ -87,19 +86,35 @@ def users_view(request):
     # Define the filters based on status
     if status_filter == 'all':
         profiles = profiles
-    elif status_filter == 'deleted':
-        profiles = ProfileInfo.objects.filter(is_deleted=True, user__in=non_admin_users)
+    elif status_filter == 'inactive':
+        profiles = ProfileInfo.objects.filter(user__is_active=False, user__in=non_admin_users)
     else:
-        profiles = ProfileInfo.objects.filter(is_deleted=False, user__in=non_admin_users)
-    
+        profiles = ProfileInfo.objects.filter(user__is_active=True, user__in=non_admin_users)
+
+    if request.method == 'POST':
+        if 'deactivate_user' in request.POST:
+            user_id = request.POST.get('deactivate_user')
+            user_to_deactivate = get_object_or_404(User, pk=user_id, is_staff=False, is_superuser=False)
+            user_to_deactivate.is_active = False
+            user_to_deactivate.save()
+            print(f"Deactivated user with ID: {user_id}")
+            return redirect('users')
+
+        elif 'activate_user' in request.POST:
+            user_id = request.POST.get('activate_user')
+            user_to_activate = get_object_or_404(User, pk=user_id, is_staff=False, is_superuser=False)
+            user_to_activate.is_active = True
+            user_to_activate.save()
+            print(f"Activated user with ID: {user_id}")
+            return redirect('users')
+
     for profile in profiles:
-        user = profile.user  # Access the related User object
-        
-        # Add first_name and last_name for template rendering
+        user = profile.user
         profile.first_name = user.first_name
         profile.last_name = user.last_name
         profile.email = user.email
 
+   
         # Convert profile_image to base64 if it exists
         if profile.profile_image:
             try:
@@ -130,9 +145,17 @@ def users_view(request):
                 if profile_id and profile_id.isdigit():
                     # Fetch the ProfileInfo object by its primary key
                     profile_to_delete = get_object_or_404(ProfileInfo, pk=profile_id)
-                    profile_to_delete.is_deleted = True  # Mark the profile as deleted
+                    user_to_update = profile_to_delete.user  # Fetch the related User object
+                    
+                    profile_to_delete.license_no = ''
                     profile_to_delete.save()
-                    print(f"Marked user profile as deleted: {profile_id}")
+
+                    # Set the user's email to blank
+                    user_to_update.email = ''
+                    user_to_update.is_active = False
+                    user_to_update.save()
+
+                    print(f"Marked user profile as deleted and cleared email for user ID: {profile_id}")
                     return redirect('users')
                 else:
                     print(f"Invalid profile ID: {profile_id}")
