@@ -20,7 +20,23 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("landing_page.urls")),
-    path('home', include("vehicle_availability.urls")),
+
     path('login/', include("login_page.urls")),
     path('register/', include("register.urls")),
+    path('create_vehicle/', include("crud_operations_for_vehicles.urls")),
+    path('profile/', include("profile_page.urls")),
+    path('vehicles/', include("crud_operations_for_vehicles.urls")),
+    path('home/', include("home_page.urls")),
+    path('booking_list/', include("booking_list_page.urls")),
+
+    path('booking/', include("booking_process_page.urls")),
+
+    path('vehicle_rating/', include("rating_page.urls")),
+    path('vehicle_view/', include("vehicle_detail.urls")),
+    path('about_us/', include("about_us.urls")),
+    path('contact_us/', include("contact_page.urls")),
+    path('admin_booking/', include('booking_list_admin.urls')),
+    path('dashboard/', include('admin_dashboard.urls')),
+
+
 ]

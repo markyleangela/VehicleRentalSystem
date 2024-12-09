@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment</title>
+    <style>
+        /* Page Styles */
+        body {
+            background-color: #f0f8ff;
+            font-family: Arial, sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .payment-container {
+            background-color: #1E2A5E;
+            border: 1px solid #007BFF;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: auto;
+        }
+
+        h1 {
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .details {
+            margin-bottom: 20px;
+        }
+
+        .details label {
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .details p {
+            color: #f5f5f5;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 150px;
+            margin: 0 auto;
+            display: block;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Popup Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: #1E2A5E;
+            margin: 10% auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 8px;
+            text-align: center;
+            color: white;
+        }
+
+        .modal-content h2 {
+            color: #ffffff;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover, .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            width: 150px;
+            margin-top: 15px;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="payment-container">
+        <h1>Confirm Payment</h1>
+
+        <div class="details">
+            <label>Vehicle Model:</label>
+            <p>{{ rental_record.vehicle.vehicle_model }}</p>
+            <label>Total Amount:</label>
+            <p class="total-amount">Php {{ rental_record.total_amount }}</p>
+        </div>
+
+        <form method="post" id="payment-form">
+            {% csrf_token %}
+            <button type="button" onclick="submitPayment()">Pay Now</button>
+        </form>
+    </div>
+
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Booking Confirmation</h2>
+            <p><strong>Vehicle Model:</strong> {{ rental_record.vehicle.vehicle_model }}</p>
+            <p><strong>Vehicle Brand:</strong> {{ rental_record.vehicle.vehicle_brand }}</p>
+            <p><strong>Pickup Date:</strong> {{ rental_record.start_date }}</p>
+            <p><strong>Return Date:</strong> {{ rental_record.return_date }}</p>
+            <p><strong>Total Amount:</strong> Php {{ rental_record.total_amount }}</p>
+            <p><strong>Payment Status:</strong> Paid</p>
+            <a href="{% url 'home' %}" class="btn">Go to Home</a>
+        </div>
+    </div>
+
+    <script>
+        function submitPayment() {
+            const form = document.getElementById('payment-form');
+            
+            fetch("{% url 'payment' rental_record.rental_id %}", {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': form.elements['csrfmiddlewaretoken'].value
+                },
+                body: new FormData(form)
+            })
+            .then(response => {
+                if (response.ok) {
+                    showModal();
+                } else {
+                    alert('Payment failed. Please try again.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function showModal() {
+            document.getElementById("confirmationModal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("confirmationModal").style.display = "none";
+            window.location.href = "{% url 'home' %}";
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById("confirmationModal");
+            if (event.target === modal) {
+                modal.style.display = "none";
+                window.location.href = "{% url 'home' %}";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+
+{% extends "base.html" %}
+
+
+{% load static %} <!-- Load static files -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {% block extra_css %}<link rel="stylesheet" href="{% static 'css/home_page.css' %}"> <!-- Link to your CSS -->{% endblock %}
+    {% block title %}Home - VRS{% endblock %}
+</head>
+<body>
+    {% block content %}
+    <section class="upper-section">
+        
+
+        <div class="cover-img">
+            <img src="{% static 'images/cover-img.jpg' %}" alt="blue car"> <!-- Link to your image -->
+            <h1 class="cover-statement">Make the Right Choice. <b>Book</b> your Dream vehicle</h1>
+        </div>
+        
+    </section>
+
+    <section class="mid-section">
+        <h1 class='featured-text'>LIST OF VEHICLES</h1>
+        
+    </section>
+    <section class="head-nav">
+        <div class="filter-container">
+            <form method="GET" action="" class="filter-form">
+                <div class="filter-group">
+                    <label for="vehicle_type">Vehicle Type:</label>
+                    <select id="vehicle_type" name="vehicle_type" class="filter-dropdown">
+                        <option value="all" {% if type_filter == 'all' %}selected{% endif %}>VIEW ALL</option>
+                        <option value="4 seater" {% if type_filter == '4 seater' %}selected{% endif %}>4 seater</option>
+                        <option value="6 seater" {% if type_filter == '6 seater' %}selected{% endif %}>6 seater</option>
+                        <option value="2 seater" {% if type_filter == 'Motorcycle' %}selected{% endif %}>Motorcycle</option>
+                    </select>
+                </div>
+            
+                <div class="filter-group">
+                    <label for="start_date">Start Date:</label>
+                    <input type="date" id="start_date" name="start_date" value="{{ request.GET.start_date|default_if_none:'' }}">
+                </div>
+            
+                <div class="filter-group">
+                    <label for="return_date">End Date:</label>
+                    <input type="date" id="return_date" name="return_date" value="{{ request.GET.return_date|default_if_none:'' }}">
+                </div>
+            
+                <div class="filter-group">
+                    <button class="filter-button" type="submit">Apply Filter</button>
+                </div>
+            </form>
+            
+        
+        </div>
+        
+
+        
+    </section>
+    
+    <section class="lower-section">
+        
+        <div class="vehicle-list-wrapper"> <!-- New wrapper -->
+            {% for vehicle in vehicles %} 
+            <div class="vehicle-list-container"> <!-- Changed to div for better structure -->
+                <li id="vehicle_{{ vehicle.vehicle_id }}" class="{% if vehicle_detail and vehicle.vehicle_id == vehicle_detail.vehicle_id %}highlight{% endif %}">
+                    <div class="vehicle-item">
+                        <img src="{{ vehicle.image_base64 }}" alt="{{ vehicle.vehicle_model }}">
+                        <div class="vehicle-info">
+                            <br>
+                            <h3>{{ vehicle.vehicle_brand }}</h3>
+                            <h3>{{ vehicle.vehicle_model }}</h3>
+                            <p>{{ vehicle.vehicle_type }}</p>
+                            <p class="vehicle-price">Php {{ vehicle.vehicle_price }}/day</p>
+                        </div>
+                        <div class="vehicle-button-container">
+                           
+
+                            <a href="{% url 'vehicle_detail' vehicle_id=vehicle.vehicle_id %}" class="vehicle-link">
+                                <button class="view-detail-btn">View</button>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            </div> <!-- End of vehicle-list-container -->
+            {% endfor %}
+        </div> <!-- End of vehicle-list-wrapper -->
+    </section>
+    
+ 
+        {% block extra_js %}
+    <script src="{% static 'js/homepage_script.js' %}?v={{ STATIC_VERSION }}"></script>
+    {% endblock %}
+</body>
+</html>
+
+{% endblock %}
+
+

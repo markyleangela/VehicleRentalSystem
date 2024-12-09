@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="rental-record-container">
+        <!-- Header Section -->
+        <div class="header-section">
+            <h1>Rental Details</h1>
+        </div>
+
+        <!-- Rental Record Details -->
+        <div class="rental-details">
+            <div class="vehicle-image">
+                <img src="data:image/png;base64,{{ rental_record.vehicle.image_base64 }}" alt="{{ rental_record.vehicle_model }}">
+            </div>
+
+            <div class="vehicle-info">
+                <h2>{{ rental_record.vehicle.vehicle_brand   }} {{ rental_record.vehicle.vehicle_model }} </h2>
+            
+
+                <!-- Transaction Info -->
+                <div class="transaction-info">
+                    <p><strong>Transaction ID:</strong> {{ rental_record.transaction_id }} | <strong>Vehicle ID:</strong> {{ rental_record.vehicle_id }}</p>
+                </div>
+
+                <!-- Vehicle Specs -->
+                <div class="vehicle-specs">
+                    <p><strong>Vehicle Brand:</strong> {{ rental_record.vehicle.vehicle_brand }}</p>
+                    <p><strong>Vehicle Model:</strong> {{ rental_record.vehicle.vehicle_model }}</p>
+                    <p><i class="far fa-calendar"></i> <strong>Start Date:</strong> {{ rental_record.start_date }}</p>
+                    <p><i class="far fa-calendar"></i> <strong>Return Date:</strong> {{ rental_record.return_date }}</p>
+                    <p><i class="far fa-calendar"></i> <strong>Payment Date:</strong> {{ rental_record.payment_date }}</p>
+                </div>
+
+                <!-- Rental Status -->
+                <div class="rental-status">
+                    <p><strong>Payment Status:</strong> 
+                        <span class="status {% if rental_record.payment_status %}paid{% else %}unpaid{% endif %}">
+                            {% if rental_record.payment_status %}Paid{% else %}Unpaid{% endif %}
+                        </span>
+                    </p>
+                    <p><strong>Rental Status:</strong> 
+                        <span class="status">
+                            {{ rental_record.rental_status }}
+                        </span>
+                    </p>
+                </div>
+
+                <!-- Customer Info -->
+                <div class="customer-info">
+                    <p><i class="far fa-user"></i> <strong>{{ rental_record.customer }}</strong></p>
+                    <p><strong>Total Amount:</strong> {{ rental_record.total_amount }}</p>
+                </div>
+
+                <!-- Payment Action -->
+                {% if not rental_record.payment_status and rental_record.rental_status == 'pending' %}
+                    <div class="payment-action">
+                        <a href="{% url 'payment' rental_record.rental_id%}">
+                            <button class="payment-button">Complete Payment</button>
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/rental_details.css' %}">
+{% endblock %}

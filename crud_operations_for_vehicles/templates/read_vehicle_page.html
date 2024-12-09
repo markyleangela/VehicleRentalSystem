@@ -1,0 +1,69 @@
+{% extends "admin_dashboard.html" %}
+{% load static %}
+
+{% block extra_css %}
+{{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/read_vehicle.css' %}?v={{ STATIC_VERSION }}">
+{% endblock %}
+
+{% block content %}
+    <section class="vehicle-detail-page">
+        <div class="vehicle-img">
+            <img src="data:image/png;base64,{{ vehicle.image_base64 }}" alt="{{ vehicle.model }}">
+        </div>
+
+        <div class="vehicle-info">
+            <div class="vehicle-title">
+                <span class="vehicle-brand">{{ vehicle.vehicle_brand }} {{ vehicle.vehicle_model }}</span>
+                
+                <span class="vehicle-price">₱{{ vehicle.vehicle_price }} / per day</span>
+            </div>
+        
+            <div class="vehicle-rating">
+                <!-- Display Average Rating -->
+                <div class="rating-stars">
+                    {% for star in avg_stars %}
+                        <span class="star {% if star == 'full' %}full{% elif star == 'half' %}half{% else %}empty{% endif %}">★</span>
+                    {% endfor %}
+                </div>
+                <p class="average-rating">
+                    Average Rating: {{ avg_rating }} ({{ count_ratings }} reviews)
+                </p>
+            </div>
+        
+            <p><strong>Vehicle Type:</strong> {{ vehicle.vehicle_type }}</p>
+            <p><strong>Description:</strong> {{ vehicle.vehicle_description }}</p>
+            <p><strong>Transmission:</strong> {{ vehicle.vehicle_transmission }}</p>
+            <p><strong>Cargo Capacity:</strong> {{ vehicle.vehicle_cargo }}</p>
+
+        </div>
+        
+
+        <!-- Review Display Section -->
+        <div class="reviews-section">
+            <h4>Customer Reviews</h4>
+            <div class="reviews-list">
+                {% for rating_data in star_ratings %}
+                    <div class="review-card">
+                        <div class="user-rating">
+                            <!-- Display Stars for Individual Reviews -->
+                            <div class="rating-stars">
+                                {% for star in rating_data.stars %}
+                                    <span class="star {% if star == 'full' %}full{% elif star == 'half' %}half{% else %}empty{% endif %}">★</span>
+                                {% endfor %}
+                            </div>
+                            <span class="rating-value">{{ rating_data.rating.rating }} / 5</span>
+                        </div>
+                        <p class="review-text">{{ rating_data.rating.review }}</p>
+                        
+                        <p class="review-author">- <strong>{{ rating_data.rating.user.username }}</strong></p>
+                        <p class="review-date">{{ rating_data.rating.created_at|date:"F j, Y g:i a" }}</p>
+                        <hr>
+                    </div>
+                {% empty %}
+                    <p class="no-ratings">No reviews yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

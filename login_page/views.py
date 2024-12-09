@@ -14,12 +14,14 @@ def login_page(request):
             if user is not None:
                 # Login the user
                 login(request, user)
+
                 
                 # Check if the user is an admin or staff
                 if user.is_staff or user.is_superuser:
                     return redirect('dashboard')  # Redirect to the admin dashboard view
                 else:
                     return redirect('home')  # Redirect to the home page for normal users
+
             else:
                 # Return an error message if authentication fails
                 form.add_error(None, "Invalid username or password.")

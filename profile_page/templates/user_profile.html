@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Profile{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}?v={{ STATIC_VERSION }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<section class="profile-section-container">
+    <div class="profile-container">
+        <div class="tabs-container">
+            <button class="tab active" onclick="changeTab('profile')">Profile</button>
+            <a href="{% url 'account_info' %}">
+                <button class="tab">Account Settings</button>
+            </a>
+        </div>
+
+        <div id="profile" class="tab-content active">
+            <div class="profile-header">
+                <div class="profile-pic-container">
+                    {% if profile.image_base64 %}
+                        <img class="profile-pic" src="{{ profile.image_base64 }}" alt="Profile Image">
+                    {% else %}
+                        <img class="profile-pic" src="{% static 'images/default-profile.png' %}" alt="Default Profile Image">
+                    {% endif %}
+                </div>
+                <div class="name-license-container">
+                    <h2 class="profile-name">{{ user.first_name }} {{ user.last_name }}</h2>
+                    <span class="profile-value">License No. {{ profile.license_no }}</span>
+
+                    {% if profile.license_verified and profile.email_verified %}
+                        <p class="verified-status">Fully Verified <i class="fas fa-check-circle"></i></p>
+                    {% else %}
+                        <p class="not-verified-status">Not Verified <i class="fas fa-times-circle"></i></p>
+                    {% endif %}
+                </div>
+                
+            </div>
+
+            <div class="personal-info-section">
+                <div class="info-edit">
+                    <h3>Personal Information</h3>
+                    <div class="upper-info-name">
+                        <div class="info-name">
+                            <div class="info-label">
+                                <p>First Name</p>               
+                            </div>
+                            <div class="info-value">
+                                <p>{{ user.first_name }}</p>
+                            </div>
+                            <div class="info-label">                       
+                                <p>Last Name</p>        
+                            </div>
+                            <div class="info-value">
+                                <p>{{ user.last_name }}</p>
+                            </div>
+                        </div>
+                        <div class="info-dob">
+                            <div class="info-label">
+                                <p>Birth Date</p>
+                            </div>
+                            <div class="info-value">
+        
+                                <p>{{ profile.birth_date }}</p>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                    
+
+                    <h3>Contact Information</h3>
+                    <div class="info-label">
+                        <p>Email Address</p>
+                        
+                    </div>
+                    <div class="info-value">
+                        <p>{{ user.email }}</p>
+                        {% if profile.email_verified %}
+                            <div class="email-verified">
+                                <i class="fas fa-check-circle"> </i> Email Verified
+                            </div>
+                        {% else %}
+                            <div class="email-not-verified">
+                                <i class="fas fa-times-circle"></i> Email not Verified
+                               
+                            </div>
+                        {% endif %}
+                        
+                    </div>
+
+                    <div class="info-label">
+                        
+                        <p>Contact Number</p>
+                    </div>
+                    <p>{{ profile.phone_number }}</p>
+                </div>
+               
+            </div>
+        </div>
+
+                
+   
+   
+        
+
+
+        
+        <div class="profile-actions">
+            <a href="{% url 'update_details' %}" class="edit-btn">EDIT</a>
+            <a href="{% url 'home' %}" class="back-btn">BACK</a>
+        </div>
+    </div>
+</section>
+{% block extra_js %}
+<script src="{% static 'js/profile.js' %}"></script>
+{% endblock %}
+{% endblock %}

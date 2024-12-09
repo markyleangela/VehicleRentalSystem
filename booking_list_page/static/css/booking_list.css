@@ -1,0 +1,321 @@
+body {
+    position: relative;
+    padding: 50px 0;
+    font-family: 'Secular One', sans-serif;
+    color: #333;
+    margin-top: 60px;
+    background-color: #7C93C3;
+   
+}
+
+
+
+
+button.view-action-button {
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    cursor: pointer;
+    outline: none;
+    box-shadow: none !important; /* Removes any shadow */
+}
+
+.view-action-button i {
+    font-size: 1.2em; /* Adjust size as needed */
+    color: inherit; /* Use this if you want the icon to inherit the text color */
+}
+
+
+.view-action-button a {
+    text-decoration: none;
+    color: inherit; /* or specify a color, e.g., color: #000; */
+}
+
+.bookings-container {
+    width: 80%;
+    margin: 50px auto;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    font-family: 'Roboto', sans-serif;
+}
+
+h2 {
+    text-align: left;
+    color: #333;
+}
+
+.tabs {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.tab {
+    background-color: #f5f5f5;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px 5px 0 0;
+    margin-right: 5px;
+    color: #555;
+}
+
+.tab.active {
+    background-color: #ffffff;
+    border-bottom: 2px solid blue;
+    color: black;
+}
+
+/* Table Styles */
+.table-container {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.bookings-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #ccc #f3f4f6; /* Custom colors for the scrollbar */
+  
+}
+
+.bookings-table th, .bookings-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.bookings-table th {
+    background-color: #f0f0f0;
+    color: #555;
+}
+
+.bookings-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.bookings-table td {
+    color: #333;
+}
+
+/* Status Styles */
+.pending-return {
+    color: red;
+}
+
+.paid, .completed {
+    color: green;
+}
+
+.not-paid, .cancelled {
+    color: red;
+}
+
+.pending {
+    color:#FFAE42 ;
+}
+
+.status-other {
+    color: #333;
+}
+
+
+.fa-eye {
+    color: #333;
+    cursor: pointer;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .bookings-container {
+        width: 95%;
+    }
+
+    .tabs {
+        display: block;
+        text-align: center;
+    }
+
+    .tab {
+        margin-bottom: 10px;
+        display: inline-block;
+    }
+}
+
+/* Modal Container Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7); /* Darker background for better contrast */
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Modal Content Styles */
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    margin: 10% auto;
+    padding: 40px;
+    border-radius: 12px;
+    border: none;
+    width: 90%;
+    max-width: 600px; /* Adjusted for better layout */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    position: relative; /* Ensures that the close button is positioned relative to the modal */
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Close Button Styling */
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 36px;
+    color: #333;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    z-index: 1000; /* Ensure the button is above other content */
+    transition: color 0.3s ease;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #ff6f61; /* Soft red for contrast */
+}
+
+/* Back Button Styling */
+.back-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 25px;
+    background-color: #1E2A5E;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.back-btn:hover {
+    background-color: #142164;
+}
+
+/* Rental Dates Grid Styling */
+.rental-dates {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+    width: 100%;
+  
+}
+.rental-dates p{
+    padding: 0;
+    margin: 10px;
+  
+}
+/* Modal Vehicle Info */
+#modal-vehicle-info {
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Modal Vehicle Image Styling */
+#modal-vehicle-img img {
+    border-radius: 8px;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* Title and Content Styling */
+#modal-vehicle-info h2 {
+    font-size: 26px;
+    color: #333;
+    margin-bottom: 15px;
+    font-family: 'Secular One', sans-serif;
+}
+
+.rental-vehicle-id h3 {
+    font-size: 20px;
+    color: #555;
+    margin-bottom: 10px;
+   
+}
+
+/* Rental Date Styling */
+.rental-info {
+    background-color: #f0f0f0d9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.rental-info p {
+    margin: 5px 0;
+    color: #666;
+}
+.rental-info  strong {
+    color: #000;
+}
+
+.rental-info  i {
+    color: #007bff;
+    margin-right: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .modal-content {
+        padding: 20px;
+    }
+
+    #modal-vehicle-info {
+        padding: 20px;
+    }
+
+    .rental-dates {
+        grid-template-columns: 1fr; /* Stacking on smaller screens */
+    }
+
+    .back-btn {
+        padding: 10px 18px;
+        font-size: 14px;
+    }
+}
+
+
+/* UPPER SECTION BLOCK OF CSS */
+
+.payment-action button{
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: #1E2A5E; 
+    color: white; 
+    cursor: pointer;
+    transition: background-color 0.3s; 
+    
+}
+
+

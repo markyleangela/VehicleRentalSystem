@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'landing_page.apps.LandingPageConfig',
-    'vehicle_availability.apps.VehicleAvailabilityConfig',
+
     'vehicles.apps.VehiclesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,6 +43,25 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'login_page',
     'register',
+    'crud_operations_for_vehicles',
+    'profile_page',
+    'home_page',
+    'rental_record',
+    'booking_list_page',
+    'user_profile',
+    'license',
+
+    'booking_process_page',
+
+    'rating_page',
+    'vehicle_detail',
+    'about_us',
+    'contact_page',
+    'booking_list_admin',
+    'admin_dashboard',
+    
+
+    
 ]
 
 MIDDLEWARE = [
@@ -60,7 +79,7 @@ ROOT_URLCONF = 'vrs.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, "templates")],
+        'DIRS': [], #os.path.join(BASE_DIR, "templates")
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,6 +87,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                
             ],
         },
     },
@@ -75,6 +95,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'vrs.wsgi.application'
 
+MESSAGE_STORAGE = 'django.contrib.messages.storage.fallback.FallbackStorage'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -90,20 +111,20 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
+# AUTH_PASSWORD_VALIDATORS = [
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+#     },
+# ]
 
 
 # Internationalization
@@ -111,7 +132,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Singapore'
 
 USE_I18N = True
 
@@ -122,10 +143,24 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static",  # This points to your static directory
-]
+
+
+#SMTP Configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Replace with your SMTP server (e.g., smtp.gmail.com for Gmail)
+EMAIL_PORT = 587                 # Typically 587 for TLS or 465 for SSL
+EMAIL_USE_TLS = True             # Use True for TLS (Secure)
+EMAIL_USE_SSL = False            # Use False for SSL if TLS is True
+EMAIL_HOST_USER = 'markyleangela@gmail.com'  # Your email address
+EMAIL_HOST_PASSWORD = 'pisb uenf bser eepa'      # Your email password (use App Password for services like Gmail)
+
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'  # Enforce email verification
+ACCOUNT_AUTHENTICATION_METHOD = 'email'   # Use email for login
+ACCOUNT_EMAIL_REQUIRED = True             # Require an email address
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

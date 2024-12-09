@@ -1,0 +1,453 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+.upper-section {
+    position: relative;
+}
+
+.nav-container {
+    position: fixed;   
+    top: 0;             
+    left: 0;             
+    width: 100%;        
+    z-index: 1000;      
+    background-color: #1E2A5E;
+    color: white; 
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.nav-bar {
+    display: flex;
+    width: 100%;
+    justify-content: space-between; 
+    align-items: center;
+    height: 100px;
+    padding: 0 40px;
+    box-sizing: border-box; 
+}
+
+.logo img {
+    height: 150px;
+}
+
+.nav-bar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    font-size: 1.2rem;
+    align-items: center;
+}
+
+.nav-bar ul li {
+    display: inline;
+}
+
+.nav-bar ul li a {
+    color: white;
+    padding: 30px;
+    display: block;
+    text-decoration: none;
+    font-family: 'Secular One', sans-serif;
+}
+
+.cover-img {
+    position: relative; 
+    width: 100%;
+    height: 700px; /* Fixed height */
+    overflow: hidden;
+}
+
+.cover-img img {
+    width: 100%;
+    height: 100%; /* Ensures the image fills the container */
+    object-fit: cover; /* Ensures the image covers the area */
+}
+
+.cover-statement {
+    position: absolute;
+    bottom: 20px; 
+    left: 50%;
+    transform: translateX(-50%); 
+    color: white;
+    font-size: 2rem; 
+    text-align: center;
+    white-space: nowrap; 
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-family: 'Secular One', sans-serif;
+}
+
+.cover-statement b {
+    color: #1E2A5E;
+}
+
+@media (max-width: 700px) {
+    .cover-statement {
+        font-size: 1.5rem; /* Adjust font size for smaller screens */
+    }
+}
+
+.lower-section {
+    display: flex;
+    flex-direction: column; /* Column layout for better stacking */
+    min-height: 100vh; /* Ensures enough height to scroll */
+    padding: 10px; /* Padding for content */
+    background-color: #f5f5f5; /* Optional background color for visibility */
+}
+
+.featured-text {
+    font-family: 'Secular One', sans-serif; /* Apply Secular One font */
+}
+
+.vehicle-list-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive grid */
+    gap: 20px; /* Space between items */
+}
+
+.vehicle-list-container {
+    background-color: white;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+    overflow: hidden;
+}
+
+.vehicle-list-container li {
+    list-style-type: none;
+}
+
+.vehicle-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%; /* Ensure the vehicle-item takes up full container height */
+}
+
+.vehicle-item img {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    height: 150px; /* Fixed height */
+    object-fit: contain;
+}
+
+.vehicle-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: auto; /* Pushes the info to the bottom */
+    text-align: left; 
+    font-family: 'Secular One', sans-serif; 
+}
+
+.vehicle-info h3 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 10px 0 5px 0;
+}
+
+.vehicle-info p {
+    font-size: 1rem;
+    margin: 5px 0;
+}
+
+.vehicle-price {
+    font-weight: bold;
+    color: #666;
+}
+
+.vehicle-button-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: auto; /* Push the button to the bottom */
+}
+
+.vehicle-button-container button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: #1E2A5E; 
+    color: white; 
+    cursor: pointer;
+    transition: background-color 0.3s; 
+}
+
+.vehicle-button-container button:hover {
+    background-color: #16204A;
+}
+
+.mid-section {
+    display: flex;
+    justify-content: center;
+}
+
+.vehicle-info button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: #1E2A5E; 
+    color: white; 
+    cursor: pointer;
+    transition: background-color 0.3s; 
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+}
+
+.modal-content {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    background-color: #fefefe;
+    font-family: 'Secular One', sans-serif; 
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 30px;
+    border-radius: 10px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  
+}
+
+
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.burger-menu {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.line {
+    height: 3px;
+    width: 30px;
+    background-color: white;
+    margin: 3px 0;
+}
+
+#dropdownMenu {
+    display: none; /* Initially hidden */
+    position: absolute;
+    font-family: 'Secular One', sans-serif;
+    top: 80px;
+    right: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    border-radius: 5px;
+    padding: 5px;
+    z-index: 1000;
+}
+
+#dropdownMenu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+#dropdownMenu ul li {
+    width: 100%;
+}
+
+#dropdownMenu ul li a {
+    text-decoration: none;
+    color: #333;
+}
+
+#dropdownMenu ul li a:hover {
+    color:  #1E2A5E;
+}
+
+/* Active class to show the dropdown */
+#dropdownMenu.active {
+    display: block;
+}
+
+.head-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 5vw;
+    margin-right: 5vw;
+}
+
+/* General Container Styling */
+.filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    width: 100%;
+    font-family: 'Secular One', sans-serif;
+}
+
+/* Form Styling */
+.filter-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+ 
+}
+
+/* Group Styling */
+.filter-group {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+/* Label Styling */
+.filter-group label {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Input and Select Styling */
+.filter-dropdown,
+input[type="date"] {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1rem;
+    color: #333;
+    width: 100%;
+    max-width: 200px;
+    background-color: #fff;
+}
+
+/* Button Styling */
+.filter-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: #1E2A5E; 
+    color: white; 
+    cursor: pointer;
+    transition: background-color 0.3s; 
+    
+}
+
+.filter-button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .filter-container {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .filter-form {
+        justify-content: center;
+    }
+
+    .filter-button {
+        width: 100%;
+    }
+}
+
+
+.book-button {
+    display: flex;
+    justify-content: end;
+}
+
+.book-button button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: #1E2A5E; 
+    color: white; 
+    cursor: pointer;
+    transition: background-color 0.3s; 
+}
+
+.brand-model-price {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: x-large;
+   
+    
+ 
+}
+
+.specs-1, .specs-2 {
+
+    display: grid;
+    grid-template-columns: repeat(2, auto); 
+    gap: 10px; /* Optional: space between grid items */
+    font-family: 'Roboto', sans-serif;
+    width: 40%;
+  
+
+}
+
+@media (max-width: 768px) {
+    .nav-bar {
+        flex-direction: column; /* Stack items vertically */
+        height: auto;          /* Adjust height for smaller screens */
+        padding: 10px 20px;
+    }
+
+    .nav-bar ul {
+        flex-direction: column; /* Stack menu items vertically */
+        align-items: flex-start;
+    }
+
+    .nav-bar ul li a {
+        padding: 10px 20px; /* Adjust padding for smaller screens */
+        text-align: left;
+    }
+}
+
+

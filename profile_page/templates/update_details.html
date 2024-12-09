@@ -1,0 +1,136 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Home{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/home_page.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    {% block extra_css %}<link rel="stylesheet" href="{% static 'css/update_details.css' %}">{% endblock %}
+</head>
+<body>
+    <header class="nav-container">
+        <nav class="nav-bar">
+            <div class="logo">
+                <img src="{% static 'images/Logo-Clear.png' %}" alt="Your Company Logo">
+            </div>
+            <ul id="nav-links">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'about_us' %}">About Us</a></li>
+                <li><a href="{% url 'contact_view' %}">Contact Us</a></li>
+            </ul>
+            <div class="burger-menu" id="burger-menu">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+            <div class="dropdown" id="dropdownMenu">
+                <ul>
+                    <li>
+                        <a href="{% url 'profile_page' %}">
+                            <i class="fas fa-user"></i> Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'booking_list' %}">
+                            <i class="fas fa-book"></i> Bookings
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'logout' %}">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="content">
+        {% block content %}
+
+        <div class="container">
+                <h1>Update Profile</h1>
+                <form action="{% url 'update_details' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    {% comment %} <div class="form-group">
+                        <!-- Profile image preview -->
+                        <div class="image-preview-container">
+                            <img id="imagePreview" 
+                                src="{% if profile.image_base64 %}{{ profile.image_base64 }}{% else %}https://via.placeholder.com/200{% endif %}" 
+                                alt="Profile Image Preview" />
+                        </div>
+                        <label for="file-input">Change Profile Image:</label>
+                        <input type="file" id="file-input" name="profile_image" accept="image/*" onchange="previewImage(event)" />
+                    </div> {% endcomment %}
+
+                    <div class="form-group">
+                        <!-- Profile image preview -->
+                        <div class="image-preview-container" style="cursor: pointer;" onclick="document.getElementById('file-input').click();">
+                            <img id="imagePreview" 
+                                src="{% if profile.image_base64 %}{{ profile.image_base64 }}{% else %}https://via.placeholder.com/200{% endif %}" 
+                                alt="Profile Image Preview" 
+                                style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;" />
+                        </div>
+                        <input type="file" id="file-input" name="profile_image" accept="image/*" onchange="previewImage(event)" style="display: none;" />
+                    </div>
+                    
+
+                    <!-- Display the form fields -->
+                    <div class="form-group">
+                        {{ form.as_p }} 
+                    </div>
+
+                    <!-- Submit and Cancel Buttons -->
+                    <div class="button-group">
+                        <button type="submit" class="submit-btn">Submit</button>
+                        <button type="button" class="cancel-btn" onclick="window.location.href='{% url 'profile_page' %}';">Cancel</button>
+                    </div>
+
+                  
+                   
+                </form>
+            </div>
+            <div class='verification-container'>
+                
+                {% if not profile.email_verified %}
+                <h2>Warning! Your email is not yet verified. </h2>
+                <div class="verify-license">
+                    <button type="button" class="verify-btn" onclick="window.location.href='{% url 'verify_email' %}';">Verify Email</button>
+                </div>
+                {% endif %}
+
+                {% if not profile.license_verified%}
+                <h2>Warning! Your license is not yet verified. </h2>
+                <div class="verify-license">
+                    <button type="button" class="verify-btn" onclick="window.location.href='{% url 'license_verification' %}';">Verify License</button>
+                </div>
+                {% endif %}
+
+
+                {% if profile.license_verified %}
+                <h2>Update and Verify your license </h2>
+                <div class="verify-license">
+                    <button type="button" class="verify-btn" onclick="window.location.href='{% url 'license_verification' %}';">Update License</button>
+                </div>
+                {% endif %}
+          
+               
+            </div>
+
+            
+
+ 
+    </main>
+    {% endblock %}
+
+
+    {% block extra_js %}
+        <script src="{% static 'js/update_details.js' %}"></script>
+    {% endblock %}
+</body>
+</html>

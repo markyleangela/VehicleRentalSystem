@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Profile{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/activate_user.css' %}?v={{ STATIC_VERSION }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<body>
+    <h1>Activate Your Email</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="code">Enter Confirmation Code:</label>
+        <input type="text" name="code" id="code" required>
+        <button type="submit">Activate</button>
+    </form>
+</body>
+</html>
+    
+
+
+
+    
+{% block extra_js %}{% endblock %}
+{% endblock %}

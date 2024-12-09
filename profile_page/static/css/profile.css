@@ -1,0 +1,237 @@
+/* General Reset and Box-Sizing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+body {
+    font-family: 'Secular One', sans-serif;
+    background-color:#7C93C3;
+    color: #333;
+    padding-top: 70px;
+    position: relative;
+    margin-top: 60px;
+}
+
+
+/* Main Profile Section */
+.profile-section-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.profile-container {
+    background-color: white;
+    width: 100%;
+    max-width: 1000px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 35px;
+    height: fit-content;
+    
+}
+
+/* Tabs */
+.tabs-container {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ddd;
+}
+
+.tab {
+    padding: 12px 20px;
+    background-color: transparent;
+    color: #5f6368;
+    font-size: 16px;
+    font-weight: 600;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    border-radius: 8px 8px 0 0;
+    margin-right: 15px;
+    transition: all 0.3s ease;
+}
+
+.tab:hover {
+    background-color: #f1f1f1;
+}
+
+.tab.active {
+    background-color: #1E2A5E;
+    color: white;
+    border-color: #1E2A5E;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Profile Header */
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    align-items: center;
+    border-bottom: 1px solid #f1f1f1;
+    padding-bottom: 20px;
+}
+
+.profile-pic-container {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid #ddd;
+    background-color: #f2f2f2;
+    margin-right: 20px;
+}
+
+.profile-pic {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.name-license-container {
+    flex-grow: 1;
+}
+
+.profile-name {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.profile-value {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.verified-status,
+.not-verified-status {
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.verified-status {
+    color: #4CAF50;
+}
+
+.not-verified-status {
+    color: #E53935;
+}
+
+.verified-status i,
+.not-verified-status i {
+    margin-left: 8px;
+}
+
+.email-verified {
+    color: #4CAF50;
+}
+
+.email-not-erified {
+    color: #E53935;
+}
+
+
+/* Personal Info Section */
+.personal-info-section {
+    margin-bottom: 40px;
+}
+
+.upper-info-name {
+    display: flex;
+    gap: 200px;
+
+}
+
+.info-edit h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.info-label,
+.info-value {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.info-label p,
+.info-value p {
+    font-size: 16px;
+    color: #555;
+    font-weight: 300;
+}
+
+.info-value p {
+    font-size: 18px;
+    color: #333;
+    font-weight: 100;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .tabs-container {
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .profile-pic-container {
+        margin-bottom: 20px;
+        margin-right: 0;
+    }
+
+    .profile-actions .back-btn,
+    .profile-actions .edit-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Profile Actions */
+.profile-actions {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.profile-actions .back-btn,
+.profile-actions .edit-btn {
+    background-color: #1E2A5E;
+    color: white;
+    padding: 12px 30px;
+    font-size: 18px;
+    text-decoration: none;
+    border-radius: 30px;
+    transition: background-color 0.3s ease;
+    margin: 10px 0;
+}
+
+.profile-actions .back-btn:hover,
+.profile-actions .edit-btn:hover {
+    background-color: #388E3C;
+}
