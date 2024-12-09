@@ -4,9 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {% block extra_css %}
     <link rel="stylesheet" href="{% static 'admin_dashboard/css/reset.css' %}">
     <link rel="stylesheet" href="{% static 'admin_dashboard/css/styles.css' %}">
-    {% block extra_css %}{% endblock %}
+    {% endblock %}
     <script src="{% static 'admin_dashboard/js/admin_dashboard.js' %}" defer></script>
     <title>Admin Dashboard</title>
 </head>
@@ -23,7 +25,7 @@
                     <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
                     <li><a href="{% url 'vehicle_list' %}">Vehicles</a></li>
                     <li><a href="{% url 'bookings' %}">Bookings</a></li>
-                    <li><a href="{% url 'vehicle_list' %}">Users</a></li>
+                    <li><a href="{% url 'users' %}">Users</a></li>
                 </ul>
             </nav>
             <!-- Logout button -->

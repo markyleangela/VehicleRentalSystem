@@ -35,6 +35,8 @@ urlpatterns = [
     path('vehicle_view/', include("vehicle_detail.urls")),
     path('about_us/', include("about_us.urls")),
     path('contact_us/', include("contact_page.urls")),
+    path('admin_booking/', include('booking_list_admin.urls')),
+    path('dashboard/', include('admin_dashboard.urls')),
 
 
 ]

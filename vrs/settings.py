@@ -57,7 +57,8 @@ INSTALLED_APPS = [
     'vehicle_detail',
     'about_us',
     'contact_page',
-
+    'booking_list_admin',
+    'admin_dashboard',
     
 
     
