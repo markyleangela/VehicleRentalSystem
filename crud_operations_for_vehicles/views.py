@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import CreateVehicleForm
-from .decorator import admin_or_staff_required
+from admin_dashboard.decorator import admin_or_staff_required
 from vehicles.models import Vehicle
 import base64
 from io import BytesIO
