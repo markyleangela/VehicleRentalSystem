@@ -104,11 +104,18 @@
                 </div>
                 {% endif %}
 
-                {% if not profile.license_verified and profile.email_verified%}
+                {% if not profile.license_verified%}
                 <h2>Warning! Your license is not yet verified. </h2>
-                <p>Verify email to proceed</p>
                 <div class="verify-license">
                     <button type="button" class="verify-btn" onclick="window.location.href='{% url 'license_verification' %}';">Verify License</button>
+                </div>
+                {% endif %}
+
+
+                {% if profile.license_verified %}
+                <h2>Update and Verify your license </h2>
+                <div class="verify-license">
+                    <button type="button" class="verify-btn" onclick="window.location.href='{% url 'license_verification' %}';">Update License</button>
                 </div>
                 {% endif %}
           
