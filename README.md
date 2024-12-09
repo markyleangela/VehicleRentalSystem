@@ -89,7 +89,7 @@ Vehicle Rental System designed to streamline the rental process for both custome
 ## PROJECT RESOURCES
 
 #### ERD 
-[![ERD][ERD-image]](https://example.com)
+[![ERD][ERD-image]](https://lucid.app/lucidchart/fef73f5a-8091-4b43-a9e2-e871cb94bfef/edit?viewport_loc=-994%2C-410%2C5120%2C2228%2C0_0&invitationId=inv_63ef96ed-f390-4e4e-86a6-98b34744cc24)
 
 ### UI-UX
 View more of the pages and designs in depth here:
