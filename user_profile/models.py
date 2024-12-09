@@ -19,7 +19,7 @@ class ProfileInfo(models.Model):
     license_verified = models.BooleanField(default=False) #if the user has license no that is valid then the user is verified
     email_verified = models.BooleanField(default=False)  
     user_verified = models.BooleanField(default=False)  #if email and license is verified
-    is_deleted = models.BooleanField(default=False)  
+  
 
     def __str__(self):
         return f'{self.user.username} Profile'
