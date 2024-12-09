@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block extra_css %}
+{{ block.super }}
     <link rel="stylesheet" href="{% static 'css/reset.css' %}">
     <link rel="stylesheet" href="{% static 'css/booking_list_admin.css' %}?v={{ STATIC_VERSION }}">
     <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">

@@ -143,7 +143,7 @@
                         </div>
                     {% endif %}
                     <!-- Cancel Action -->
-                    {% if rental_record.rental_status != 'completed' and rental_record.rental_status != 'overdue_returned' and rental_record.rental_status != 'overdue_extended'%}
+                    {% if rental_record.rental_status != 'completed' and rental_record.rental_status != 'overdue_returned' %}
                     <div class="action-form">
                         <form method="post" id="booking-form">
                             {% csrf_token %}
@@ -159,7 +159,7 @@
         </div>
     </div>
 
-    <script>
+<script>
 function submitForm(event) {
     event.preventDefault();
 
@@ -193,19 +193,9 @@ function submitForm(event) {
             },
             body: new FormData(form),  // Send the form data, including action
         })
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.status === "success") {
-                alert(data.message);  // Show the success message returned from server
-
-                // If a redirect URL is provided, navigate to it
-                if (data.redirect_url) {
-                    window.location.href = data.redirect_url;  // Redirect to the new URL
-                } else {
-                    location.reload();  // Reload the page to reflect the changes
-                }
-            } else {
-                alert("Error: " + data.message);  // Show the error message
+        .then((response) => {
+            if (response.redirected) {
+                window.location.href = response.url;  // Redirect to the new URL (which is booking_list_admin)
             }
         })
         .catch((error) => console.error("Error:", error));  // Catch any errors
@@ -216,4 +206,5 @@ function submitForm(event) {
 }
 
 </script>
+
 {% endblock %}
