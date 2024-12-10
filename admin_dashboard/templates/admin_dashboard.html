@@ -24,7 +24,6 @@
             </div>
             <nav class="nav-menu">
                 <ul>
-                    <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
                     <li><a href="{% url 'vehicle_list' %}">Vehicles</a></li>
                     <li><a href="{% url 'bookings' %}">Bookings</a></li>
                     <li><a href="{% url 'users' %}">Users</a></li>
@@ -45,7 +44,6 @@
         <!-- Main Content Area -->
         <main class="main-content">
             {% block content %}
-            <h1>Welcome to the Admin Dashboard</h1>
             <div class="container">
                 <!-- Content will be injected here -->
             </div>

@@ -23,6 +23,7 @@
 .vehicle-row {
     background-color: #fff;
     transition: background-color 0.3s;
+    min-height: 50px;
 }
 
 .vehicle-row:hover {
@@ -49,7 +50,7 @@
     color: green;
 }
 
-.vehicle-status span.in_use {
+.vehicle-status span.in.use {
     color: orange;
 }
 
@@ -147,11 +148,41 @@ button.delete-button:hover {
     border: none;
     cursor: pointer;
 }
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
 
-/* Responsive design: Stack the tabs vertically on smaller screens */
-@media (max-width: 768px) {
-    .tabs {
-        flex-direction: column;
-        align-items: center;
-    }
+.modal-content {
+    background-color: #fff;
+    margin: 20% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+}
+
+.modal-buttons button {
+    padding: 12px 20px;
+    margin: 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#cancelBtn {
+    background-color: #ccc;
+    color: white;
+}
+
+#confirmBtn {
+    background-color: #f44336; /* Red */
+    color: white;
 }

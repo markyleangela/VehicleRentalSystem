@@ -1,9 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from rental_record.models import RentalRecord
 from django.http import JsonResponse
+from django.utils.timezone import now
 
 def rental_details_view(request, rental_id):
     rental_record = get_object_or_404(RentalRecord, rental_id=rental_id)
+
 
     if request.method == "POST":
         action = request.POST.get('action')
@@ -44,5 +46,10 @@ def rental_details_view(request, rental_id):
         else:
             return JsonResponse({"status": "error", "message": "Invalid action or rental status."})
 
-    # If the request is GET, render the rental details page
-    return render(request, "rental_details_admin.html", {"rental_record": rental_record})
+    current_date = now().date()
+
+    context = {
+        'rental_record': rental_record,
+        'current_date': current_date,
+    }
+    return render(request, "rental_details_admin.html", context)

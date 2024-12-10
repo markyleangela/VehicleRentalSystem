@@ -31,6 +31,7 @@
     text-align: center;
     background-color: #fff;
     transition: background-color 0.3s;
+    min-height: 50px;
 }
 
 .user-row:hover {
@@ -109,7 +110,8 @@
     gap: 20px;
     padding: 10px;
     background-color: #f5f5f5;
-}
+    border-top-left-radius: 20px; /* Round only top-left corner */
+    border-top-right-radius: 20px; /* Round only top-right corner */}
 
 /* Style for each individual tab */
 .tabs .tab {

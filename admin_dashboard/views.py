@@ -8,6 +8,8 @@ from django.contrib.auth.models import User
 from user_profile.models import ProfileInfo
 from .decorator import admin_or_staff_required
 
+from django.utils.timezone import now
+
 
 # Create your views here.
 @admin_or_staff_required
@@ -17,6 +19,16 @@ def dashboard_view(request):
 @admin_or_staff_required
 def booking_list_view(request):
     rental_records = RentalRecord.objects.all()  # Get all rental records
+        # Get current date
+    current_date = now().date()
+
+    # Check if the rental is overdue and update the status to 'overdue_pending' if current_date > return_date
+    for rental_record in rental_records:
+        # Check if the rental is overdue and update the status to 'overdue_pending' if current_date > return_date
+        if rental_record.return_date and current_date > rental_record.return_date:
+            rental_record.rental_status = "overdue_pending"
+            rental_record.save()
+
     return render(request, 'booking_list_admin.html', {'rental_records': rental_records})
 
 @admin_or_staff_required

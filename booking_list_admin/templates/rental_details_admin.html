@@ -97,7 +97,7 @@
                             <form method="post">
                                 {% csrf_token %}
                                 <input type="hidden" name="action" value="release">
-                                <button type="button" class="action-button" onclick="submitForm(event)">
+                                <button type="button" class="action-button" id="release-button" onclick="submitForm(event)">
                                     Vehicle Released
                                 </button>
                             </form>
@@ -158,53 +158,66 @@
             </div>
         </div>
     </div>
-
-<script>
-function submitForm(event) {
-    event.preventDefault();
-
-    // Get the closest form element to the button clicked
-    const form = event.target.closest("form");
-    const action = form.querySelector("input[name='action']").value;  // Get the action value
-    let confirmationMessage = "";
-
-    // Define confirmation messages based on the action
-    if (action === "book") {
-        confirmationMessage = "Are you sure you want to confirm the booking?";
-    } else if (action === "release") {
-        confirmationMessage = "Are you sure you want to mark the vehicle as released?";
-    } else if (action === "return") {
-        confirmationMessage = "Are you sure you want to mark the vehicle as returned?";
-    } else if (action === "complete") {
-        confirmationMessage = "Are you sure you want to complete the booking?";
-    } else if (action === "extend") {
-        confirmationMessage = "Are you sure you want to extend the booking?";
-    } else if (action === "cancel") {
-        confirmationMessage = "Are you sure you want to cancel the booking?";
-    }
-
-    // Show confirmation dialog
-    if (confirm(confirmationMessage)) {
-        // If the user confirms, submit the form
-        fetch("{% url 'rental_details_admin' rental_record.rental_id %}", {
-            method: "POST",
-            headers: {
-                "X-CSRFToken": form.elements["csrfmiddlewaretoken"].value,  // CSRF token for the POST request
-            },
-            body: new FormData(form),  // Send the form data, including action
-        })
-        .then((response) => {
-            if (response.redirected) {
-                window.location.href = response.url;  // Redirect to the new URL (which is booking_list_admin)
+    <script>
+        function submitForm(event) {
+            event.preventDefault();
+        
+            // Get the closest form element to the button clicked
+            const form = event.target.closest("form");
+            const action = form.querySelector("input[name='action']").value;  // Get the action value
+            let confirmationMessage = "";
+        
+            // Get current date, start date, and end date from Django context
+            const currentDate = new Date("{{ current_date }}");
+            const startDate = new Date("{{ rental_record.start_date }}");
+            const endDate = new Date("{{ rental_record.return_date }}");
+        
+            console.log(currentDate);
+            console.log(startDate);
+            console.log(endDate);
+            // Check if current date is within rental period for "release" action
+            if (action === "release") {
+                if (currentDate < startDate || currentDate > endDate) {
+                    // Show alert if current date is outside the rental period
+                    alert("Vehicle can only be released during the rental period.");
+                    return;  // Exit the function if the date is invalid
+                } else {
+                    confirmationMessage = "Are you sure you want to mark the vehicle as released?";
+                }
+            } else if (action === "book") {
+                confirmationMessage = "Are you sure you want to confirm the booking?";
+            } else if (action === "return") {
+                confirmationMessage = "Are you sure you want to mark the vehicle as returned?";
+            } else if (action === "complete") {
+                confirmationMessage = "Are you sure you want to complete the booking?";
+            } else if (action === "extend") {
+                confirmationMessage = "Are you sure you want to extend the booking?";
+            } else if (action === "cancel") {
+                confirmationMessage = "Are you sure you want to cancel the booking?";
             }
-        })
-        .catch((error) => console.error("Error:", error));  // Catch any errors
-    } else {
-        // If the user cancels, do nothing
-        return;
-    }
-}
-
-</script>
+        
+            // Show confirmation dialog
+            if (confirm(confirmationMessage)) {
+                // If the user confirms, submit the form
+                fetch("{% url 'rental_details_admin' rental_record.rental_id %}", {
+                    method: "POST",
+                    headers: {
+                        "X-CSRFToken": form.elements["csrfmiddlewaretoken"].value,  // CSRF token for the POST request
+                    },
+                    body: new FormData(form),  // Send the form data, including action
+                })
+                .then((response) => {
+                    if (response.redirected) {
+                        window.location.href = response.url;  // Redirect to the new URL (which is booking_list_admin)
+                    }
+                })
+                .catch((error) => console.error("Error:", error));  // Catch any errors
+            } else {
+                // If the user cancels, do nothing
+                return;
+            }
+        }
+        </script>
+        
 
 {% endblock %}

@@ -76,14 +76,15 @@ def update_vehicle_page(request, vehicle_id):
 
     if request.method == 'POST':
         form = CreateVehicleForm(request.POST, request.FILES, instance=vehicle)
-
         if form.is_valid():
-            form.save()
-            return redirect('vehicle_list')  # Redirect after saving
+            vehicle = form.save()  # Save the vehicle data
+
+            # After saving the form, redirect to the vehicle list
+            return redirect('vehicle_list')  # Redirect back to the vehicle list
     else:
         form = CreateVehicleForm(instance=vehicle)
 
-    # Convert the blob image to base64 for rendering (if applicable)
+    # Convert image to base64 for rendering the preview (initial or updated image)
     vehicle.image_base64 = get_image_base64(vehicle)
 
     return render(request, 'update_vehicle_page.html', {'form': form, 'vehicle': vehicle})
