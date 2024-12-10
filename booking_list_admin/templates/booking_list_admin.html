@@ -85,7 +85,9 @@
                                     </td>
                                     <td>
                                         <button class="view-action-button" >
-                                            <a href="{% url 'rental_details_admin' record.rental_id %}"><i class="fa fa-eye"></i></a>
+                                            <a href="{% url 'rental_details_admin' record.rental_id %}">
+                                                <img src="{% static 'images/view.png' %}" alt="Vehicle Image" style="width: 20px; height: 20px; padding: 2px; vertical-align: middle;">
+                                            </a>
                                         </button>
                                     </td>
                                 </tr>
@@ -100,16 +102,7 @@
             </div>
 
         </div>
-        <div id="vehicle-modal" class="modal">
-            <div class="modal-content">
-                <!-- Vehicle Image and Info will be populated dynamically -->
-                <div id="modal-vehicle-img"></div>
-                <div id="modal-vehicle-info"></div>
-                <!-- Close button for the modal -->
-                <span id="close-modal" class="close-button">&times;</span>
-            </div>
-        </div>
-      
         {% block extra_js %}<script src="{% static 'js/booking_list_admin.js' %}?v={{ STATIC_VERSION }}"></script>{% endblock %}
     </div>
+    
 {% endblock %}

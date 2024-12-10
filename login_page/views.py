@@ -18,7 +18,7 @@ def login_page(request):
                 
                 # Check if the user is an admin or staff
                 if user.is_staff or user.is_superuser:
-                    return redirect('dashboard')  # Redirect to the admin dashboard view
+                    return redirect('vehicle_list')  # Redirect to the admin dashboard view
                 else:
                     return redirect('home')  # Redirect to the home page for normal users
 

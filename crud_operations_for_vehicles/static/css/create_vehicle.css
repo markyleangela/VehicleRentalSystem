@@ -137,25 +137,26 @@ textarea {
     transition: background-color 0.3s ease;
     font-family: 'Poppins', sans-serif;
     border: none;
+    text-decoration: none;
 }
 
 .submit-btn {
-    background-color: #28a745;  /* Green color for save */
+    background-color: #195c28;  /* Green color for save */
     color: white;
 }
 
 .submit-btn:hover {
-    background-color: #218838;  /* Darker green on hover */
+    background-color: #26913d;  /* Darker green on hover */
 }
 
 .cancel-btn {
-    background-color: #007bff;  /* Blue color for cancel */
+    background-color: #1E2A5E;  /* Blue color for cancel */
     color: white;
     margin-left: 15px;
 }
 
 .cancel-btn:hover {
-    background-color: #0056b3;  /* Darker blue on hover */
+    background-color: rgb(2, 64, 131);  /* Darker blue on hover */
 }
 
 /* Remove default 'Choose File' text and hide input */
