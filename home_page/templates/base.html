@@ -42,7 +42,7 @@
                     </li>
                     {% if user.is_authenticated and user.is_superuser %}
                     <li>
-                        <a href="{% url 'dashboard' %}">
+                        <a href="{% url 'vehicle_list' %}">
                             <img src="{% static 'images/dashboard.png' %}" alt="Dashboard Icon" style="width: 20px; height: 20px, padding: 2px; vertical-align: middle;"> Dashboard
                         </a>
                     </li>

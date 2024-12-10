@@ -50,4 +50,16 @@
         </div>
     </div>
 </div>
+
+
+<div id="confirmationModal" class="modal">
+    <div class="modal-content">
+        <p>Email has been sent. We will get back to you as soon as possible.</p>
+ 
+    </div>
+</div>
+
+{% block extra_js %}
+    <script src="{% static 'js/contact.js' %}?v={{ STATIC_VERSION }}"></script>
+    {% endblock %}
 {% endblock %}
