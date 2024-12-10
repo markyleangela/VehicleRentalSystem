@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from django.http import HttpResponse
 from .forms import ContactForm
@@ -18,6 +18,7 @@ def contact_view(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             # Extract form data
+            
             name = form.cleaned_data['name']
             email = form.cleaned_data['email']
             message = form.cleaned_data['message']
@@ -26,7 +27,7 @@ def contact_view(request):
             send_confirmation_email(email, f"Name: {name}\nMessage: {message}")
 
             # After sending the email, redirect or show a success message
-            return HttpResponse("Thank you for your message! We will get back to you shortly.")
+            return redirect('contact_view')
     else:
         form = ContactForm()
 

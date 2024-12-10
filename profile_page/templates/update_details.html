@@ -72,7 +72,7 @@
                         <!-- Profile image preview -->
                         <div class="image-preview-container" style="cursor: pointer;" onclick="document.getElementById('file-input').click();">
                             <img id="imagePreview" 
-                                src="{% if profile.image_base64 %}{{ profile.image_base64 }}{% else %}https://via.placeholder.com/200{% endif %}" 
+                                src="{% if profile.image_base64 %}{{ profile.image_base64 }}{% else %}{% static 'images/profile_placeholder.jpg' %}{% endif %}" 
                                 alt="Profile Image Preview" 
                                 style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;" />
                         </div>
